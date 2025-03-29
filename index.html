@@ -5,17 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>이 어둠을 당신과_추리 채점</title>
     <style>
+        html {
+            height: 100%;
+            background-color: #000;
+        }
+        
         body {
             font-family: 'Malgun Gothic', Arial, sans-serif;
             max-width: 800px;
             margin: 0 auto;
             padding: 20px;
+            min-height: 100%;
             background-color: #000;
-            background-image: url('dark.png'); /* 실제 이미지로 교체하세요 */
-            background-size: contain; /* 이미지가 확대되지 않고 화면에 맞게 표시 */
-            background-position: center;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
             position: relative;
             color: #fff;
         }
@@ -27,8 +28,13 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.7); /* 어두운 오버레이 */
+            background-image: url('dark.png'); /* 실제 이미지로 교체하세요 */
+            background-size: contain; /* 이미지가 확대되지 않고 화면에 맞게 표시 */
+            background-position: center;
+            background-repeat: no-repeat;
+            background-color: rgba(0, 0, 0, 0.7); /* 어두운 배경 */
             z-index: -1;
+            pointer-events: none;
         }
         
         h1 {
