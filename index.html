@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이 어둠을 당신과_추리 채점</title>
+    <style>
+        body {
+            font-family: 'Malgun Gothic', Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .quiz-container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .question {
+            margin-bottom: 30px;
+        }
+        .options {
+            margin-left: 20px;
+        }
+        .option {
+            margin: 10px 0;
+            display: flex;
+            align-items: center;
+        }
+        .option label {
+            margin-left: 10px;
+            cursor: pointer;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: block;
+            margin: 20px auto;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result-message {
+            text-align: center;
+            font-size: 18px;
+            margin-top: 20px;
+            font-weight: bold;
+            display: none;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .correct {
+            background-color: #dff0d8;
+            color: #3c763d;
+        }
+        .incorrect {
+            background-color: #f2dede;
+            color: #a94442;
+        }
+    </style>
+</head>
+<body>
+    <h1>이 어둠을 당신과 중간 추리 채점</h1>
+    
+    <div class="quiz-container">
+        <div id="question1" class="question">
+            <h3>①마구간의 시체에 대해</h3>
+            <div class="options">
+                <div class="option">
+                    <input type="checkbox" id="q1-option1">
+                    <label for="q1-option1">엘리자베스가 살해 했음을 언급했다.</label>
+                </div>
+                <div class="option">
+                    <input type="checkbox" id="q1-option2">
+                    <label for="q1-option2">찻잔에 홍차를 이용하여 살해 했음을 언급했다.</label>
+                </div>
+                <div class="option">
+                    <input type="checkbox" id="q1-option3">
+                    <label for="q1-option3">홍차에 살충제를 탔음을 언급했다.</label>
+                </div>
+            </div>
+        </div>
+        
+        <div id="question2" class="question">
+            <h3>②하인 피터에 대해</h3>
+            <div class="options">
+                <div class="option">
+                    <input type="checkbox" id="q2-option1">
+                    <label for="q2-option1">엘리자베스가 살해했음을 언급했다.</label>
+                </div>
+                <div class="option">
+                    <input type="checkbox" id="q2-option2">
+                    <label for="q2-option2">살충제를 이용했음을 언급했다.</label>
+                </div>
+            </div>
+        </div>
+        
+        <div id="question3" class="question">
+            <h3>③예배당의 시체에 대해</h3>
+            <div class="options">
+                <div class="option">
+                    <input type="checkbox" id="q3-option1">
+                    <label for="q3-option1">엘리자베스가 살해했음을 언급했다.</label>
+                </div>
+                <div class="option">
+                    <input type="checkbox" id="q3-option2">
+                    <label for="q3-option2">시간의 악마와 계약하기 위해서 라는 사실을 언급했다.</label>
+                </div>
+                <div class="option">
+                    <input type="checkbox" id="q3-option3">
+                    <label for="q3-option3">불로불사의 생명을 얻기 위해서 라는 사실을 언급했다.</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <button id="check-answers">정답 확인하기</button>
+    <div class="result-message" id="final-result"></div>
+    
+    <script>
+        document.getElementById('check-answers').addEventListener('click', function() {
+            let totalQuestions = 3;
+            let correctQuestions = 0;
+            
+            // 문제 1 체크 - 모든 체크박스가 체크되어 있으면 정답
+            const question1 = document.getElementById('question1');
+            const q1Checkboxes = question1.querySelectorAll('input[type="checkbox"]');
+            
+            let q1AllChecked = true;
+            q1Checkboxes.forEach(checkbox => {
+                if (!checkbox.checked) {
+                    q1AllChecked = false;
+                }
+            });
+            
+            if (q1AllChecked) correctQuestions++;
+            
+            // 문제 2 체크 - 모든 체크박스가 체크되어 있으면 정답
+            const question2 = document.getElementById('question2');
+            const q2Checkboxes = question2.querySelectorAll('input[type="checkbox"]');
+            
+            let q2AllChecked = true;
+            q2Checkboxes.forEach(checkbox => {
+                if (!checkbox.checked) {
+                    q2AllChecked = false;
+                }
+            });
+            
+            if (q2AllChecked) correctQuestions++;
+            
+            // 문제 3 체크 - 모든 체크박스가 체크되어 있으면 정답
+            const question3 = document.getElementById('question3');
+            const q3Checkboxes = question3.querySelectorAll('input[type="checkbox"]');
+            
+            let q3AllChecked = true;
+            q3Checkboxes.forEach(checkbox => {
+                if (!checkbox.checked) {
+                    q3AllChecked = false;
+                }
+            });
+            
+            if (q3AllChecked) correctQuestions++;
+            
+            // 최종 결과 표시
+            const finalResult = document.getElementById('final-result');
+            if (correctQuestions === totalQuestions) {
+                finalResult.textContent = `축하합니다! 모든 문제를 맞추셨습니다.`;
+                finalResult.className = 'result-message correct';
+            } else {
+                finalResult.textContent = `총 ${totalQuestions}문제 중 ${correctQuestions}문제를 맞추셨습니다. 다시 시도해보세요.`;
+                finalResult.className = 'result-message incorrect';
+            }
+            finalResult.style.display = 'block';
+        });
+    </script>
+</body>
+</html>
