@@ -11,35 +11,28 @@
             margin: 0 auto;
             padding: 20px;
             color: #fff;
-            position: relative;
-            z-index: 1;
+            background-color: #000;
         }
         
-        body::before {
-            content: "";
+        /* 배경 이미지를 위한 별도의 요소 추가 */
+        .background-container {
             position: fixed;
             top: 0;
             left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: #000;
-            background-image: url('dark.png'); /* 실제 이미지로 교체하세요 */
-            background-size: contain;
-            background-position: center;
-            background-repeat: no-repeat;
-            opacity: 0.3; /* 배경 이미지 투명도 조정 */
-            z-index: -2;
-        }
-        
-        body::after {
-            content: "";
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: #000;
+            width: 100%;
+            height: 100%;
             z-index: -1;
+            background-color: rgba(0, 0, 0, 0.8); /* 어두운 배경 */
+        }
+        
+        .background-image {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 100%;
+            max-height: 100%;
+            opacity: 0.3; /* 투명도 조정 */
         }
         
         h1 {
@@ -133,6 +126,11 @@
 </head>
 <body>
     <h1>이 어둠을 당신과 중간 추리 채점</h1>
+    
+    <!-- 배경 이미지를 위한 컨테이너 -->
+    <div class="background-container">
+        <img src="dark.png" alt="배경 이미지" class="background-image">
+    </div>
     
     <div class="quiz-container">
         <div id="question1" class="question">
