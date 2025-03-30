@@ -346,9 +346,45 @@
                 investigationCount = 2;
             }
             
-            finalResult.textContent = `조사횟수 ${investigationCount}회 추가`;
-            finalResult.className = 'result-message correct';
-            finalResult.style.display = 'block';
+             // 기존 컨텐츠 삭제하고 새 이미지와 결과 표시
+    const contentFrame = document.querySelector('.content-frame') || document.body;
+    
+    // 모든 내용 지우기
+    contentFrame.innerHTML = '';
+    
+    // 새 이미지와 결과 메시지 추가
+    const resultContainer = document.createElement('div');
+    resultContainer.className = 'result-container';
+    resultContainer.style.textAlign = 'center';
+    resultContainer.style.padding = '20px';
+    
+    // 결과 이미지 추가 (URL은 실제 이미지 경로로 변경하세요)
+    const resultImage = document.createElement('img');
+    resultImage.src = 'answer.png'; // 새 결과 이미지 경로
+    resultImage.alt = '결과 이미지';
+    resultImage.style.maxWidth = '100%';
+    resultImage.style.marginBottom = '20px';
+    
+    // 결과 텍스트 추가
+    const resultText = document.createElement('div');
+    resultText.className = 'result-message correct';
+    resultText.style.display = 'block';
+    resultText.textContent = `조사횟수 ${investigationCount}회 추가`;
+    resultText.style.fontSize = '20px';
+    resultText.style.fontWeight = 'bold';
+    resultText.style.marginTop = '20px';
+    resultText.style.padding = '15px';
+    resultText.style.backgroundColor = 'rgba(75, 139, 224, 0.8)';
+    resultText.style.color = '#fff';
+    resultText.style.borderRadius = '5px';
+    
+    // 결과 컨테이너에 이미지와 텍스트 추가
+    resultContainer.appendChild(resultImage);
+    resultContainer.appendChild(resultText);
+    
+    // 페이지에 결과 컨테이너 추가
+    contentFrame.appendChild(resultContainer);
+});
         });
     </script>
 </body>
