@@ -346,7 +346,8 @@
                 investigationCount = 2;
             }
 
-                // 배경 이미지 제거
+                
+        // 배경 이미지 제거
     document.body.style.backgroundImage = 'none';
     document.body.style.backgroundColor = '#000';
     
@@ -374,33 +375,61 @@
     loadingText.style.color = '#fff';
     loadingText.style.fontSize = '28px';
     loadingText.style.fontFamily = 'GowunBatang, serif';
-    loadingText.style.marginBottom = '15px';
+    loadingText.style.marginBottom = '25px';
     
-    const dotsContainer = document.createElement('div');
-    dotsContainer.style.color = '#fff';
-    dotsContainer.style.fontSize = '28px';
-    dotsContainer.style.fontFamily = 'GowunBatang, serif';
-    dotsContainer.style.letterSpacing = '5px';
+    // 이미지 애니메이션을 위한 컨테이너
+    const imagesContainer = document.createElement('div');
+    imagesContainer.style.display = 'flex';
+    imagesContainer.style.justifyContent = 'center';
+    imagesContainer.style.height = '60px';
     
     loadingContainer.appendChild(loadingText);
-    loadingContainer.appendChild(dotsContainer);
+    loadingContainer.appendChild(imagesContainer);
     contentFrame.appendChild(loadingContainer);
     
-    // 점 애니메이션
-    let dotCount = 0;
-    const maxDots = 6;
-    const dotInterval = setInterval(function() {
-        let dots = '';
-        for (let i = 0; i < dotCount; i++) {
-            dots += '. ';
+    // 이미지 파일 경로 (여러분의 이미지 경로로 대체하세요)
+    const imagePath = 'richard.png'; // 예: 작은 아이콘 이미지
+    
+    // 이미지 수와 각도 설정
+    const imageCount = 6;
+    const maxAngle = 40; // 최대 회전 각도
+    
+    // 초기 이미지 생성 (처음에는 보이지 않음)
+    for (let i = 0; i < imageCount; i++) {
+        const img = document.createElement('img');
+        img.src = imagePath;
+        img.style.width = '40px'; // 이미지 크기 조정
+        img.style.height = '40px';
+        img.style.margin = '0 8px';
+        img.style.opacity = '0';
+        img.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
+        imagesContainer.appendChild(img);
+    }
+    
+    // 이미지 애니메이션
+    const images = imagesContainer.querySelectorAll('img');
+    let currentIndex = 0;
+    
+    const animInterval = setInterval(function() {
+        // 모든 이미지 초기화
+        images.forEach(img => {
+            img.style.opacity = '0';
+            img.style.transform = 'rotate(0deg)';
+        });
+        
+        // 현재 이미지만 보이게
+        if (images[currentIndex]) {
+            const angle = (Math.random() * 2 - 1) * maxAngle; // -maxAngle ~ maxAngle 사이 랜덤 각도
+            images[currentIndex].style.opacity = '1';
+            images[currentIndex].style.transform = `rotate(${angle}deg)`;
         }
-        dotsContainer.textContent = dots;
-        dotCount = (dotCount + 1) % (maxDots + 1);
+        
+        currentIndex = (currentIndex + 1) % imageCount;
     }, 500);
     
     // 5초 후에 결과 표시
     setTimeout(function() {
-        clearInterval(dotInterval);
+        clearInterval(animInterval);
         
         // 로딩 컨테이너 제거
         contentFrame.removeChild(loadingContainer);
@@ -432,7 +461,7 @@
         resultText.style.fontFamily = 'GowunBatang, serif';
         resultText.style.textAlign = 'center';
         resultText.style.width = '100%';
-        resultText.style.textShadow = '2px 2px 4px rgba(0, 0, 0, 0.8)'; // 가독성을 위한 텍스트 그림자
+        resultText.style.textShadow = '2px 2px 4px rgba(0, 0, 0, 0.8)';
         resultText.textContent = `조사횟수 ${investigationCount}회 추가`;
         
         // 컨테이너에 이미지와 텍스트 추가
@@ -440,7 +469,7 @@
         resultContainer.appendChild(resultText);
         
         contentFrame.appendChild(resultContainer);
-    }, 5000);
+    }, 6000);
 });
     </script>
 </body>
