@@ -346,54 +346,102 @@
                 investigationCount = 2;
             }
 
-            document.body.style.backgroundImage = 'none';
-            document.body.style.backgroundColor = '#000'; // 배경색을 검정으로 설정
+                // 배경 이미지 제거
+    document.body.style.backgroundImage = 'none';
+    document.body.style.backgroundColor = '#000';
     
-            // 기존의 배경 컨테이너가 있다면 제거
-            const bgContainer = document.querySelector('.background-container');
-            if (bgContainer) {
-                bgContainer.remove();
-            }
-            
-            // 기존 컨텐츠 삭제하고 새 이미지와 결과 표시
-            const contentFrame = document.querySelector('.content-frame') || document.body;
+    // 기존 배경 컨테이너 제거
+    const bgContainer = document.querySelector('.background-container');
+    if (bgContainer) {
+        bgContainer.remove();
+    }
     
-            // 모든 내용 지우기
-            contentFrame.innerHTML = '';
+    // 기존 콘텐츠 삭제
+    const contentFrame = document.querySelector('.content-frame') || document.body;
+    contentFrame.innerHTML = '';
     
-            // 새 이미지와 결과 메시지 추가
-            const resultContainer = document.createElement('div');
-            resultContainer.className = 'result-container';
-            resultContainer.style.textAlign = 'center';
-            resultContainer.style.padding = '20px';
+    // 채점 중 메시지 추가
+    const loadingContainer = document.createElement('div');
+    loadingContainer.style.textAlign = 'center';
+    loadingContainer.style.position = 'absolute';
+    loadingContainer.style.top = '50%';
+    loadingContainer.style.left = '50%';
+    loadingContainer.style.transform = 'translate(-50%, -50%)';
+    loadingContainer.style.width = '100%';
     
-            // 결과 이미지 추가 (URL은 실제 이미지 경로로 변경하세요)
-            const resultImage = document.createElement('img');
-            resultImage.src = 'answer.png'; // 새 결과 이미지 경로
-            resultImage.alt = '결과 이미지';
-            resultImage.style.maxWidth = '100%';
-            resultImage.style.marginBottom = '20px';
-            
-            // 결과 텍스트 추가
-            const resultText = document.createElement('div');
-            resultText.className = 'result-message correct';
-            resultText.style.display = 'block';
-            resultText.textContent = `조사횟수 ${investigationCount}회 추가`;
-            resultText.style.fontSize = '20px';
-            resultText.style.fontWeight = 'bold';
-            resultText.style.marginTop = '20px';
-            resultText.style.padding = '15px';
-            resultText.style.backgroundColor = 'rgba(75, 139, 224, 0.8)';
-            resultText.style.color = '#fff';
-            resultText.style.borderRadius = '5px';
-            
-            // 결과 컨테이너에 이미지와 텍스트 추가
-            resultContainer.appendChild(resultImage);
-            resultContainer.appendChild(resultText);
+    const loadingText = document.createElement('div');
+    loadingText.textContent = '채점 중';
+    loadingText.style.color = '#fff';
+    loadingText.style.fontSize = '28px';
+    loadingText.style.fontFamily = 'GowunBatang, serif';
+    loadingText.style.marginBottom = '15px';
     
-            // 페이지에 결과 컨테이너 추가
-            contentFrame.appendChild(resultContainer);
-            });
+    const dotsContainer = document.createElement('div');
+    dotsContainer.style.color = '#fff';
+    dotsContainer.style.fontSize = '28px';
+    dotsContainer.style.fontFamily = 'GowunBatang, serif';
+    dotsContainer.style.letterSpacing = '5px';
+    
+    loadingContainer.appendChild(loadingText);
+    loadingContainer.appendChild(dotsContainer);
+    contentFrame.appendChild(loadingContainer);
+    
+    // 점 애니메이션
+    let dotCount = 0;
+    const maxDots = 6;
+    const dotInterval = setInterval(function() {
+        let dots = '';
+        for (let i = 0; i < dotCount; i++) {
+            dots += '. ';
+        }
+        dotsContainer.textContent = dots;
+        dotCount = (dotCount + 1) % (maxDots + 1);
+    }, 500);
+    
+    // 5초 후에 결과 표시
+    setTimeout(function() {
+        clearInterval(dotInterval);
+        
+        // 로딩 컨테이너 제거
+        contentFrame.removeChild(loadingContainer);
+        
+        // 결과 이미지와 텍스트를 담을 컨테이너
+        const resultContainer = document.createElement('div');
+        resultContainer.style.position = 'relative';
+        resultContainer.style.width = '100%';
+        resultContainer.style.maxWidth = '800px';
+        resultContainer.style.margin = '0 auto';
+        resultContainer.style.textAlign = 'center';
+        
+        // 결과 이미지 추가
+        const resultImage = document.createElement('img');
+        resultImage.src = 'result_image.png'; // 새 결과 이미지 경로
+        resultImage.alt = '결과 이미지';
+        resultImage.style.maxWidth = '100%';
+        resultImage.style.display = 'block';
+        resultImage.style.margin = '0 auto';
+        
+        // 결과 텍스트 추가 (이미지 위에 표시)
+        const resultText = document.createElement('div');
+        resultText.style.position = 'absolute';
+        resultText.style.top = '50%';
+        resultText.style.left = '50%';
+        resultText.style.transform = 'translate(-50%, -50%)';
+        resultText.style.color = '#fff';
+        resultText.style.fontSize = '32px';
+        resultText.style.fontFamily = 'GowunBatang, serif';
+        resultText.style.textAlign = 'center';
+        resultText.style.width = '100%';
+        resultText.style.textShadow = '2px 2px 4px rgba(0, 0, 0, 0.8)'; // 가독성을 위한 텍스트 그림자
+        resultText.textContent = `조사횟수 ${investigationCount}회 추가`;
+        
+        // 컨테이너에 이미지와 텍스트 추가
+        resultContainer.appendChild(resultImage);
+        resultContainer.appendChild(resultText);
+        
+        contentFrame.appendChild(resultContainer);
+    }, 5000);
+});
     </script>
 </body>
 </html>
