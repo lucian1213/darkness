@@ -12,6 +12,7 @@
             font-style: normal;
         }
         
+        /* 배경 이미지 관련 설정을 body에 직접 적용 */
         body {
             font-family: 'GowunBatang', serif;
             max-width: 800px;
@@ -21,34 +22,26 @@
             background-color: #000;
             position: relative;
             font-size: 14px; /* 기본 폰트 크기 줄임 */
+            background-image: url('dark.png');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: contain;
+            background-attachment: scroll; /* fixed 아닌 scroll로 설정 */
         }
         
-        /* 배경 이미지를 위한 컨테이너 - 수정된 부분 */
-        .background-container {
-            position: fixed;
+        /* 배경 이미지 위에 반투명 오버레이 */
+        body::before {
+            content: '';
+            position: absolute;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.7); /* 어두운 오버레이 */
             z-index: -1;
-            background-color: rgba(0, 0, 0, 0.8);
-            overflow: hidden; /* 내용이 넘치지 않도록 */
-            touch-action: none; /* 터치 이벤트가 스크롤을 발생시키지 않도록 */
-            pointer-events: none; /* 이벤트가 배경을 통과하도록 */
         }
         
-        /* 배경 이미지 - 수정된 부분 */
-        .background-image {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            opacity: 0.3;
-            object-fit: cover; /* 이미지가 컨테이너를 꽉 채우도록 설정 */
-            -webkit-user-select: none; /* 선택 방지 */
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-        }
+        /* 기존 배경 컨테이너 및 이미지 스타일 제거 */
         
         h1 {
             color: #fff;
@@ -167,10 +160,7 @@
 <body>
     <h1>이 어둠을 당신과 중간 추리 채점</h1>
     
-    <!-- 배경 이미지를 위한 컨테이너 -->
-    <div class="background-container">
-        <img src="dark.png" alt="배경 이미지" class="background-image">
-    </div>
+    <!-- 배경 이미지 컨테이너 제거하고 body 배경으로 설정 -->
     
     <div class="quiz-container">
         <div id="question1" class="question">
