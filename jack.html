@@ -268,6 +268,9 @@
             <p>· 만약 확인하고 싶은 그릇이 목록에 없다면 그곳에는<br>영혼이 있을 가능성이 없는 것이라고 생각해주세요.</p>
             <p>· 확인이 가능한 횟수는 2번까지 입니다.<br>신중하게 확인해주세요.</p>
         </div>
+        <div id="check-count-display" style="text-align: center; margin-bottom: 15px; color: #f2e2cc; font-size: 1em;">
+            확인 가능 횟수 (0/2)
+        </div>
         <div class="display-container">
             <div class="display-box">
                 <div id="display-text" class="display-text">선택한 항목이 여기에 표시됩니다</div>
@@ -462,6 +465,27 @@
     </div>
     
     <script>
+        // LocalStorage에서 확인 횟수 가져오기 또는 초기화
+        function getCheckCount() {
+            const count = localStorage.getItem('soulCheckCount');
+            return count ? parseInt(count) : 0;
+        }
+        
+        // LocalStorage에 확인 횟수 저장
+        function saveCheckCount(count) {
+            localStorage.setItem('soulCheckCount', count.toString());
+            updateCheckCountDisplay();
+        }
+        
+        // 확인 횟수 표시 업데이트
+        function updateCheckCountDisplay() {
+            const count = getCheckCount();
+            document.getElementById('check-count-display').textContent = `확인 가능 횟수 (${count}/2)`;
+        }
+        
+        // 페이지 로드 시 확인 횟수 표시 업데이트
+        updateCheckCountDisplay();
+        
         // 라디오 버튼이 선택될 때마다 표시 영역에 값 업데이트
         const radioButtons = document.querySelectorAll('input[type="radio"]');
         const displayText = document.getElementById('display-text');
@@ -473,6 +497,15 @@
         });
         
         document.getElementById('check-answers').addEventListener('click', function() {
+            // 현재 확인 횟수 확인
+            const currentCount = getCheckCount();
+            
+            // 이미 2번 사용했으면 더 이상 진행 불가
+            if (currentCount >= 2) {
+                alert('확인 가능한 횟수를 모두 사용했습니다.');
+                return;
+            }
+            
             const selectedOption = document.querySelector('input[name="answer"]:checked');
             
             // 선택된 항목이 없는 경우
@@ -639,6 +672,10 @@
                 resultContainer.appendChild(resultImage);
                 resultContainer.appendChild(resultText);
                 
+                // 확인 횟수 증가 및 저장
+                const newCount = getCheckCount() + 1;
+                saveCheckCount(newCount);
+                
                 // 돌아가기 버튼 추가
                 const returnButton = document.createElement('button');
                 returnButton.textContent = '처음으로 돌아가기';
@@ -648,8 +685,32 @@
                     location.reload();
                 });
                 
+                // 새 검사 버튼 (2회 미만 사용한 경우만 표시)
+                if (newCount < 2) {
+                    const newCheckButton = document.createElement('button');
+                    newCheckButton.textContent = '다른 항목 확인하기';
+                    newCheckButton.style.marginTop = '20px';
+                    newCheckButton.addEventListener('click', function() {
+                        location.reload();
+                    });
+                    resultContainer.appendChild(newCheckButton);
+                }
+                
                 // 돌아가기 버튼을 결과 컨테이너 아래에 추가
                 resultContainer.appendChild(returnButton);
+                
+                // 모든 확인을 사용한 경우 초기화 버튼 추가
+                if (newCount >= 2) {
+                    const resetButton = document.createElement('button');
+                    resetButton.textContent = '확인 횟수 초기화하기';
+                    resetButton.style.marginTop = '20px';
+                    resetButton.style.backgroundColor = '#aa8866';
+                    resetButton.addEventListener('click', function() {
+                        localStorage.removeItem('soulCheckCount');
+                        location.reload();
+                    });
+                    resultContainer.appendChild(resetButton);
+                }
                 
                 contentFrame.appendChild(resultContainer);
                 
