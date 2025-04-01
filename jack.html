@@ -59,18 +59,24 @@
             max-width: 90%; /* 최대 너비도 확장 */
             margin-left: auto;
             margin-right: auto;
-            box-sizing: border-box; /* 추가: 패딩을 너비에 포함 */
-            position: relative; /* 추가: 위치 기준점 설정 */
-            left: 0; /* 추가: 왼쪽 위치 조정 */
-            right: 0; /* 추가: 오른쪽 위치 조정 */
+            box-sizing: border-box; /* 패딩을 너비에 포함 */
+            position: relative; /* 위치 기준점 설정 */
+            left: 0; /* 왼쪽 위치 조정 */
+            right: 0; /* 오른쪽 위치 조정 */
+            text-align: center; /* 내부 요소 중앙 정렬 */
         }
         
         /* 표시 영역 - 새로운 접근법 */
         .display-container {
             width: 100%; /* 최대 너비 사용 */
             margin: 20px auto;
-            box-sizing: border-box; /* 추가: 패딩을 너비에 포함 */
-            text-align: center; /* 추가: 텍스트 중앙 정렬 */
+            box-sizing: border-box; /* 패딩을 너비에 포함 */
+            text-align: center; /* 텍스트 중앙 정렬 */
+            position: relative; /* 위치 기준점 설정 */
+            left: 0; /* 왼쪽 위치 조정 */
+            right: 0; /* 오른쪽 위치 조정 */
+            padding-left: 0; /* 왼쪽 패딩 제거 */
+            padding-right: 0; /* 오른쪽 패딩 제거 */
         }
         
         .display-box {
@@ -78,9 +84,12 @@
             border-radius: 5px;
             height: 30px; /* 고정된 높이 */
             padding: 15px;
-            margin: 0;
+            margin: 0 auto; /* 중앙 정렬 */
             position: relative;
             width: 100%; /* 전체 너비 사용 */
+            box-sizing: border-box; /* 패딩을 너비에 포함 */
+            left: 0; /* 왼쪽 위치 조정 */
+            right: 0; /* 오른쪽 위치 조정 */
         }
         
         .display-text {
@@ -182,7 +191,7 @@
             </div>
         </div>
         
-        <div class="options">
+        <div class="options" style="text-align: left;">
             <div class="option">
                 <input type="radio" id="option1" name="answer" value="정답A" data-answer="true">
                 <label for="option1">정답 A</label>
