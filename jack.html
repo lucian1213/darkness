@@ -111,4 +111,555 @@
             transform: translate(-50%, -50%);
             color: #000;
             font-weight: bold;
-            font-size: 1
+            font-size: 1.1em;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 90%;
+        }
+        
+        .options {
+            margin-left: 20px;
+            margin-top: 20px;
+            margin-bottom: 65px;
+            text-align: center;
+            max-height: 600px;
+            overflow-y: auto;
+            padding-right: 20px;
+        }
+        
+        .category {
+            margin-top: 30px;
+            margin-bottom: 15px;
+            color: #f2e2cc;
+            font-weight: bold;
+            font-size: 1.2em;
+            border-bottom: 1px solid rgba(242, 226, 204, 0.3);
+            padding-bottom: 5px;
+        }
+        
+        .option {
+            margin: 10px 0;
+            display: flex;
+            align-items: center;
+        }
+        
+        .option label {
+            margin-left: 10px;
+            cursor: pointer;
+            color: #ddd;
+            font-size: 0.95em;
+        }
+        
+        .option input[type="radio"] {
+            accent-color: #f2e2cc;
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .options::-webkit-scrollbar {
+          width: 10px; /* 스크롤바 너비 */
+        }
+
+        .options::-webkit-scrollbar-track {
+          background: rgba(0, 0, 0, 0.2); /* 스크롤바 트랙 배경색 */
+          border-radius: 5px;
+        }
+
+        .options::-webkit-scrollbar-thumb {
+          background: #f2e2cc; /* 스크롤바 색상 변경 */
+          border-radius: 5px;
+        }
+
+        .options::-webkit-scrollbar-thumb:hover {
+          background: #e0d0b8; /* 마우스 오버시 약간 어두운 색상 */
+        }
+        
+        button {
+            background-color: #f2e2cc;
+            color: #333; /* 버튼 텍스트 색상을 어둡게 변경 */
+            border: none;
+            padding: 12px 25px;
+            font-size: 14px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: block;
+            margin: auto;
+            margin-top: 30px;
+            margin-bottom: 60px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            transition: transform 0.2s, background-color 0.2s;
+            font-family: 'GowunBatang', serif;
+        }
+        
+        button:hover {
+            background-color: #e0d0b8;
+            transform: translateY(-2px);
+        }
+        
+        button:active {
+            transform: translateY(1px);
+        }
+        
+        /* 결과 애니메이션 스타일 */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .result-line {
+            opacity: 0;
+            animation: fadeIn 0.8s forwards;
+        }
+        
+        .result-line:nth-child(1) {
+            animation-delay: 0.5s;
+        }
+        
+        .result-line:nth-child(2) {
+            animation-delay: 1.5s;
+        }
+        
+        .result-line:nth-child(3) {
+            animation-delay: 2.5s;
+            color: #ff5555; /* 마지막 줄 빨간색 */
+        }
+
+        /* 돌아가기 버튼 스타일 */
+        .return-button {
+            margin-top: 40px;
+            margin-bottom: 60px;
+        }
+        
+        @media (max-width: 480px) {
+            body {
+                padding: 10px 5px;
+                font-size: 13px;
+            }
+            h1 {
+                font-size: 1.4em;
+            }
+            .quiz-container {
+                padding: 15px 10px;
+                width: 95%;
+                max-width: 95%;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .option label {
+                font-size: 0.9em;
+            }
+            .display-box {
+                padding: 15px 10px;
+            }
+            .category {
+                font-size: 1.1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>영혼 확인</h1>
+    
+    <div class="quiz-container">
+        <div class="instructions">
+            <p>· 확인하고 싶은 항목을 선택한 후,<br>확인하기 버튼을 눌러주세요.</p>
+            <p>· 만약 확인하고 싶은 그릇이 목록에 없다면 그곳에는<br>영혼이 있을 가능성이 없는 것이라고 생각해주세요.</p>
+            <p>· 확인이 가능한 횟수는 2번까지 입니다.<br>신중하게 확인해주세요.</p>
+        </div>
+        <div class="display-container">
+            <div class="display-box">
+                <div id="display-text" class="display-text">선택한 항목이 여기에 표시됩니다</div>
+            </div>
+        </div>
+
+        <button id="check-answers">영혼 확인하기</button>
+        
+        <div class="options">
+            <!-- 엘리자베스 관련 -->
+            <div class="category">엘리자베스 관련</div>
+            <div class="option">
+                <input type="radio" id="elizabeth-room" name="answer" value="엘리자베스의 방" data-answer="true">
+                <label for="elizabeth-room">엘리자베스의 방</label>
+            </div>
+            <div class="option">
+                <input type="radio" id="elizabeth-door" name="answer" value="엘리자베스의 방 출입문" data-answer="true">
+                <label for="elizabeth-door">엘리자베스의 방 출입문</label>
+            </div>
+            <div class="option">
+                <input type="radio" id="elizabeth-window" name="answer" value="엘리자베스의 방 창문" data-answer="true">
+                <label for="elizabeth-window">엘리자베스의 방 창문</label>
+            </div>
+            <div class="option">
+                <input type="radio" id="elizabeth-key" name="answer" value="엘리자베스의 열쇠" data-answer="true">
+                <label for="elizabeth-key">엘리자베스의 열쇠</label>
+            </div>
+            <div class="option">
+                <input type="radio" id="elizabeth-bed" name="answer" value="엘리자베스의 침대" data-answer="true">
+                <label for="elizabeth-bed">엘리자베스의 침대</label>
+            </div>
+            <div class="option">
+                <input type="radio" id="elizabeth-body" name="answer" value="엘리자베스의 시체" data-answer="true">
+                <label for="elizabeth-body">엘리자베스의 시체</label>
+            </div>
+            <div class="option">
+                <input type="radio" id="elizabeth-knife" name="answer" value="시체에 꽂혀있는 나이프" data-answer="true">
+                <label for="elizabeth-knife">시체에 꽂혀있는 나이프</label>
+            </div>
+            <div class="option">
+                <input type="radio" id="elizabeth-bottle" name="answer" value="엘리자베스의 작은 병" data-answer="true">
+                <label for="elizabeth-bottle">엘리자베스의 작은 병</label>
+            </div>
+
+            <!-- 예배당 관련 -->
+            <div class="category">예배당 관련</div>
+            <div class="option">
+                <input type="radio" id="chapel" name="answer" value="예배당" data-answer="true">
+                <label for="chapel">예배당</label>
+            </div>
+            <div class="option">
+                <input type="radio" id="chapel-body" name="answer" value="예배당의 타버린 시체" data-answer="true">
+                <label for="chapel-body">예배당의 타버린 시체</label>
+            </div>
+            <div class="option">
+                <input type="radio" id="chapel-knife" name="answer" value="예배당의 성스러운 나이프" data-answer="true">
+                <label for="chapel-knife">예배당의 성스러운 나이프</label>
+            </div>
+            <div class="option">
+                <input type="radio" id="chapel-tablet" name="answer" value="예배당 입구의 석판" data-answer="true">
+                <label for="chapel-tablet">예배당 입구의 석판</label>
+            </div>
+            <div class="option">
+                <input type="radio" id="chapel-coffin" name="answer" value="예배당에 놓여져 있는 관" data-answer="true">
+                <label for="chapel-coffin">예배당에 놓여져 있는 관</label>
+            </div>
+
+            <!-- 마구간 관련 -->
+            <div class="category">마구간 관련</div>
+            <div class="option">
+                <input type="radio" id="stable-horse" name="answer" value="마구간의 말" data-answer="true">
+                <label for="stable-horse">마구간의 말</label>
+            </div>
+            <div class="option">
+                <input type="radio" id="stable-broom" name="answer" value="마구간의 빗자루" data-answer="true">
+                <label for="stable-broom">마구간의 빗자루</label>
+            </div>
+            <div class="option">
+                <input type="radio" id="stable-teacup" name="answer" value="마구간의 찻잔 파편" data-answer="true">
+                <label for="stable-teacup">마구간의 찻잔 파편</label>
+            </div>
+            <div class="option">
+                <input type="radio" id="stable-body" name="answer" value="마구간의 시체" data-answer="true">
+                <label for="stable-body">마구간의 시체</label>
+            </div>
+
+            <!-- 식당, 주방 관련 -->
+            <div class="category">식당, 주방 관련</div>
+            <div class="option">
+                <input type="radio" id="dining-tablecloth" name="answer" value="식당의 테이블보" data-answer="true">
+                <label for="dining-tablecloth">식당의 테이블보</label>
+            </div>
+            <div class="option">
+                <input type="radio" id="dining-teapot" name="answer" value="식당의 홍차포트" data-answer="true">
+                <label for="dining-teapot">식당의 홍차포트</label>
+            </div>
+            <div class="option">
+                <input type="radio" id="kitchen-garbage" name="answer" value="주방의 쓰레기봉투" data-answer="true">
+                <label for="kitchen-garbage">주방의 쓰레기봉투</label>
+            </div>
+
+            <!-- 인물 관련 -->
+            <div class="category">인물 관련</div>
+            <div class="option">
+                <input type="radio" id="alice" name="answer" value="소녀 앨리스" data-answer="true">
+                <label for="alice">소녀 앨리스</label>
+            </div>
+            <div class="option">
+                <input type="radio" id="alice-ribbon" name="answer" value="앨리스의 리본" data-answer="true">
+                <label for="alice-ribbon">앨리스의 리본</label>
+            </div>
+            <div class="option">
+                <input type="radio" id="noah" name="answer" value="신의 아이 노아" data-answer="true">
+                <label for="noah">신의 아이 노아</label>
+            </div>
+            <div class="option">
+                <input type="radio" id="oscar" name="answer" value="시종 오스카" data-answer="true">
+                <label for="oscar">시종 오스카</label>
+            </div>
+            <div class="option">
+                <input type="radio" id="oscar-knife" name="answer" value="오스카의 나이프" data-answer="true">
+                <label for="oscar-knife">오스카의 나이프</label>
+            </div>
+            <div class="option">
+                <input type="radio" id="oscar-id" name="answer" value="오스카의 신분증명서" data-answer="true">
+                <label for="oscar-id">오스카의 신분증명서</label>
+            </div>
+            <div class="option">
+                <input type="radio" id="jack" name="answer" value="상인 잭" data-answer="true">
+                <label for="jack">상인 잭</label>
+            </div>
+            <div class="option">
+                <input type="radio" id="jack-bag" name="answer" value="잭의 가방" data-answer="true">
+                <label for="jack-bag">잭의 가방</label>
+            </div>
+            <div class="option">
+                <input type="radio" id="claire" name="answer" value="퇴마사 클레어" data-answer="true">
+                <label for="claire">퇴마사 클레어</label>
+            </div>
+            <div class="option">
+                <input type="radio" id="claire-knife" name="answer" value="클레어의 나이프" data-answer="true">
+                <label for="claire-knife">클레어의 나이프</label>
+            </div>
+            <div class="option">
+                <input type="radio" id="claire-ribbon" name="answer" value="클레어의 리본" data-answer="true">
+                <label for="claire-ribbon">클레어의 리본</label>
+            </div>
+            <div class="option">
+                <input type="radio" id="richard" name="answer" value="자칭 탐정 리처드" data-answer="true">
+                <label for="richard">자칭 탐정 리처드</label>
+            </div>
+            <div class="option">
+                <input type="radio" id="richard-sheath" name="answer" value="리처드의 칼집" data-answer="true">
+                <label for="richard-sheath">리처드의 칼집</label>
+            </div>
+
+            <!-- 기타 저택 관련 -->
+            <div class="category">기타 저택 관련</div>
+            <div class="option">
+                <input type="radio" id="immortal-book" name="answer" value="불로불사의 책" data-answer="true">
+                <label for="immortal-book">불로불사의 책</label>
+            </div>
+            <div class="option">
+                <input type="radio" id="devil-book" name="answer" value="악마의 책" data-answer="true">
+                <label for="devil-book">악마의 책</label>
+            </div>
+            <div class="option">
+                <input type="radio" id="angel-doll" name="answer" value="중앙 홀의 천사 인형" data-answer="true">
+                <label for="angel-doll">중앙 홀의 천사 인형</label>
+            </div>
+            <div class="option">
+                <input type="radio" id="carriage" name="answer" value="저택 주변의 마차" data-answer="true">
+                <label for="carriage">저택 주변의 마차</label>
+            </div>
+            <div class="option">
+                <input type="radio" id="library-painting" name="answer" value="서재의 그림" data-answer="true">
+                <label for="library-painting">서재의 그림</label>
+            </div>
+            <div class="option">
+                <input type="radio" id="chandelier" name="answer" value="샹들리에" data-answer="true">
+                <label for="chandelier">샹들리에</label>
+            </div>
+            <div class="option">
+                <input type="radio" id="servant" name="answer" value="하인" data-answer="true">
+                <label for="servant">하인</label>
+            </div>
+            <div class="option">
+                <input type="radio" id="basement-body" name="answer" value="지하실의 시체" data-answer="true">
+                <label for="basement-body">지하실의 시체</label>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // 라디오 버튼이 선택될 때마다 표시 영역에 값 업데이트
+        const radioButtons = document.querySelectorAll('input[type="radio"]');
+        const displayText = document.getElementById('display-text');
+        
+        radioButtons.forEach(radio => {
+            radio.addEventListener('change', function() {
+                displayText.textContent = this.value;
+            });
+        });
+        
+        document.getElementById('check-answers').addEventListener('click', function() {
+            const selectedOption = document.querySelector('input[name="answer"]:checked');
+            
+            // 선택된 항목이 없는 경우
+            if (!selectedOption) {
+                alert('항목을 선택해주세요.');
+                return;
+            }
+            
+            // 선택된 항목의 값
+            const selectedValue = selectedOption.value;
+            
+            // 확인 팝업 표시
+            if (!confirm(`「${selectedValue}」이(가) 맞습니까?`)) {
+                return; // 취소 선택 시 함수 종료
+            }
+            
+            let isCorrect = false;
+            
+            // 정답인지 확인 (data-answer 속성 사용)
+            isCorrect = selectedOption.getAttribute('data-answer') === 'true';
+            
+            // 배경 이미지 제거
+            document.body.style.backgroundImage = 'none';
+            document.body.style.backgroundColor = '#000';
+            
+            // 기존 배경 컨테이너 제거
+            const bgContainer = document.querySelector('.background-container');
+            if (bgContainer) {
+                bgContainer.remove();
+            }
+            
+            // 기존 콘텐츠 삭제
+            const contentFrame = document.querySelector('.content-frame') || document.body;
+            contentFrame.innerHTML = '';
+            
+            // 채점 중 메시지 추가
+            const loadingContainer = document.createElement('div');
+            loadingContainer.style.textAlign = 'center';
+            loadingContainer.style.position = 'absolute';
+            loadingContainer.style.top = '50%';
+            loadingContainer.style.left = '50%';
+            loadingContainer.style.transform = 'translate(-50%, -50%)';
+            loadingContainer.style.width = '100%';
+            
+            const loadingText = document.createElement('div');
+            loadingText.textContent = '확인 중';
+            loadingText.style.color = '#fff';
+            loadingText.style.fontSize = '28px';
+            loadingText.style.fontFamily = 'GowunBatang, serif';
+            loadingText.style.marginBottom = '25px';
+            
+            // 이미지 애니메이션을 위한 컨테이너
+            const imagesContainer = document.createElement('div');
+            imagesContainer.style.display = 'flex';
+            imagesContainer.style.justifyContent = 'center';
+            imagesContainer.style.height = '60px';
+            
+            loadingContainer.appendChild(loadingText);
+            loadingContainer.appendChild(imagesContainer);
+            contentFrame.appendChild(loadingContainer);
+            
+            // 이미지 파일 경로 (여러분의 이미지 경로로 대체하세요)
+            const imagePath = 'jack.png'; // 예: 작은 아이콘 이미지
+            
+            // 이미지 수와 각도 설정
+            const imageCount = 6;
+            const maxAngle = 40; // 최대 회전 각도
+            
+            // 초기 이미지 생성 (처음에는 보이지 않음)
+            for (let i = 0; i < imageCount; i++) {
+                const img = document.createElement('img');
+                img.src = imagePath;
+                img.style.width = '40px'; // 이미지 크기 조정
+                img.style.height = '40px';
+                img.style.margin = '0 8px';
+                img.style.opacity = '0';
+                img.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
+                imagesContainer.appendChild(img);
+            }
+            
+            // 이미지 애니메이션
+            const images = imagesContainer.querySelectorAll('img');
+            let currentIndex = 0;
+            
+            const animInterval = setInterval(function() {
+                // 모든 이미지 초기화
+                images.forEach(img => {
+                    img.style.opacity = '0';
+                    img.style.transform = 'rotate(0deg)';
+                });
+                
+                // 현재 이미지만 보이게
+                if (images[currentIndex]) {
+                    const angle = (Math.random() * 2 - 1) * maxAngle; // -maxAngle ~ maxAngle 사이 랜덤 각도
+                    images[currentIndex].style.opacity = '1';
+                    images[currentIndex].style.transform = `rotate(${angle}deg)`;
+                }
+                
+                currentIndex = (currentIndex + 1) % imageCount;
+            }, 500);
+            
+            // 5초 후에 결과 표시
+            setTimeout(function() {
+                clearInterval(animInterval);
+                
+                // 로딩 컨테이너 제거
+                contentFrame.removeChild(loadingContainer);
+                
+                // 결과 이미지와 텍스트를 담을 컨테이너
+                const resultContainer = document.createElement('div');
+                resultContainer.style.position = 'relative';
+                resultContainer.style.width = '100%';
+                resultContainer.style.maxWidth = '800px';
+                resultContainer.style.margin = '0 auto';
+                resultContainer.style.textAlign = 'center';
+                
+                // 결과 이미지 추가
+                const resultImage = document.createElement('img');
+                resultImage.src = 'answer.png'; // 새 결과 이미지 경로
+                resultImage.alt = '결과 이미지';
+                resultImage.style.maxWidth = '100%';
+                resultImage.style.display = 'block';
+                resultImage.style.margin = '0 auto';
+                
+                // 결과 텍스트 추가 (이미지 위에 표시)
+                const resultText = document.createElement('div');
+                resultText.style.position = 'absolute';
+                resultText.style.top = '50%';
+                resultText.style.left = '50%';
+                resultText.style.transform = 'translate(-50%, -50%)';
+                resultText.style.color = '#fff';
+                resultText.style.fontSize = '24px'; // 글씨 크기 축소
+                resultText.style.fontFamily = 'GowunBatang, serif';
+                resultText.style.textAlign = 'center';
+                resultText.style.width = '100%';
+                resultText.style.textShadow = '2px 2px 4px rgba(0, 0, 0, 0.8)';
+                
+                // 정답 여부에 따른 결과 메시지 설정 - 영혼이 리처드에게만 있음
+                const isRichard = selectedValue === "자칭 탐정 리처드";
+                const hasSpirit = isRichard;
+                
+                // 애니메이션을 위해 각 줄을 별도의 요소로 분리
+                const resultLineContainer = document.createElement('div');
+                
+                const line1 = document.createElement('div');
+                line1.className = 'result-line';
+                line1.textContent = `「${selectedValue}」에는`;
+                
+                const line2 = document.createElement('div');
+                line2.className = 'result-line';
+                line2.textContent = `엘리자베스의 영혼이`;
+                
+                const line3 = document.createElement('div');
+                line3.className = 'result-line';
+                line3.textContent = hasSpirit ? '있습니다.' : '없습니다.';
+                
+                resultLineContainer.appendChild(line1);
+                resultLineContainer.appendChild(line2);
+                resultLineContainer.appendChild(line3);
+                
+                resultText.appendChild(resultLineContainer);
+                
+                // 컨테이너에 이미지와 텍스트 추가
+                resultContainer.appendChild(resultImage);
+                resultContainer.appendChild(resultText);
+                
+                // 돌아가기 버튼 추가
+                const returnButton = document.createElement('button');
+                returnButton.textContent = '처음으로 돌아가기';
+                returnButton.className = 'return-button';
+                returnButton.addEventListener('click', function() {
+                    // 페이지 새로고침으로 초기 상태로 돌아가기
+                    location.reload();
+                });
+                
+                // 돌아가기 버튼을 결과 컨테이너 아래에 추가
+                resultContainer.appendChild(returnButton);
+                
+                contentFrame.appendChild(resultContainer);
+                
+                // 페이지 맨 위로 자동 스크롤
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }, 6500);
+        });
+    </script>
+</body>
+</html>
