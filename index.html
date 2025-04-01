@@ -515,6 +515,15 @@
                 resultContainer.style.maxWidth = '800px';
                 resultContainer.style.margin = '0 auto';
                 resultContainer.style.textAlign = 'center';
+                resultContainer.style.height = '100vh'; // 화면 높이만큼 컨테이너 높이 설정
+                resultContainer.style.display = 'flex';
+                resultContainer.style.alignItems = 'center';
+                resultContainer.style.justifyContent = 'center';
+                
+                // 내부 컨테이너 생성 (위치 고정용)
+                const innerContainer = document.createElement('div');
+                innerContainer.style.position = 'relative';
+                innerContainer.style.width = '100%';
                 
                 // 결과 이미지 추가
                 const resultImage = document.createElement('img');
@@ -540,9 +549,12 @@
                 // 슬롯 머신 효과를 위한 텍스트 구성
                 resultText.innerHTML = `조사횟수 <span id="slot-machine"></span>회 추가`;
                 
-                // 컨테이너에 이미지와 텍스트 추가
-                resultContainer.appendChild(resultImage);
-                resultContainer.appendChild(resultText);
+                // 내부 컨테이너에 이미지와 텍스트 추가
+                innerContainer.appendChild(resultImage);
+                innerContainer.appendChild(resultText);
+                
+                // 내부 컨테이너를 메인 컨테이너에 추가
+                resultContainer.appendChild(innerContainer);
                 
                 contentFrame.appendChild(resultContainer);
                 
@@ -618,10 +630,12 @@
                                             clearInterval(vibrationInterval);
                                             slotReel.style.transform = 'translateY(0)';
                                             
-                                            // 추가 안내 문구 표시
+                                            // 추가 안내 문구를 이미지 안에 표시
                                             const noteText = document.createElement('div');
-                                            noteText.style.position = 'relative';
-                                            noteText.style.marginTop = '30px';
+                                            noteText.style.position = 'absolute';
+                                            noteText.style.bottom = '20%'; // 이미지 내부 아래쪽에 위치
+                                            noteText.style.left = '0';
+                                            noteText.style.width = '100%';
                                             noteText.style.fontSize = '14px';
                                             noteText.style.color = '#ddd';
                                             noteText.style.textAlign = 'center';
@@ -629,8 +643,8 @@
                                             noteText.style.textShadow = '1px 1px 2px rgba(0, 0, 0, 0.5)';
                                             noteText.innerHTML = `※리처드는 후반부에 ${investigationCount}회의<br>조사횟수가 추가됩니다.`;
                                             
-                                            // 결과 컨테이너에 추가
-                                            resultContainer.appendChild(noteText);
+                                            // 결과 텍스트 부모 요소(결과 이미지 위에 배치된 컨테이너)에 추가
+                                            resultText.parentNode.appendChild(noteText);
                                             
                                             return;
                                         }
@@ -648,7 +662,7 @@
                 // 슬롯 머신 효과 시작
                 createSlotMachine();
                 
-            }, 6500); // 로딩 시간 단축 (3초)
+            }, 3000); // 로딩 시간 단축 (3초)
         });
     </script>
 </body>
