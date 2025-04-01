@@ -232,6 +232,14 @@
             margin-bottom: 60px;
         }
         
+        /* 확인 횟수 표시 스타일 */
+        .check-count {
+            text-align: center;
+            margin-bottom: 15px;
+            color: #f2e2cc;
+            font-size: 1em;
+        }
+        
         @media (max-width: 480px) {
             body {
                 padding: 10px 5px;
@@ -267,6 +275,9 @@
             <p>· 확인하고 싶은 항목을 선택한 후,<br>확인하기 버튼을 눌러주세요.</p>
             <p>· 만약 확인하고 싶은 그릇이 목록에 없다면 그곳에는<br>영혼이 있을 가능성이 없는 것이라고 생각해주세요.</p>
             <p>· 확인이 가능한 횟수는 2번까지 입니다.<br>신중하게 확인해주세요.</p>
+        </div>
+        <div id="check-count-display" class="check-count">
+            확인 가능 횟수 (0/2)
         </div>
         <div class="display-container">
             <div class="display-box">
@@ -462,6 +473,39 @@
     </div>
     
     <script>
+        // LocalStorage에서 확인 횟수 가져오기 또는 초기화
+        function getCheckCount() {
+            const count = localStorage.getItem('soulCheckCount');
+            return count ? parseInt(count) : 0;
+        }
+        
+        // LocalStorage에 확인 횟수 저장
+        function saveCheckCount(count) {
+            localStorage.setItem('soulCheckCount', count.toString());
+            updateCheckCountDisplay();
+        }
+        
+        // 확인 횟수 표시 업데이트
+        function updateCheckCountDisplay() {
+            const count = getCheckCount();
+            document.getElementById('check-count-display').textContent = `확인 가능 횟수 (${count}/2)`;
+            
+            // 최대 사용 횟수에 도달했으면 버튼 비활성화
+            const checkButton = document.getElementById('check-answers');
+            if (count >= 2) {
+                checkButton.disabled = true;
+                checkButton.style.backgroundColor = '#999';
+                checkButton.style.cursor = 'not-allowed';
+            } else {
+                checkButton.disabled = false;
+                checkButton.style.backgroundColor = '#f2e2cc';
+                checkButton.style.cursor = 'pointer';
+            }
+        }
+        
+        // 페이지 로드 시 확인 횟수 표시 업데이트
+        updateCheckCountDisplay();
+        
         // 라디오 버튼이 선택될 때마다 표시 영역에 값 업데이트
         const radioButtons = document.querySelectorAll('input[type="radio"]');
         const displayText = document.getElementById('display-text');
@@ -473,6 +517,15 @@
         });
         
         document.getElementById('check-answers').addEventListener('click', function() {
+            // 현재 확인 횟수 확인
+            const currentCount = getCheckCount();
+            
+            // 이미 2번 사용했으면 더 이상 진행 불가
+            if (currentCount >= 2) {
+                alert('확인 가능한 횟수를 모두 사용했습니다.');
+                return;
+            }
+            
             const selectedOption = document.querySelector('input[name="answer"]:checked');
             
             // 선택된 항목이 없는 경우
@@ -488,6 +541,10 @@
             if (!confirm(`「${selectedValue}」이(가) 맞습니까?`)) {
                 return; // 취소 선택 시 함수 종료
             }
+            
+            // 확인 횟수 증가 및 저장
+            const newCount = currentCount + 1;
+            saveCheckCount(newCount);
             
             let isCorrect = false;
             
@@ -602,64 +659,4 @@
                 resultText.style.position = 'absolute';
                 resultText.style.top = '50%';
                 resultText.style.left = '50%';
-                resultText.style.transform = 'translate(-50%, -50%)';
-                resultText.style.color = '#fff';
-                resultText.style.fontSize = '24px'; // 글씨 크기 축소
-                resultText.style.fontFamily = 'GowunBatang, serif';
-                resultText.style.textAlign = 'center';
-                resultText.style.width = '100%';
-                resultText.style.textShadow = '2px 2px 4px rgba(0, 0, 0, 0.8)';
-                
-                // 정답 여부에 따른 결과 메시지 설정 - 영혼이 리처드에게만 있음
-                const isRichard = selectedValue === "자칭 탐정 리처드";
-                const hasSpirit = isRichard;
-                
-                // 애니메이션을 위해 각 줄을 별도의 요소로 분리
-                const resultLineContainer = document.createElement('div');
-                
-                const line1 = document.createElement('div');
-                line1.className = 'result-line';
-                line1.textContent = `「${selectedValue}」에는`;
-                
-                const line2 = document.createElement('div');
-                line2.className = 'result-line';
-                line2.textContent = `엘리자베스의 영혼이`;
-                
-                const line3 = document.createElement('div');
-                line3.className = 'result-line';
-                line3.textContent = hasSpirit ? '있습니다.' : '없습니다.';
-                
-                resultLineContainer.appendChild(line1);
-                resultLineContainer.appendChild(line2);
-                resultLineContainer.appendChild(line3);
-                
-                resultText.appendChild(resultLineContainer);
-                
-                // 컨테이너에 이미지와 텍스트 추가
-                resultContainer.appendChild(resultImage);
-                resultContainer.appendChild(resultText);
-                
-                // 돌아가기 버튼 추가
-                const returnButton = document.createElement('button');
-                returnButton.textContent = '처음으로 돌아가기';
-                returnButton.className = 'return-button';
-                returnButton.addEventListener('click', function() {
-                    // 페이지 새로고침으로 초기 상태로 돌아가기
-                    location.reload();
-                });
-                
-                // 돌아가기 버튼을 결과 컨테이너 아래에 추가
-                resultContainer.appendChild(returnButton);
-                
-                contentFrame.appendChild(resultContainer);
-                
-                // 페이지 맨 위로 자동 스크롤
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
-            }, 6500);
-        });
-    </script>
-</body>
-</html>
+                resultText.style.transform = 'translate
