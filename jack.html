@@ -647,3 +647,19 @@
                     // 페이지 새로고침으로 초기 상태로 돌아가기
                     location.reload();
                 });
+                
+                // 돌아가기 버튼을 결과 컨테이너 아래에 추가
+                resultContainer.appendChild(returnButton);
+                
+                contentFrame.appendChild(resultContainer);
+                
+                // 페이지 맨 위로 자동 스크롤
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }, 6500);
+        });
+    </script>
+</body>
+</html>
