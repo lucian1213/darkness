@@ -59,12 +59,18 @@
             max-width: 90%; /* 최대 너비도 확장 */
             margin-left: auto;
             margin-right: auto;
+            box-sizing: border-box; /* 추가: 패딩을 너비에 포함 */
+            position: relative; /* 추가: 위치 기준점 설정 */
+            left: 0; /* 추가: 왼쪽 위치 조정 */
+            right: 0; /* 추가: 오른쪽 위치 조정 */
         }
         
         /* 표시 영역 - 새로운 접근법 */
         .display-container {
             width: 100%; /* 최대 너비 사용 */
             margin: 20px auto;
+            box-sizing: border-box; /* 추가: 패딩을 너비에 포함 */
+            text-align: center; /* 추가: 텍스트 중앙 정렬 */
         }
         
         .display-box {
