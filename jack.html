@@ -696,30 +696,22 @@
                 resultContainer.appendChild(resultImage);
                 resultContainer.appendChild(resultText);
                 
-                // 돌아가기 버튼 추가
+                // 돌아가기 버튼 추가 (이미지 안에 넣기)
                 const returnButton = document.createElement('button');
                 returnButton.textContent = '처음으로 돌아가기';
                 returnButton.className = 'return-button';
+                returnButton.style.position = 'absolute';
+                returnButton.style.bottom = '20%';
+                returnButton.style.left = '50%';
+                returnButton.style.transform = 'translateX(-50%)';
+                returnButton.style.zIndex = '10';
                 returnButton.addEventListener('click', function() {
                     // 페이지 새로고침으로 초기 상태로 돌아가기
                     location.reload();
                 });
                 
-                // 돌아가기 버튼을 결과 컨테이너 아래에 추가
-                resultContainer.appendChild(returnButton);
-                
-                // 확인 횟수를 모두 사용한 경우, 초기화 버튼 추가
-                if (newCount >= 2) {
-                    const resetButton = document.createElement('button');
-                    resetButton.textContent = '확인 횟수 초기화하기';
-                    resetButton.style.marginTop = '20px';
-                    resetButton.style.backgroundColor = '#aa8866';
-                    resetButton.addEventListener('click', function() {
-                        localStorage.removeItem('soulCheckCount');
-                        location.reload();
-                    });
-                    resultContainer.appendChild(resetButton);
-                }
+                // 돌아가기 버튼을 결과 텍스트 안에 추가
+                resultText.appendChild(returnButton);
                 
                 contentFrame.appendChild(resultContainer);
                 
