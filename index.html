@@ -559,7 +559,11 @@
                     slotReel.className = 'slot-reel';
                     
                     // 가능한 숫자들 (더 많은 숫자를 포함하여 더 긴 스크롤 효과 생성)
-                    const possibleNumbers = [0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2];
+                    const possibleNumbers = [];
+                    // 5초 동안의 빠른 스크롤을 위해 더 많은 숫자 생성 (약 30개)
+                    for (let i = 0; i < 30; i++) {
+                        possibleNumbers.push(i % 3); // 0, 1, 2 반복
+                    }
                     
                     // 숫자 요소 생성 및 릴에 추가
                     possibleNumbers.forEach(num => {
@@ -584,19 +588,19 @@
                         // 처음 위치: 모든 숫자가 보이지 않는 위치
                         slotReel.style.top = '0px';
                         
-                        // 가속 단계 (빠르게 회전)
+                        // 가속 단계 (빠르게 회전) - 5초 동안
                         setTimeout(() => {
                             // 부드러운 애니메이션을 위한 트랜지션 설정
-                            slotReel.style.transition = 'top 1.5s cubic-bezier(0.12, 0.76, 0.3, 1)';
+                            slotReel.style.transition = 'top 5s cubic-bezier(0.12, 0.76, 0.3, 1)';
                             
                             // 중간 위치로 이동 (숫자들이 빠르게 지나감)
                             const middlePosition = -(possibleNumbers.length - 3) * 60;
                             slotReel.style.top = middlePosition + 'px';
                             
-                            // 감속 단계 (점점 느려지다가 최종 숫자에 정지)
+                            // 감속 단계 (점점 느려지다가 최종 숫자에 정지) - 3초 동안
                             setTimeout(() => {
                                 // 감속 효과를 위한 트랜지션 변경
-                                slotReel.style.transition = 'top 1.5s cubic-bezier(0.25, 0.1, 0.25, 1)';
+                                slotReel.style.transition = 'top 3s cubic-bezier(0.25, 0.1, 0.25, 1)';
                                 
                                 // 최종 위치 (investigationCount가 중앙에 오도록)
                                 const finalPosition = -(possibleNumbers.length) * 60;
@@ -620,8 +624,8 @@
                                         slotReel.style.transform = `translateY(${vibrationAmount}px)`;
                                         vibrationCount++;
                                     }, 60);
-                                }, 1500);
-                            }, 1500);
+                                }, 3000); // 애니메이션이 끝난 후 효과 추가 (3초)
+                            }, 5000); // 빠른 회전 후 감속 시작 (5초)
                         }, 300);
                     }, 100);
                 };
