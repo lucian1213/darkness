@@ -617,6 +617,21 @@
                                         if (vibrationCount >= 5) {
                                             clearInterval(vibrationInterval);
                                             slotReel.style.transform = 'translateY(0)';
+                                            
+                                            // 추가 안내 문구 표시
+                                            const noteText = document.createElement('div');
+                                            noteText.style.position = 'relative';
+                                            noteText.style.marginTop = '30px';
+                                            noteText.style.fontSize = '14px';
+                                            noteText.style.color = '#ddd';
+                                            noteText.style.textAlign = 'center';
+                                            noteText.style.fontFamily = 'GowunBatang, serif';
+                                            noteText.style.textShadow = '1px 1px 2px rgba(0, 0, 0, 0.5)';
+                                            noteText.innerHTML = `※리처드는 후반부에 ${investigationCount}회의<br>조사횟수가 추가됩니다.`;
+                                            
+                                            // 결과 컨테이너에 추가
+                                            resultContainer.appendChild(noteText);
+                                            
                                             return;
                                         }
                                         
