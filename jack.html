@@ -131,10 +131,10 @@
         .category {
             margin-top: 30px;
             margin-bottom: 15px;
-            color: #4b8be0;
+            color: #f2e2cc;
             font-weight: bold;
             font-size: 1.2em;
-            border-bottom: 1px solid rgba(75, 139, 224, 0.3);
+            border-bottom: 1px solid rgba(242, 226, 204, 0.3);
             padding-bottom: 5px;
         }
         
@@ -152,7 +152,7 @@
         }
         
         .option input[type="radio"] {
-            accent-color: #4b8be0;
+            accent-color: #f2e2cc;
             width: 18px;
             height: 18px;
             cursor: pointer;
@@ -168,17 +168,17 @@
         }
 
         .options::-webkit-scrollbar-thumb {
-          background: #4b8be0; /* 스크롤바 색상 - 버튼과 동일한 하늘색 */
+          background: #f2e2cc; /* 스크롤바 색상 변경 */
           border-radius: 5px;
         }
 
         .options::-webkit-scrollbar-thumb:hover {
-          background: #3a7ad0; /* 마우스 오버시 약간 어두운 색상 */
+          background: #e0d0b8; /* 마우스 오버시 약간 어두운 색상 */
         }
         
         button {
-            background-color: #4b8be0;
-            color: white;
+            background-color: #f2e2cc;
+            color: #333; /* 버튼 텍스트 색상을 어둡게 변경 */
             border: none;
             padding: 12px 25px;
             font-size: 14px;
@@ -194,12 +194,36 @@
         }
         
         button:hover {
-            background-color: #4b8be0;
+            background-color: #e0d0b8;
             transform: translateY(-2px);
         }
         
         button:active {
             transform: translateY(1px);
+        }
+        
+        /* 결과 애니메이션 스타일 */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .result-line {
+            opacity: 0;
+            animation: fadeIn 0.8s forwards;
+        }
+        
+        .result-line:nth-child(1) {
+            animation-delay: 0.5s;
+        }
+        
+        .result-line:nth-child(2) {
+            animation-delay: 1.5s;
+        }
+        
+        .result-line:nth-child(3) {
+            animation-delay: 2.5s;
+            color: #ff5555; /* 마지막 줄 빨간색 */
         }
         
         @media (max-width: 480px) {
@@ -574,21 +598,48 @@
                 resultText.style.left = '50%';
                 resultText.style.transform = 'translate(-50%, -50%)';
                 resultText.style.color = '#fff';
-                resultText.style.fontSize = '32px';
+                resultText.style.fontSize = '24px'; // 글씨 크기 축소
                 resultText.style.fontFamily = 'GowunBatang, serif';
                 resultText.style.textAlign = 'center';
                 resultText.style.width = '100%';
                 resultText.style.textShadow = '2px 2px 4px rgba(0, 0, 0, 0.8)';
                 
-                // 정답 여부에 따른 결과 메시지 설정
-                let resultMessage = `「${selectedValue}」에는\n엘리자베스의 영혼이\n${isCorrect ? '있습니다.' : '없습니다.'}`;
-                resultText.innerHTML = resultMessage.replace(/\n/g, '<br>');
+                // 정답 여부에 따른 결과 메시지 설정 - 영혼이 리처드에게만 있음
+                const isRichard = selectedValue === "자칭 탐정 리처드";
+                const hasSpirit = isRichard;
+                
+                // 애니메이션을 위해 각 줄을 별도의 요소로 분리
+                const resultLineContainer = document.createElement('div');
+                
+                const line1 = document.createElement('div');
+                line1.className = 'result-line';
+                line1.textContent = `「${selectedValue}」에는`;
+                
+                const line2 = document.createElement('div');
+                line2.className = 'result-line';
+                line2.textContent = `엘리자베스의 영혼이`;
+                
+                const line3 = document.createElement('div');
+                line3.className = 'result-line';
+                line3.textContent = hasSpirit ? '있습니다.' : '없습니다.';
+                
+                resultLineContainer.appendChild(line1);
+                resultLineContainer.appendChild(line2);
+                resultLineContainer.appendChild(line3);
+                
+                resultText.appendChild(resultLineContainer);
                 
                 // 컨테이너에 이미지와 텍스트 추가
                 resultContainer.appendChild(resultImage);
                 resultContainer.appendChild(resultText);
                 
                 contentFrame.appendChild(resultContainer);
+                
+                // 페이지 맨 위로 자동 스크롤
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
             }, 6000);
         });
     </script>
