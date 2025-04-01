@@ -50,7 +50,7 @@
         }
         
         .quiz-container {
-            background-color: rgba(30, 30, 30, 0.7);
+            background-color: transparent;
             margin-top: 40px;
             border-radius: 10px;
             padding: 20px;
@@ -83,7 +83,7 @@
             background-color: #fff;
             border-radius: 5px;
             height: 30px; /* 고정된 높이 */
-            padding: 15px;
+            padding: 30px 15px;
             margin: 0 auto; /* 중앙 정렬 */
             position: relative;
             width: 100%; /* 전체 너비 사용 */
@@ -190,6 +190,8 @@
                 <div id="display-text" class="display-text">선택한 항목이 여기에 표시됩니다</div>
             </div>
         </div>
+
+        <button id="check-answers">정답 확인하기</button>
         
         <div class="options" style="text-align: left;">
             <div class="option">
@@ -211,7 +213,7 @@
         </div>
     </div>
     
-    <button id="check-answers">정답 확인하기</button>
+
     
     <script>
         // 라디오 버튼이 선택될 때마다 표시 영역에 값 업데이트
