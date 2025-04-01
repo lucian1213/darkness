@@ -225,6 +225,12 @@
             animation-delay: 2.5s;
             color: #ff5555; /* 마지막 줄 빨간색 */
         }
+
+        /* 돌아가기 버튼 스타일 */
+        .return-button {
+            margin-top: 40px;
+            margin-bottom: 60px;
+        }
         
         @media (max-width: 480px) {
             body {
@@ -633,15 +639,11 @@
                 resultContainer.appendChild(resultImage);
                 resultContainer.appendChild(resultText);
                 
-                contentFrame.appendChild(resultContainer);
-                
-                // 페이지 맨 위로 자동 스크롤
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
+                // 돌아가기 버튼 추가
+                const returnButton = document.createElement('button');
+                returnButton.textContent = '처음으로 돌아가기';
+                returnButton.className = 'return-button';
+                returnButton.addEventListener('click', function() {
+                    // 페이지 새로고침으로 초기 상태로 돌아가기
+                    location.reload();
                 });
-            }, 6500);
-        });
-    </script>
-</body>
-</html>
