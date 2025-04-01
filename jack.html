@@ -537,9 +537,11 @@
                 bgContainer.remove();
             }
             
+            // 현재 페이지의 내용을 저장
+            const originalContent = document.body.innerHTML;
+            
             // 기존 콘텐츠 삭제
-            const contentFrame = document.querySelector('.content-frame') || document.body;
-            contentFrame.innerHTML = '';
+            document.body.innerHTML = '';
             
             // 채점 중 메시지 추가
             const loadingContainer = document.createElement('div');
@@ -565,7 +567,7 @@
             
             loadingContainer.appendChild(loadingText);
             loadingContainer.appendChild(imagesContainer);
-            contentFrame.appendChild(loadingContainer);
+            document.body.appendChild(loadingContainer);
             
             // 이미지 파일 경로 (여러분의 이미지 경로로 대체하세요)
             const imagePath = 'jack.png'; // 예: 작은 아이콘 이미지
@@ -612,7 +614,7 @@
                 clearInterval(animInterval);
                 
                 // 로딩 컨테이너 제거
-                contentFrame.removeChild(loadingContainer);
+                document.body.removeChild(loadingContainer);
                 
                 // 결과 이미지와 텍스트를 담을 컨테이너
                 const resultContainer = document.createElement('div');
@@ -712,7 +714,7 @@
                     resultContainer.appendChild(resetButton);
                 }
                 
-                contentFrame.appendChild(resultContainer);
+                document.body.appendChild(resultContainer);
                 
                 // 페이지 맨 위로 자동 스크롤
                 window.scrollTo({
