@@ -444,12 +444,25 @@
         
         document.getElementById('check-answers').addEventListener('click', function() {
             const selectedOption = document.querySelector('input[name="answer"]:checked');
+            
+            // 선택된 항목이 없는 경우
+            if (!selectedOption) {
+                alert('항목을 선택해주세요.');
+                return;
+            }
+            
+            // 선택된 항목의 값
+            const selectedValue = selectedOption.value;
+            
+            // 확인 팝업 표시
+            if (!confirm(`「${selectedValue}」이(가) 맞습니까?`)) {
+                return; // 취소 선택 시 함수 종료
+            }
+            
             let isCorrect = false;
             
-            if (selectedOption) {
-                // 정답인지 확인 (data-answer 속성 사용)
-                isCorrect = selectedOption.getAttribute('data-answer') === 'true';
-            }
+            // 정답인지 확인 (data-answer 속성 사용)
+            isCorrect = selectedOption.getAttribute('data-answer') === 'true';
             
             // 배경 이미지 제거
             document.body.style.backgroundImage = 'none';
@@ -475,7 +488,7 @@
             loadingContainer.style.width = '100%';
             
             const loadingText = document.createElement('div');
-            loadingText.textContent = '채점 중';
+            loadingText.textContent = '확인 중';
             loadingText.style.color = '#fff';
             loadingText.style.fontSize = '28px';
             loadingText.style.fontFamily = 'GowunBatang, serif';
@@ -568,8 +581,8 @@
                 resultText.style.textShadow = '2px 2px 4px rgba(0, 0, 0, 0.8)';
                 
                 // 정답 여부에 따른 결과 메시지 설정
-                let resultMessage = isCorrect ? '영혼이 확인되었습니다!' : '영혼이 확인되지 않았습니다...';
-                resultText.textContent = resultMessage;
+                let resultMessage = `「${selectedValue}」에는\n엘리자베스의 영혼이\n${isCorrect ? '있습니다.' : '없습니다.'}`;
+                resultText.innerHTML = resultMessage.replace(/\n/g, '<br>');
                 
                 // 컨테이너에 이미지와 텍스트 추가
                 resultContainer.appendChild(resultImage);
