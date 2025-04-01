@@ -14,7 +14,7 @@
         
         body {
             font-family: 'GowunBatang', serif;
-            max-width: 800px;
+            max-width: 100%; /* 최대 너비 100%로 변경 */
             margin: 0 auto;
             padding: 20px;
             color: #fff;
@@ -27,6 +27,7 @@
             background-size: 100% 100%;
             background-attachment: scroll;
             min-height: 100vh;
+            box-sizing: border-box; /* 패딩을 포함한 크기 계산 */
         }
         
         body::before {
@@ -62,9 +63,8 @@
         
         /* 표시 영역 - 새로운 접근법 */
         .display-container {
-            width: 80%; /* 최대 너비 사용 */
-            margin-left: auto
-            margin-right: auto;
+            width: 100%; /* 최대 너비 사용 */
+            margin: 20px auto;
         }
         
         .display-box {
@@ -144,17 +144,24 @@
         /* 모바일 환경을 위한 추가 스타일 */
         @media (max-width: 480px) {
             body {
-                padding: 10px;
+                padding: 10px 5px; /* 좌우 패딩 줄임 */
                 font-size: 13px;
             }
             h1 {
                 font-size: 1.4em;
             }
             .quiz-container {
-                padding: 15px;
+                padding: 15px 10px; /* 좌우 패딩 줄임 */
+                width: 95%; /* 모바일에서 더 넓게 */
+                max-width: 95%;
+                margin-left: auto;
+                margin-right: auto;
             }
             .option label {
                 font-size: 0.9em;
+            }
+            .display-box {
+                padding: 15px 10px; /* 좌우 패딩 줄임 */
             }
         }
     </style>
