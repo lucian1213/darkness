@@ -14,7 +14,7 @@
         
         body {
             font-family: 'GowunBatang', serif;
-            max-width: 100%; /* 최대 너비 100%로 변경 */
+            max-width: 100%;
             margin: 0 auto;
             padding: 20px;
             color: #fff;
@@ -27,7 +27,7 @@
             background-size: 100% 100%;
             background-attachment: scroll;
             min-height: 100vh;
-            box-sizing: border-box; /* 패딩을 포함한 크기 계산 */
+            box-sizing: border-box;
         }
         
         body::before {
@@ -55,41 +55,40 @@
             border-radius: 10px;
             padding: 20px;
             box-shadow: 0 2px 15px rgba(0, 0, 0, 0.5);
-            width: 90%; /* 너비 확장 */
-            max-width: 90%; /* 최대 너비도 확장 */
+            width: 90%;
+            max-width: 90%;
             margin-left: auto;
             margin-right: auto;
-            box-sizing: border-box; /* 패딩을 너비에 포함 */
-            position: relative; /* 위치 기준점 설정 */
-            left: 0; /* 왼쪽 위치 조정 */
-            right: 0; /* 오른쪽 위치 조정 */
-            text-align: center; /* 내부 요소 중앙 정렬 */
+            box-sizing: border-box;
+            position: relative;
+            left: 0;
+            right: 0;
+            text-align: center;
         }
         
-        /* 표시 영역 - 새로운 접근법 */
         .display-container {
-            width: 70%; /* 최대 너비 사용 */
+            width: 70%;
             margin: 20px auto;
-            box-sizing: border-box; /* 패딩을 너비에 포함 */
-            text-align: center; /* 텍스트 중앙 정렬 */
-            position: relative; /* 위치 기준점 설정 */
-            left: 0; /* 왼쪽 위치 조정 */
-            right: 0; /* 오른쪽 위치 조정 */
-            padding-left: 0; /* 왼쪽 패딩 제거 */
-            padding-right: 0; /* 오른쪽 패딩 제거 */
+            box-sizing: border-box;
+            text-align: center;
+            position: relative;
+            left: 0;
+            right: 0;
+            padding-left: 0;
+            padding-right: 0;
         }
         
         .display-box {
             background-color: #fff;
             border-radius: 5px;
-            height: 30px; /* 고정된 높이 */
+            height: 30px;
             padding: 30px 15px;
-            margin: 0 auto; /* 중앙 정렬 */
+            margin: 0 auto;
             position: relative;
-            width: 100%; /* 전체 너비 사용 */
-            box-sizing: border-box; /* 패딩을 너비에 포함 */
-            left: 0; /* 왼쪽 위치 조정 */
-            right: 0; /* 오른쪽 위치 조정 */
+            width: 100%;
+            box-sizing: border-box;
+            left: 0;
+            right: 0;
         }
         
         .display-text {
@@ -103,12 +102,26 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            max-width: 90%; /* 너비 제한 */
+            max-width: 90%;
         }
         
         .options {
             margin-left: 20px;
             margin-top: 20px;
+            text-align: left;
+            max-height: 400px;
+            overflow-y: auto;
+            padding-right: 20px;
+        }
+        
+        .category {
+            margin-top: 30px;
+            margin-bottom: 15px;
+            color: #4b8be0;
+            font-weight: bold;
+            font-size: 1.2em;
+            border-bottom: 1px solid rgba(75, 139, 224, 0.3);
+            padding-bottom: 5px;
         }
         
         .option {
@@ -141,6 +154,7 @@
             cursor: pointer;
             display: block;
             margin: auto;
+            margin-top: 30px;
             margin-bottom: 60px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
             transition: transform 0.2s, background-color 0.2s;
@@ -156,18 +170,17 @@
             transform: translateY(1px);
         }
         
-        /* 모바일 환경을 위한 추가 스타일 */
         @media (max-width: 480px) {
             body {
-                padding: 10px 5px; /* 좌우 패딩 줄임 */
+                padding: 10px 5px;
                 font-size: 13px;
             }
             h1 {
                 font-size: 1.4em;
             }
             .quiz-container {
-                padding: 15px 10px; /* 좌우 패딩 줄임 */
-                width: 95%; /* 모바일에서 더 넓게 */
+                padding: 15px 10px;
+                width: 95%;
                 max-width: 95%;
                 margin-left: auto;
                 margin-right: auto;
@@ -176,7 +189,10 @@
                 font-size: 0.9em;
             }
             .display-box {
-                padding: 15px 10px; /* 좌우 패딩 줄임 */
+                padding: 15px 10px;
+            }
+            .category {
+                font-size: 1.1em;
             }
         }
     </style>
@@ -193,27 +209,190 @@
 
         <button id="check-answers">정답 확인하기</button>
         
-        <div class="options" style="text-align: left;">
+        <div class="options">
+            <!-- 엘리자베스 관련 -->
+            <div class="category">엘리자베스 관련</div>
             <div class="option">
-                <input type="radio" id="option1" name="answer" value="정답A" data-answer="true">
-                <label for="option1">정답 A</label>
+                <input type="radio" id="elizabeth-room" name="answer" value="엘리자베스의 방" data-answer="true">
+                <label for="elizabeth-room">엘리자베스의 방</label>
             </div>
             <div class="option">
-                <input type="radio" id="option2" name="answer" value="정답B" data-answer="true">
-                <label for="option2">정답 B</label>
+                <input type="radio" id="elizabeth-door" name="answer" value="엘리자베스의 방 출입문" data-answer="true">
+                <label for="elizabeth-door">엘리자베스의 방 출입문</label>
             </div>
             <div class="option">
-                <input type="radio" id="option3" name="answer" value="오답C" data-answer="false">
-                <label for="option3">오답 C</label>
+                <input type="radio" id="elizabeth-window" name="answer" value="엘리자베스의 방 창문" data-answer="true">
+                <label for="elizabeth-window">엘리자베스의 방 창문</label>
             </div>
             <div class="option">
-                <input type="radio" id="option4" name="answer" value="오답D" data-answer="false">
-                <label for="option4">오답 D</label>
+                <input type="radio" id="elizabeth-key" name="answer" value="엘리자베스의 열쇠" data-answer="true">
+                <label for="elizabeth-key">엘리자베스의 열쇠</label>
+            </div>
+            <div class="option">
+                <input type="radio" id="elizabeth-bed" name="answer" value="엘리자베스의 침대" data-answer="true">
+                <label for="elizabeth-bed">엘리자베스의 침대</label>
+            </div>
+            <div class="option">
+                <input type="radio" id="elizabeth-body" name="answer" value="엘리자베스의 시체" data-answer="true">
+                <label for="elizabeth-body">엘리자베스의 시체</label>
+            </div>
+            <div class="option">
+                <input type="radio" id="elizabeth-knife" name="answer" value="시체에 꽂혀있는 나이프" data-answer="true">
+                <label for="elizabeth-knife">시체에 꽂혀있는 나이프</label>
+            </div>
+            <div class="option">
+                <input type="radio" id="elizabeth-bottle" name="answer" value="엘리자베스의 작은 병" data-answer="true">
+                <label for="elizabeth-bottle">엘리자베스의 작은 병</label>
+            </div>
+
+            <!-- 예배당 관련 -->
+            <div class="category">예배당 관련</div>
+            <div class="option">
+                <input type="radio" id="chapel" name="answer" value="예배당" data-answer="true">
+                <label for="chapel">예배당</label>
+            </div>
+            <div class="option">
+                <input type="radio" id="chapel-body" name="answer" value="예배당의 타버린 시체" data-answer="true">
+                <label for="chapel-body">예배당의 타버린 시체</label>
+            </div>
+            <div class="option">
+                <input type="radio" id="chapel-knife" name="answer" value="예배당의 성스러운 나이프" data-answer="true">
+                <label for="chapel-knife">예배당의 성스러운 나이프</label>
+            </div>
+            <div class="option">
+                <input type="radio" id="chapel-tablet" name="answer" value="예배당 입구의 석판" data-answer="true">
+                <label for="chapel-tablet">예배당 입구의 석판</label>
+            </div>
+            <div class="option">
+                <input type="radio" id="chapel-coffin" name="answer" value="예배당에 놓여져 있는 관" data-answer="true">
+                <label for="chapel-coffin">예배당에 놓여져 있는 관</label>
+            </div>
+
+            <!-- 마구간 관련 -->
+            <div class="category">마구간 관련</div>
+            <div class="option">
+                <input type="radio" id="stable-horse" name="answer" value="마구간의 말" data-answer="true">
+                <label for="stable-horse">마구간의 말</label>
+            </div>
+            <div class="option">
+                <input type="radio" id="stable-broom" name="answer" value="마구간의 빗자루" data-answer="true">
+                <label for="stable-broom">마구간의 빗자루</label>
+            </div>
+            <div class="option">
+                <input type="radio" id="stable-teacup" name="answer" value="마구간의 찻잔 파편" data-answer="true">
+                <label for="stable-teacup">마구간의 찻잔 파편</label>
+            </div>
+            <div class="option">
+                <input type="radio" id="stable-body" name="answer" value="마구간의 시체" data-answer="true">
+                <label for="stable-body">마구간의 시체</label>
+            </div>
+
+            <!-- 식당, 주방 관련 -->
+            <div class="category">식당, 주방 관련</div>
+            <div class="option">
+                <input type="radio" id="dining-tablecloth" name="answer" value="식당의 테이블보" data-answer="true">
+                <label for="dining-tablecloth">식당의 테이블보</label>
+            </div>
+            <div class="option">
+                <input type="radio" id="dining-teapot" name="answer" value="식당의 홍차포트" data-answer="true">
+                <label for="dining-teapot">식당의 홍차포트</label>
+            </div>
+            <div class="option">
+                <input type="radio" id="kitchen-garbage" name="answer" value="주방의 쓰레기봉투" data-answer="true">
+                <label for="kitchen-garbage">주방의 쓰레기봉투</label>
+            </div>
+
+            <!-- 인물 관련 -->
+            <div class="category">인물 관련</div>
+            <div class="option">
+                <input type="radio" id="alice" name="answer" value="소녀 앨리스" data-answer="true">
+                <label for="alice">소녀 앨리스</label>
+            </div>
+            <div class="option">
+                <input type="radio" id="alice-ribbon" name="answer" value="앨리스의 리본" data-answer="true">
+                <label for="alice-ribbon">앨리스의 리본</label>
+            </div>
+            <div class="option">
+                <input type="radio" id="noah" name="answer" value="신의 아이 노아" data-answer="true">
+                <label for="noah">신의 아이 노아</label>
+            </div>
+            <div class="option">
+                <input type="radio" id="oscar" name="answer" value="시종 오스카" data-answer="true">
+                <label for="oscar">시종 오스카</label>
+            </div>
+            <div class="option">
+                <input type="radio" id="oscar-knife" name="answer" value="오스카의 나이프" data-answer="true">
+                <label for="oscar-knife">오스카의 나이프</label>
+            </div>
+            <div class="option">
+                <input type="radio" id="oscar-id" name="answer" value="오스카의 신분증명서" data-answer="true">
+                <label for="oscar-id">오스카의 신분증명서</label>
+            </div>
+            <div class="option">
+                <input type="radio" id="jack" name="answer" value="상인 잭" data-answer="true">
+                <label for="jack">상인 잭</label>
+            </div>
+            <div class="option">
+                <input type="radio" id="jack-bag" name="answer" value="잭의 가방" data-answer="true">
+                <label for="jack-bag">잭의 가방</label>
+            </div>
+            <div class="option">
+                <input type="radio" id="claire" name="answer" value="퇴마사 클레어" data-answer="true">
+                <label for="claire">퇴마사 클레어</label>
+            </div>
+            <div class="option">
+                <input type="radio" id="claire-knife" name="answer" value="클레어의 나이프" data-answer="true">
+                <label for="claire-knife">클레어의 나이프</label>
+            </div>
+            <div class="option">
+                <input type="radio" id="claire-ribbon" name="answer" value="클레어의 리본" data-answer="true">
+                <label for="claire-ribbon">클레어의 리본</label>
+            </div>
+            <div class="option">
+                <input type="radio" id="richard" name="answer" value="자칭 탐정 리처드" data-answer="true">
+                <label for="richard">자칭 탐정 리처드</label>
+            </div>
+            <div class="option">
+                <input type="radio" id="richard-sheath" name="answer" value="리처드의 칼집" data-answer="true">
+                <label for="richard-sheath">리처드의 칼집</label>
+            </div>
+
+            <!-- 기타 저택 관련 -->
+            <div class="category">기타 저택 관련</div>
+            <div class="option">
+                <input type="radio" id="immortal-book" name="answer" value="불로불사의 책" data-answer="true">
+                <label for="immortal-book">불로불사의 책</label>
+            </div>
+            <div class="option">
+                <input type="radio" id="devil-book" name="answer" value="악마의 책" data-answer="true">
+                <label for="devil-book">악마의 책</label>
+            </div>
+            <div class="option">
+                <input type="radio" id="angel-doll" name="answer" value="중앙 홀의 천사 인형" data-answer="true">
+                <label for="angel-doll">중앙 홀의 천사 인형</label>
+            </div>
+            <div class="option">
+                <input type="radio" id="carriage" name="answer" value="저택 주변의 마차" data-answer="true">
+                <label for="carriage">저택 주변의 마차</label>
+            </div>
+            <div class="option">
+                <input type="radio" id="library-painting" name="answer" value="서재의 그림" data-answer="true">
+                <label for="library-painting">서재의 그림</label>
+            </div>
+            <div class="option">
+                <input type="radio" id="chandelier" name="answer" value="샹들리에" data-answer="true">
+                <label for="chandelier">샹들리에</label>
+            </div>
+            <div class="option">
+                <input type="radio" id="servant" name="answer" value="하인" data-answer="true">
+                <label for="servant">하인</label>
+            </div>
+            <div class="option">
+                <input type="radio" id="basement-body" name="answer" value="지하실의 시체" data-answer="true">
+                <label for="basement-body">지하실의 시체</label>
             </div>
         </div>
     </div>
-    
-
     
     <script>
         // 라디오 버튼이 선택될 때마다 표시 영역에 값 업데이트
