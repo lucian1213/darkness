@@ -686,32 +686,32 @@
                 line3.className = 'result-line';
                 line3.textContent = hasSpirit ? '있습니다.' : '없습니다.';
                 
+                // 돌아가기 버튼 (애니메이션 후에 나타남)
+                const returnButton = document.createElement('div');
+                returnButton.className = 'result-line return-button-container';
+                returnButton.style.animationDelay = '3.5s'; // 메시지 애니메이션 후에 나타남
+                
+                const actualButton = document.createElement('button');
+                actualButton.textContent = '처음으로 돌아가기';
+                actualButton.className = 'return-button';
+                actualButton.style.position = 'relative'; // 상대 위치로 변경
+                actualButton.style.marginTop = '30px';
+                actualButton.addEventListener('click', function() {
+                    location.reload();
+                });
+                
+                returnButton.appendChild(actualButton);
+                
                 resultLineContainer.appendChild(line1);
                 resultLineContainer.appendChild(line2);
                 resultLineContainer.appendChild(line3);
+                resultLineContainer.appendChild(returnButton);
                 
                 resultText.appendChild(resultLineContainer);
                 
                 // 컨테이너에 이미지와 텍스트 추가
                 resultContainer.appendChild(resultImage);
                 resultContainer.appendChild(resultText);
-                
-                // 돌아가기 버튼 추가 (이미지 안에 넣기)
-                const returnButton = document.createElement('button');
-                returnButton.textContent = '처음으로 돌아가기';
-                returnButton.className = 'return-button';
-                returnButton.style.position = 'absolute';
-                returnButton.style.bottom = '20%';
-                returnButton.style.left = '50%';
-                returnButton.style.transform = 'translateX(-50%)';
-                returnButton.style.zIndex = '10';
-                returnButton.addEventListener('click', function() {
-                    // 페이지 새로고침으로 초기 상태로 돌아가기
-                    location.reload();
-                });
-                
-                // 돌아가기 버튼을 결과 텍스트 안에 추가
-                resultText.appendChild(returnButton);
                 
                 contentFrame.appendChild(resultContainer);
                 
