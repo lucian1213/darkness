@@ -57,6 +57,15 @@
             text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
             font-size: 1.2em; /* h3 크기 조정 */
         }
+
+        .subtitle {
+            font-size: 0.9em;
+            color: #ddd;
+            text-align: center;
+            margin-top: -10px;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
         
         .quiz-container {
             background-color: rgba(30, 30, 30, 0);
@@ -235,7 +244,7 @@
 </head>
 <body>
     <h1>이 어둠을 당신과 중간 추리 채점</h1>
-    
+    <p class="subtitle">※해당하는 사항을 모두 체크해주세요.</p>
     <!-- 배경 이미지 컨테이너 제거하고 body 배경으로 설정 -->
     
     <div class="quiz-container">
@@ -662,7 +671,7 @@
                 // 슬롯 머신 효과 시작
                 createSlotMachine();
                 
-            }, 9500); // 로딩 시간 단축 (3초)
+            }, 6500); // 로딩 시간 단축 (3초)
         });
     </script>
 </body>
