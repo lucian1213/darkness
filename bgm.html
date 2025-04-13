@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이어둠을당신과 BGM 페이지</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .intro {
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        .player-container {
+            margin: 20px 0;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+        }
+        .story-text {
+            white-space: pre-line;
+            line-height: 1.8;
+            font-size: 16px;
+            margin: 20px 0;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            border-left: 4px solid #007bff;
+        }
+        .normal-text {
+            white-space: pre-line;
+            line-height: 1.8;
+            font-size: 16px;
+            margin: 20px 0;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            border-left: none
+        }
+        .player-title {
+            margin-bottom: 10px;
+            color: #333;
+        }
+        audio {
+            width: 100%;
+            margin: 10px 0;
+        }
+    </style>
+    <script>
+document.addEventListener('DOMContentLoaded', function() {
+    const players = document.getElementsByClassName('audio-player');
+    const normalPlayers = Array.from(players).filter(player => !player.classList.contains('independent-player'));
+    const independentPlayers = Array.from(players).filter(player => player.classList.contains('independent-player'));
+    
+    // 일반 플레이어 컨트롤
+    normalPlayers.forEach(player => {
+        player.addEventListener('play', function() {
+            normalPlayers.forEach(otherPlayer => {
+                if(otherPlayer !== player) {
+                    otherPlayer.pause();
+                }
+            });
+        });
+    });
+
+    // 독립 플레이어 볼륨 컨트롤
+    independentPlayers.forEach(player => {
+        // 재생 시작할 때
+        player.addEventListener('play', function() {
+            normalPlayers.forEach(normalPlayer => {
+                if(!normalPlayer.paused) {
+                    // 현재 재생 중인 일반 플레이어의 볼륨을 50%로 줄임
+                    normalPlayer.volume = 0.5;
+                }
+            });
+        });
+
+        // 재생 끝났을 때
+        player.addEventListener('ended', function() {
+            normalPlayers.forEach(normalPlayer => {
+                // 일반 플레이어의 볼륨을 100%로 복구
+                normalPlayer.volume = 1.0;
+            });
+        });
+    });
+});
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="intro">
+            <h1>이어둠을 당신과 BGM 페이지</h1>
+
+
+        </div>
+
+        <div class="player-container">
+            <h3 class="player-title">오프닝</h3>
+            <audio controls loop class="audio-player">
+                <source src="bgm/OP.mp3" type="audio/mpeg">
+                브라우저가 오디오 재생을 지원하지 않습니다.
+            </audio>
+        </div>
+
+
+        <div class="player-container">
+            <h3 class="player-title">규칙확인</h3>
+            <audio controls loop class="audio-player">
+                <source src="bgm/rule.mp3" type="audio/mpeg">
+                브라우저가 오디오 재생을 지원하지 않습니다.
+            </audio>
+        </div>
+    
+        <div class="player-container">
+            <h3 class="player-title">핸드아웃 숙지</h3>
+            <audio controls loop class="audio-player">
+                <source src="bgm/HO.mp3" type="audio/mpeg">
+                브라우저가 오디오 재생을 지원하지 않습니다.
+            </audio>
+        </div>
+    
+           <div class="player-container">
+            <h3 class="player-title">오프닝대본</h3>
+            <audio controls loop class="audio-player">
+                <source src="bgm/op1.mp3" type="audio/mpeg">
+                브라우저가 오디오 재생을 지원하지 않습니다.
+            </audio>
+        </div>
+   
+    <div class="player-container">
+            <h3 class="player-title">노크</h3>
+            <audio controls class="audio-player independent-player">
+                <source src="bgm/noc.mp3" type="audio/mpeg">
+                브라우저가 오디오 재생을 지원하지 않습니다.
+            </audio>
+        </div>
+
+           <div class="player-container">
+            <h3 class="player-title">탐정등장</h3>
+            <audio controls loop class="audio-player">
+                <source src="bgm/detective.mp3" type="audio/mpeg">
+                브라우저가 오디오 재생을 지원하지 않습니다.
+            </audio>
+        </div>
+
+           <div class="player-container">
+            <h3 class="player-title">전반부</h3>
+            <audio controls loop class="audio-player">
+                <source src="bgm/first.mp3" type="audio/mpeg">
+                브라우저가 오디오 재생을 지원하지 않습니다.
+            </audio>
+        </div>
+           <div class="player-container">
+            <h3 class="player-title">중간대본</h3>
+            <audio controls loop class="audio-player">
+                <source src="bgm/middle.mp3" type="audio/mpeg">
+                브라우저가 오디오 재생을 지원하지 않습니다.
+            </audio>
+        </div>
+
+           <div class="player-container">
+            <h3 class="player-title">중간대본2</h3>
+            <audio controls loop class="audio-player">
+                <source src="bgm/middle2.mp3" type="audio/mpeg">
+                브라우저가 오디오 재생을 지원하지 않습니다.
+            </audio>
+        </div>
+
+    <div class="player-container">
+            <h3 class="player-title">샹들리에</h3>
+            <audio controls class="audio-player independent-player">
+                <source src="bgm/broken.mp3" type="audio/mpeg">
+                브라우저가 오디오 재생을 지원하지 않습니다.
+            </audio>
+        </div>
+
+
+           <div class="player-container">
+            <h3 class="player-title">중간대본3</h3>
+            <audio controls loop class="audio-player">
+                <source src="bgm/middle3.mp3" type="audio/mpeg">
+                브라우저가 오디오 재생을 지원하지 않습니다.
+            </audio>
+        </div>
+
+            <div class="player-container">
+            <h3 class="player-title">추리발표</h3>
+            <audio controls loop class="audio-player">
+                <source src="bgm/detective.mp3" type="audio/mpeg">
+                브라우저가 오디오 재생을 지원하지 않습니다.
+            </audio>
+        </div>
+
+                 <div class="player-container">
+            <h3 class="player-title">후반부</h3>
+            <audio controls loop class="audio-player">
+                <source src="bgm/second.mp3" type="audio/mpeg">
+                브라우저가 오디오 재생을 지원하지 않습니다.
+            </audio>
+        </div>
+
+                 <div class="player-container">
+            <h3 class="player-title">10분전</h3>
+            <audio controls loop class="audio-player">
+                <source src="bgm/10.mp3" type="audio/mpeg">
+                브라우저가 오디오 재생을 지원하지 않습니다.
+            </audio>
+        </div>
+    
+
+
+
+</body>
+</html>
