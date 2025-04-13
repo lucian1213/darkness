@@ -91,94 +91,29 @@
             padding-right: 0;
         }
         
-        .display-box {
+        .input-box {
             background-color: #fff;
             border-radius: 5px;
-            height: 30px;
-            padding: 30px 15px;
-            margin: 0 auto;
+            padding: 15px;
+            margin: 0 auto 20px;
             position: relative;
             width: 100%;
             box-sizing: border-box;
-            left: 0;
-            right: 0;
         }
         
-        .display-text {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: #000;
-            font-weight: bold;
+        .input-field {
+            width: 100%;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 3px;
+            font-family: 'GowunBatang', serif;
             font-size: 1.1em;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            max-width: 90%;
-        }
-        
-        .options {
-            margin-left: 20px;
-            margin-top: 20px;
-            margin-bottom: 65px;
-            text-align: center;
-            max-height: 600px;
-            overflow-y: auto;
-            padding-right: 20px;
-        }
-        
-        .category {
-            margin-top: 30px;
-            margin-bottom: 15px;
-            color: #f2e2cc;
-            font-weight: bold;
-            font-size: 1.2em;
-            border-bottom: 1px solid rgba(242, 226, 204, 0.3);
-            padding-bottom: 5px;
-        }
-        
-        .option {
-            margin: 10px 0;
-            display: flex;
-            align-items: center;
-        }
-        
-        .option label {
-            margin-left: 10px;
-            cursor: pointer;
-            color: #ddd;
-            font-size: 0.95em;
-        }
-        
-        .option input[type="radio"] {
-            accent-color: #f2e2cc;
-            width: 18px;
-            height: 18px;
-            cursor: pointer;
-        }
-
-        .options::-webkit-scrollbar {
-          width: 10px; /* 스크롤바 너비 */
-        }
-
-        .options::-webkit-scrollbar-track {
-          background: rgba(0, 0, 0, 0.2); /* 스크롤바 트랙 배경색 */
-          border-radius: 5px;
-        }
-
-        .options::-webkit-scrollbar-thumb {
-          background: #f2e2cc; /* 스크롤바 색상 변경 */
-          border-radius: 5px;
-        }
-
-        .options::-webkit-scrollbar-thumb:hover {
-          background: #e0d0b8; /* 마우스 오버시 약간 어두운 색상 */
+            box-sizing: border-box;
         }
         
         button {
             background-color: #f2e2cc;
-            color: #333; /* 버튼 텍스트 색상을 어둡게 변경 */
+            color: #333;
             border: none;
             padding: 12px 25px;
             font-size: 14px;
@@ -255,11 +190,8 @@
                 margin-left: auto;
                 margin-right: auto;
             }
-            .option label {
+            .input-field {
                 font-size: 0.9em;
-            }
-            .display-box {
-                padding: 15px 10px;
             }
             .category {
                 font-size: 1.1em;
@@ -272,204 +204,20 @@
     
     <div class="quiz-container">
         <div class="instructions">
-            <p>· 확인하고 싶은 항목을 선택한 후,<br>확인하기 버튼을 눌러주세요.</p>
-            <p>· 만약 확인하고 싶은 그릇이 목록에 없다면 그곳에는<br>영혼이 있을 가능성이 없는 것이라고 생각해주세요.</p>
+            <p>· 확인하고 싶은 대상을 입력한 후,<br>확인하기 버튼을 눌러주세요.</p>
+            <p>· 영혼이 있을 가능성이 있는 대상을 정확히 입력해주세요.</p>
             <p>· 확인이 가능한 횟수는 2번까지 입니다.<br>신중하게 확인해주세요.</p>
         </div>
         <div id="check-count-display" class="check-count">
             확인 가능 횟수 (0/2)
         </div>
         <div class="display-container">
-            <div class="display-box">
-                <div id="display-text" class="display-text">선택한 항목이 여기에 표시됩니다</div>
+            <div class="input-box">
+                <input type="text" id="answer-input" class="input-field" placeholder="확인할 대상을 입력하세요">
             </div>
         </div>
 
         <button id="check-answers">영혼 확인하기</button>
-        
-        <div class="options">
-            <!-- 엘리자베스 관련 -->
-            <div class="category">엘리자베스 관련</div>
-            <div class="option">
-                <input type="radio" id="elizabeth-room" name="answer" value="엘리자베스의 방" data-answer="true">
-                <label for="elizabeth-room">엘리자베스의 방</label>
-            </div>
-            <div class="option">
-                <input type="radio" id="elizabeth-door" name="answer" value="엘리자베스의 방 출입문" data-answer="true">
-                <label for="elizabeth-door">엘리자베스의 방 출입문</label>
-            </div>
-            <div class="option">
-                <input type="radio" id="elizabeth-window" name="answer" value="엘리자베스의 방 창문" data-answer="true">
-                <label for="elizabeth-window">엘리자베스의 방 창문</label>
-            </div>
-            <div class="option">
-                <input type="radio" id="elizabeth-key" name="answer" value="엘리자베스의 열쇠" data-answer="true">
-                <label for="elizabeth-key">엘리자베스의 열쇠</label>
-            </div>
-            <div class="option">
-                <input type="radio" id="elizabeth-bed" name="answer" value="엘리자베스의 침대" data-answer="true">
-                <label for="elizabeth-bed">엘리자베스의 침대</label>
-            </div>
-            <div class="option">
-                <input type="radio" id="elizabeth-body" name="answer" value="엘리자베스의 시체" data-answer="true">
-                <label for="elizabeth-body">엘리자베스의 시체</label>
-            </div>
-            <div class="option">
-                <input type="radio" id="elizabeth-knife" name="answer" value="시체에 꽂혀있는 나이프" data-answer="true">
-                <label for="elizabeth-knife">시체에 꽂혀있는 나이프</label>
-            </div>
-            <div class="option">
-                <input type="radio" id="elizabeth-bottle" name="answer" value="엘리자베스의 작은 병" data-answer="true">
-                <label for="elizabeth-bottle">엘리자베스의 작은 병</label>
-            </div>
-
-            <!-- 예배당 관련 -->
-            <div class="category">예배당 관련</div>
-            <div class="option">
-                <input type="radio" id="chapel" name="answer" value="예배당" data-answer="true">
-                <label for="chapel">예배당</label>
-            </div>
-            <div class="option">
-                <input type="radio" id="chapel-body" name="answer" value="예배당의 타버린 시체" data-answer="true">
-                <label for="chapel-body">예배당의 타버린 시체</label>
-            </div>
-            <div class="option">
-                <input type="radio" id="chapel-knife" name="answer" value="예배당의 성스러운 나이프" data-answer="true">
-                <label for="chapel-knife">예배당의 성스러운 나이프</label>
-            </div>
-            <div class="option">
-                <input type="radio" id="chapel-tablet" name="answer" value="예배당 입구의 석판" data-answer="true">
-                <label for="chapel-tablet">예배당 입구의 석판</label>
-            </div>
-            <div class="option">
-                <input type="radio" id="chapel-coffin" name="answer" value="예배당에 놓여져 있는 관" data-answer="true">
-                <label for="chapel-coffin">예배당에 놓여져 있는 관</label>
-            </div>
-
-            <!-- 마구간 관련 -->
-            <div class="category">마구간 관련</div>
-            <div class="option">
-                <input type="radio" id="stable-horse" name="answer" value="마구간의 말" data-answer="true">
-                <label for="stable-horse">마구간의 말</label>
-            </div>
-            <div class="option">
-                <input type="radio" id="stable-broom" name="answer" value="마구간의 빗자루" data-answer="true">
-                <label for="stable-broom">마구간의 빗자루</label>
-            </div>
-            <div class="option">
-                <input type="radio" id="stable-teacup" name="answer" value="마구간의 찻잔 파편" data-answer="true">
-                <label for="stable-teacup">마구간의 찻잔 파편</label>
-            </div>
-            <div class="option">
-                <input type="radio" id="stable-body" name="answer" value="마구간의 시체" data-answer="true">
-                <label for="stable-body">마구간의 시체</label>
-            </div>
-
-            <!-- 식당, 주방 관련 -->
-            <div class="category">식당, 주방 관련</div>
-            <div class="option">
-                <input type="radio" id="dining-tablecloth" name="answer" value="식당의 테이블보" data-answer="true">
-                <label for="dining-tablecloth">식당의 테이블보</label>
-            </div>
-            <div class="option">
-                <input type="radio" id="dining-teapot" name="answer" value="식당의 홍차포트" data-answer="true">
-                <label for="dining-teapot">식당의 홍차포트</label>
-            </div>
-            <div class="option">
-                <input type="radio" id="kitchen-garbage" name="answer" value="주방의 쓰레기봉투" data-answer="true">
-                <label for="kitchen-garbage">주방의 쓰레기봉투</label>
-            </div>
-
-            <!-- 인물 관련 -->
-            <div class="category">인물 관련</div>
-            <div class="option">
-                <input type="radio" id="alice" name="answer" value="소녀 앨리스" data-answer="true">
-                <label for="alice">소녀 앨리스</label>
-            </div>
-            <div class="option">
-                <input type="radio" id="alice-ribbon" name="answer" value="앨리스의 리본" data-answer="true">
-                <label for="alice-ribbon">앨리스의 리본</label>
-            </div>
-            <div class="option">
-                <input type="radio" id="noah" name="answer" value="신의 아이 노아" data-answer="true">
-                <label for="noah">신의 아이 노아</label>
-            </div>
-            <div class="option">
-                <input type="radio" id="oscar" name="answer" value="시종 오스카" data-answer="true">
-                <label for="oscar">시종 오스카</label>
-            </div>
-            <div class="option">
-                <input type="radio" id="oscar-knife" name="answer" value="오스카의 나이프" data-answer="true">
-                <label for="oscar-knife">오스카의 나이프</label>
-            </div>
-            <div class="option">
-                <input type="radio" id="oscar-id" name="answer" value="오스카의 신분증명서" data-answer="true">
-                <label for="oscar-id">오스카의 신분증명서</label>
-            </div>
-            <div class="option">
-                <input type="radio" id="jack" name="answer" value="상인 잭" data-answer="true">
-                <label for="jack">상인 잭</label>
-            </div>
-            <div class="option">
-                <input type="radio" id="jack-bag" name="answer" value="잭의 가방" data-answer="true">
-                <label for="jack-bag">잭의 가방</label>
-            </div>
-            <div class="option">
-                <input type="radio" id="claire" name="answer" value="퇴마사 클레어" data-answer="true">
-                <label for="claire">퇴마사 클레어</label>
-            </div>
-            <div class="option">
-                <input type="radio" id="claire-knife" name="answer" value="클레어의 나이프" data-answer="true">
-                <label for="claire-knife">클레어의 나이프</label>
-            </div>
-            <div class="option">
-                <input type="radio" id="claire-ribbon" name="answer" value="클레어의 리본" data-answer="true">
-                <label for="claire-ribbon">클레어의 리본</label>
-            </div>
-            <div class="option">
-                <input type="radio" id="richard" name="answer" value="자칭 탐정 리처드" data-answer="true">
-                <label for="richard">자칭 탐정 리처드</label>
-            </div>
-            <div class="option">
-                <input type="radio" id="richard-sheath" name="answer" value="리처드의 칼집" data-answer="true">
-                <label for="richard-sheath">리처드의 칼집</label>
-            </div>
-
-            <!-- 기타 저택 관련 -->
-            <div class="category">기타 저택 관련</div>
-            <div class="option">
-                <input type="radio" id="immortal-book" name="answer" value="불로불사의 책" data-answer="true">
-                <label for="immortal-book">불로불사의 책</label>
-            </div>
-            <div class="option">
-                <input type="radio" id="devil-book" name="answer" value="악마의 책" data-answer="true">
-                <label for="devil-book">악마의 책</label>
-            </div>
-            <div class="option">
-                <input type="radio" id="angel-doll" name="answer" value="중앙 홀의 천사 인형" data-answer="true">
-                <label for="angel-doll">중앙 홀의 천사 인형</label>
-            </div>
-            <div class="option">
-                <input type="radio" id="carriage" name="answer" value="저택 주변의 마차" data-answer="true">
-                <label for="carriage">저택 주변의 마차</label>
-            </div>
-            <div class="option">
-                <input type="radio" id="library-painting" name="answer" value="서재의 그림" data-answer="true">
-                <label for="library-painting">서재의 그림</label>
-            </div>
-            <div class="option">
-                <input type="radio" id="chandelier" name="answer" value="샹들리에" data-answer="true">
-                <label for="chandelier">샹들리에</label>
-            </div>
-            <div class="option">
-                <input type="radio" id="servant" name="answer" value="하인" data-answer="true">
-                <label for="servant">하인</label>
-            </div>
-            <div class="option">
-                <input type="radio" id="basement-body" name="answer" value="지하실의 시체" data-answer="true">
-                <label for="basement-body">지하실의 시체</label>
-            </div>
-        </div>
     </div>
     
     <script>
@@ -506,16 +254,6 @@
         // 페이지 로드 시 확인 횟수 표시 업데이트
         updateCheckCountDisplay();
         
-        // 라디오 버튼이 선택될 때마다 표시 영역에 값 업데이트
-        const radioButtons = document.querySelectorAll('input[type="radio"]');
-        const displayText = document.getElementById('display-text');
-        
-        radioButtons.forEach(radio => {
-            radio.addEventListener('change', function() {
-                displayText.textContent = this.value;
-            });
-        });
-        
         document.getElementById('check-answers').addEventListener('click', function() {
             // 현재 확인 횟수 확인
             const currentCount = getCheckCount();
@@ -526,30 +264,42 @@
                 return;
             }
             
-            const selectedOption = document.querySelector('input[name="answer"]:checked');
+            // 입력된 값 가져오기
+            const inputValue = document.getElementById('answer-input').value.trim();
             
-            // 선택된 항목이 없는 경우
-            if (!selectedOption) {
-                alert('항목을 선택해주세요.');
+            // 입력된 항목이 없는 경우
+            if (!inputValue) {
+                alert('확인할 대상을 입력해주세요.');
                 return;
             }
             
-            // 선택된 항목의 값
-            const selectedValue = selectedOption.value;
+            // 정답 목록 - 7가지 맞는 답변들
+            const correctAnswers = [
+                "자칭탐정",
+                "자칭 탐정",
+                "리처드",
+                "자칭 탐정 리처드", 
+                "자칭탐정리처드", 
+                "탐정리처드", 
+                "탐정"
+            ];
+            
+            // 입력된 값이 정답 목록에 있는지 확인
+            const isCorrect = correctAnswers.includes(inputValue);
+            
+            // 확인 팝업 텍스트 설정 - 정답이면 항상 "자칭 탐정 리처드"로 표시
+            let confirmText = isCorrect ? 
+                "「자칭 탐정 리처드」가 맞습니까?" : 
+                `「${inputValue}」이(가) 맞습니까?`;
             
             // 확인 팝업 표시
-            if (!confirm(`「${selectedValue}」이(가) 맞습니까?`)) {
+            if (!confirm(confirmText)) {
                 return; // 취소 선택 시 함수 종료
             }
             
             // 확인 횟수 증가 및 저장
             const newCount = currentCount + 1;
             saveCheckCount(newCount);
-            
-            let isCorrect = false;
-            
-            // 정답인지 확인 (data-answer 속성 사용)
-            isCorrect = selectedOption.getAttribute('data-answer') === 'true';
             
             // 배경 이미지 제거
             document.body.style.backgroundImage = 'none';
@@ -667,16 +417,18 @@
                 resultText.style.width = '100%';
                 resultText.style.textShadow = '2px 2px 4px rgba(0, 0, 0, 0.8)';
                 
-                // 정답 여부에 따른 결과 메시지 설정 - 영혼이 리처드에게만 있음
-                const isRichard = selectedValue === "자칭 탐정 리처드";
-                const hasSpirit = isRichard;
+                // 정답 여부에 따른 결과 메시지 설정
+                const hasSpirit = isCorrect;
+                
+                // 표시할 대상 이름 (정답이면 항상 "자칭 탐정 리처드"로 표시)
+                const displayName = isCorrect ? "자칭 탐정 리처드" : inputValue;
                 
                 // 애니메이션을 위해 각 줄을 별도의 요소로 분리
                 const resultLineContainer = document.createElement('div');
                 
                 const line1 = document.createElement('div');
                 line1.className = 'result-line';
-                line1.textContent = `「${selectedValue}」에는`;
+                line1.textContent = `「${displayName}」에는`;
                 
                 const line2 = document.createElement('div');
                 line2.className = 'result-line';
