@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>악마 잭 명령</title>
+    <style>
+        @font-face {
+            font-family: 'GowunBatang';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/GowunBatang-Regular.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+        
+        body {
+            font-family: 'GowunBatang', serif;
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 20px;
+            color: #fff;
+            background-color: #000;
+            position: relative;
+            font-size: 14px;
+            background-image: url('dark_long.png');
+            background-repeat: no-repeat;
+            background-position: center top;
+            background-size: 100% 100%;
+            background-attachment: scroll;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+        
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.2);
+            z-index: -1;
+        }
+        
+        /* 결과 애니메이션 스타일 */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .result-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            max-width: 800px;
+            text-align: center;
+        }
+        
+        .result-image {
+            max-width: 100%;
+            display: block;
+            margin: 0 auto;
+        }
+        
+        .result-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #fff;
+            font-size: 24px;
+            font-family: 'GowunBatang', serif;
+            text-align: center;
+            width: 100%;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        }
+        
+        .result-line {
+            opacity: 0;
+            animation: fadeIn 0.8s forwards;
+            line-height: 1.5;
+        }
+        
+        .result-line:nth-child(1) {
+            animation-delay: 3.5s;  /* 3초 지연 + 0.5초 */
+        }
+        
+        .result-line:nth-child(2) {
+            animation-delay: 4.5s;  /* 3초 지연 + 1.5초 */
+        }
+        
+        .result-line:nth-child(3) {
+            animation-delay: 5.5s;  /* 3초 지연 + 2.5초 */
+            color: #ff5555; /* 마지막 줄 빨간색 */
+        }
+        
+        .instructions {
+            opacity: 0;
+            animation: fadeIn 0.8s forwards;
+            animation-delay: 6.5s;  /* 3초 지연 + 3.5초 */
+            font-size: 14px;
+            color: #f2e2cc;
+            margin-top: 30px;
+        }
+        
+        @media (max-width: 480px) {
+            .result-text {
+                font-size: 20px;
+            }
+            
+            .instructions {
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="result-container">
+        <img src="answer.png" alt="배경 이미지" class="result-image">
+        
+        <div class="result-text">
+            <div class="result-line">나는 계약자로서</div>
+            <div class="result-line">악마 잭에게 명령한다.</div>
+            <div class="result-line">지금 당장 능력을 사용해라.</div>
+            
+            <div class="instructions">
+                이 명령을 들은 잭은 무조건<br>
+                능력을 사용해야 합니다.
+            </div>
+        </div>
+    </div>
+</body>
+</html>
