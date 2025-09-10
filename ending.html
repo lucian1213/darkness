@@ -68,7 +68,7 @@
       transform: translateX(-50%);
       top: 125px;      /* 위 여백 */
       bottom: 60px;    /* 아래 여백 */
-      width: min(700px, 90vw);
+      width: min(650px, 90vw);
       display: flex;
       flex-direction: column;
       border-radius: 10px;
@@ -184,10 +184,8 @@
       <div class="description">
         해당 페이지는 다같이 질문을 따라가며 해당하는 엔딩을<br>
         확인하는 페이지입니다.<br>
-        각자의 대사는 해당하는 플레이어가 읽습니다.<br>
-        나레이션은 임의의 사람이 읽습니다.<br><br>
-        모두 페이지에 접속했다면,<br>
-        다음을 눌러 질문을 확인합니다.
+        각자의 대사는 해당하는 플레이어가 읽습니다.<br><br>
+        모두 페이지에 접속했다면, 다음을 눌러 질문을 확인합니다.
       </div>
 
       <button id="next-button" class="btn">다음</button>
@@ -261,8 +259,11 @@
       // 페이드 전환과 함께 새로운 이벤트 리스너 등록
       fadeTransition(newContent, () => {
         document.getElementById('correct-answer').addEventListener('click', () => {
-          alert('정답을 맞췄습니다! 다음 단계로 진행합니다.');
-        });
+          const richardEndingContent = `
+            <h1>이 어둠을 당신과 엔딩 분기</h1>
+            
+            <div class="description">
+              갑자기, 자칭 탐정 리처드가 고개를 들었다. 아무것도 없는 공간을 바라보며, 그가 입을 연다. 그리고... 추리를 
         document.getElementById('incorrect-answer').addEventListener('click', () => {
           alert('아쉽게도 정답을 맞추지 못했습니다.');
         });
