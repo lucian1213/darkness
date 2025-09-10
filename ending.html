@@ -68,7 +68,7 @@
       transform: translateX(-50%);
       top: 125px;      /* 위 여백 */
       bottom: 60px;    /* 아래 여백 */
-      width: min(800px, 95vw);
+      width: min(700px, 90vw);
       display: flex;
       flex-direction: column;
       border-radius: 10px;
@@ -82,6 +82,30 @@
       overflow: auto;
       -webkit-overflow-scrolling: touch;
       padding: 20px;
+      /* 페이드 애니메이션을 위한 설정 */
+      transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* 페이드 아웃 클래스 */
+    .fade-out {
+      opacity: 0 !important;
+      transform: translateY(-10px) !important;
+    }
+
+    /* 페이드 인 클래스 */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(10px);
+      animation: fadeInUp 0.6s ease-out forwards;
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     h1 {
@@ -126,6 +150,18 @@
     .btn:hover { background-color: #4b8be0; transform: translateY(-2px); }
     .btn:active { transform: translateY(1px); }
 
+    /* 버튼 비활성화 상태 */
+    .btn:disabled {
+      background-color: #999;
+      color: #666;
+      cursor: not-allowed;
+      transform: none;
+    }
+    .btn:disabled:hover {
+      background-color: #999;
+      transform: none;
+    }
+
     /* 모바일 튜닝 */
     @media (max-width: 480px) {
       .content-inner { padding: 16px; }
@@ -157,10 +193,42 @@
   </div>
 
   <script>
+    // 페이드 전환 함수
+    function fadeTransition(newContent, callback) {
+      const content = document.getElementById('content');
+      const nextButton = document.getElementById('next-button');
+      
+      // 버튼 비활성화
+      if (nextButton) {
+        nextButton.disabled = true;
+      }
+      
+      // 페이드 아웃
+      content.classList.add('fade-out');
+      
+      setTimeout(() => {
+        // 내용 변경
+        content.innerHTML = newContent;
+        
+        // 페이드 아웃 클래스 제거하고 페이드 인 시작
+        content.classList.remove('fade-out');
+        content.classList.add('fade-in');
+        
+        // 콜백 함수 실행 (이벤트 리스너 등록)
+        if (callback) {
+          callback();
+        }
+        
+        // 페이드 인 완료 후 클래스 제거
+        setTimeout(() => {
+          content.classList.remove('fade-in');
+        }, 600);
+      }, 500); // 페이드 아웃 시간과 동일
+    }
+
     // 페이지 전환 (내부 내용만 교체)
     document.getElementById('next-button').addEventListener('click', function () {
-      const content = document.getElementById('content');
-      content.innerHTML = `
+      const newContent = `
         <h1>이 어둠을 당신과 엔딩 분기</h1>
       
 
@@ -188,14 +256,35 @@
         </div>
       `;
 
-      document.getElementById('correct-answer').addEventListener('click', () => {
-        alert('정답을 맞췄습니다! 다음 단계로 진행합니다.');
-      });
-      document.getElementById('incorrect-answer').addEventListener('click', () => {
-        alert('아쉽게도 정답을 맞추지 못했습니다.');
-      });
-      document.getElementById('previous-branch').addEventListener('click', () => {
-        location.reload();
+      // 페이드 전환과 함께 새로운 이벤트 리스너 등록
+      fadeTransition(newContent, () => {
+        document.getElementById('correct-answer').addEventListener('click', () => {
+          alert('정답을 맞췄습니다! 다음 단계로 진행합니다.');
+        });
+        document.getElementById('incorrect-answer').addEventListener('click', () => {
+          alert('아쉽게도 정답을 맞추지 못했습니다.');
+        });
+        document.getElementById('previous-branch').addEventListener('click', () => {
+          // 페이드 효과와 함께 처음 화면으로 돌아가기
+          const initialContent = `
+            <h1>이 어둠을 당신과 엔딩 분기</h1>
+           
+
+            <div class="description">
+              해당 페이지는 다같이 질문을 따라가며 해당하는 엔딩을<br>
+              확인하는 페이지입니다.<br>
+              각자의 대사는 해당하는 플레이어가 읽습니다.<br><br>
+              모두 페이지에 접속했다면, 다음을 눌러 질문을 확인합니다.
+            </div>
+
+            <button id="next-button" class="btn">다음</button>
+          `;
+          
+          fadeTransition(initialContent, () => {
+            // 처음 화면의 이벤트 리스너 다시 등록
+            document.getElementById('next-button').addEventListener('click', arguments.callee.bind(this));
+          });
+        });
       });
     });
   </script>
