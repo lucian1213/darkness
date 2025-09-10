@@ -14,7 +14,7 @@
 
     html, body {
       height: 100%;
-      overflow: hidden; /* body는 스크롤 금지 */
+      overflow: hidden; /* body 스크롤 금지 */
     }
 
     body {
@@ -25,20 +25,36 @@
       font-size: 14px;
     }
 
-    /* 배경 이미지 */
+    /* 🎯 배경: 블러된 cover + 원본 contain */
     .page-bg {
       position: fixed;
       inset: 0;
       z-index: -2;
-      background-image: url('dark.png');
+      overflow: hidden; /* 블러 배경 삐져나가지 않게 */
+    }
+    .page-bg::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: url('dark_phong.png');
       background-repeat: no-repeat;
-      background-position: center 40%; /* 살짝 위로 */
-      background-size: contain;        /* 전체 이미지 보이게 */
-      background-color: #000;
-      pointer-events: none;
+      background-position: center center;
+      background-size: cover;   /* 화면 전체 덮기 */
+      filter: blur(20px);       /* ✅ 흐림 효과 */
+      transform: scale(1.1);    /* 블러 경계 감추기 */
+    }
+    .page-bg::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: url('your-image-5400px.jpg');
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: contain; /* ✅ 원본 전체 보이게 */
+      background-color: transparent;
     }
 
-    /* 어두운 오버레이 */
+    /* 반투명 오버레이 */
     .bg-overlay {
       position: fixed;
       inset: 0;
@@ -47,19 +63,19 @@
       pointer-events: none;
     }
 
-    /* 고정 컨테이너: 화면 위~아래 사이에 위치 */
+    /* 고정 컨테이너: 화면 위~아래 사이에 고정 */
     .content-container {
       position: fixed;
       left: 50%;
       transform: translateX(-50%);
-      top: 160px;      /* 화면 위에서 떨어진 간격 */
-      bottom: 60px;    /* 화면 아래에서 띄운 간격 */
+      top: 160px;      /* 위 여백 */
+      bottom: 60px;    /* 아래 여백 */
       width: min(800px, 95vw);
       display: flex;
       flex-direction: column;
       border-radius: 10px;
       box-shadow: 0 2px 15px rgba(0, 0, 0, 0.5);
-      background-color: rgba(30,30,30,0); /* 투명 */
+      background-color: rgba(30,30,30,0);
     }
 
     /* 내부 스크롤 영역 */
@@ -129,7 +145,7 @@
   <div class="content-container">
     <div class="content-inner" id="content">
       <h1>이 어둠을 당신과 엔딩 분기</h1>
-      <p class="subtitle">※원하는 엔딩을 선택해주세요.</p>
+     
 
       <div class="description">
         해당 페이지는 다같이 질문을 따라가며 해당하는 엔딩을<br>
@@ -143,24 +159,12 @@
   </div>
 
   <script>
-    // 모바일 주소창 높이 문제 대응: 안정적 vh 계산
-    (function setStableVH() {
-      const setVH = () => {
-        const vh = window.innerHeight * 0.01;
-        document.documentElement.style.setProperty('--vh', `${vh}px`);
-      };
-      setVH();
-      window.addEventListener('orientationchange', () => {
-        setTimeout(setVH, 300);
-      });
-    })();
-
     // 페이지 전환 (내부 내용만 교체)
     document.getElementById('next-button').addEventListener('click', function () {
       const content = document.getElementById('content');
       content.innerHTML = `
         <h1>이 어둠을 당신과 엔딩 분기</h1>
-        <p class="subtitle">※원하는 엔딩을 선택해주세요.</p>
+      
 
         <div class="description">
           <strong>※ 질문</strong><br><br>
