@@ -30,7 +30,7 @@
       position: fixed;
       inset: 0;
       z-index: -2;
-      overflow: hidden; /* 블러 배경 삐져나가지 않게 */
+      overflow: hidden;
     }
     .page-bg::before {
       content: "";
@@ -39,16 +39,16 @@
       background-image: url('');
       background-repeat: no-repeat;
       background-position: center center;
-      background-size: cover;   /* 화면 전체 덮기 */
+      background-size: cover;
     }
     .page-bg::after {
       content: "";
       position: absolute;
       inset: 0;
-      background-image: url('dark_phone.png');
+      background-image: url('dark_phone.png'); /* 경로 필요 시 수정 */
       background-repeat: no-repeat;
       background-position: center 40%;
-      background-size: 100% 97%; /* ✅ 원본 전체 보이게 */
+      background-size: 100% 97%;
       background-color: transparent;
     }
 
@@ -61,13 +61,13 @@
       pointer-events: none;
     }
 
-    /* 고정 컨테이너: 화면 위~아래 사이에 고정 */
+    /* 고정된 컨테이너 */
     .content-container {
       position: fixed;
       left: 50%;
       transform: translateX(-50%);
-      top: 125px;      /* 위 여백 */
-      bottom: 60px;    /* 아래 여백 */
+      top: 125px;
+      bottom: 60px;
       width: min(700px, 90vw);
       display: flex;
       flex-direction: column;
@@ -82,31 +82,15 @@
       overflow: auto;
       -webkit-overflow-scrolling: touch;
       padding: 20px;
-      /* 페이드 애니메이션을 위한 설정 */
       transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
       opacity: 1;
       transform: translateY(0);
     }
 
-    /* 페이드 아웃 클래스 */
-    .fade-out {
-      opacity: 0 !important;
-      transform: translateY(-10px) !important;
-    }
+    .fade-out { opacity: 0 !important; transform: translateY(-10px) !important; }
+    .fade-in { opacity: 0; transform: translateY(10px); animation: fadeInUp 0.6s ease-out forwards; }
 
-    /* 페이드 인 클래스 */
-    .fade-in {
-      opacity: 0;
-      transform: translateY(10px);
-      animation: fadeInUp 0.6s ease-out forwards;
-    }
-
-    @keyframes fadeInUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
+    @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
 
     h1 {
       color: #fff;
@@ -114,14 +98,6 @@
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
       font-size: 1.5em;
       margin: 0 0 10px 0;
-    }
-
-    .subtitle {
-      font-size: 0.9em;
-      color: #ddd;
-      text-align: center;
-      margin: -4px 0 16px 0;
-      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
     }
 
     .description {
@@ -142,27 +118,19 @@
       border-radius: 5px;
       cursor: pointer;
       display: block;
-      margin: 30px auto 20px;
+      margin: 10px auto;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
       transition: transform 0.2s, background-color 0.2s;
       font-family: 'GowunBatang', serif;
+      width: 90%;
+      max-width: 300px;
     }
     .btn:hover { background-color: #4b8be0; transform: translateY(-2px); }
     .btn:active { transform: translateY(1px); }
 
-    /* 버튼 비활성화 상태 */
-    .btn:disabled {
-      background-color: #999;
-      color: #666;
-      cursor: not-allowed;
-      transform: none;
-    }
-    .btn:disabled:hover {
-      background-color: #999;
-      transform: none;
-    }
+    .btn:disabled { background-color: #999; color: #666; cursor: not-allowed; transform: none; }
+    .btn:disabled:hover { background-color: #999; transform: none; }
 
-    /* 모바일 튜닝 */
     @media (max-width: 480px) {
       .content-inner { padding: 16px; }
       h1 { font-size: 1.4em; }
@@ -171,211 +139,821 @@
   </style>
 </head>
 <body>
-  <!-- 배경 + 오버레이 -->
   <div class="page-bg" aria-hidden="true"></div>
   <div class="bg-overlay" aria-hidden="true"></div>
 
-  <!-- 고정된 컨테이너 -->
   <div class="content-container">
     <div class="content-inner" id="content">
       <h1>이 어둠을 당신과 엔딩 분기</h1>
-     
       <div class="description">
-        해당 페이지는 다같이 질문을 따라가며 해당하는 엔딩을<br>
+        해당 페이지는 다같이 검거 결과를 확인하며 해당하는 엔딩을<br>
         확인하는 페이지입니다.<br>
         각자의 대사는 해당하는 플레이어가 읽습니다.<br><br>
-        모두 페이지에 접속했다면, 다음을 눌러 질문을 확인합니다.
+        모두 페이지에 접속했다면, 다음을 눌러 검거 결과를 확인합니다.
       </div>
-
       <button id="next-button" class="btn">다음</button>
     </div>
   </div>
 
   <script>
-    // 페이드 전환 함수
+    /* ================= 공통 전환 유틸 ================= */
     function fadeTransition(newContent, callback) {
       const content = document.getElementById('content');
-      
-      // 현재 활성화된 버튼들 비활성화
-      const buttons = content.querySelectorAll('button');
-      buttons.forEach(btn => btn.disabled = true);
-      
-      // 페이드 아웃
+      content.querySelectorAll('button').forEach(btn => btn.disabled = true);
       content.classList.add('fade-out');
-      
       setTimeout(() => {
-        // 내용 변경
         content.innerHTML = newContent;
-        
-        // 스크롤 위치를 맨 위로 초기화
         content.scrollTop = 0;
-        
-        // 페이드 아웃 클래스 제거하고 페이드 인 시작
         content.classList.remove('fade-out');
         content.classList.add('fade-in');
-        
-        // 콜백 함수 실행 (이벤트 리스너 등록)
-        if (callback) {
-          callback();
-        }
-        
-        // 페이드 인 완료 후 클래스 제거
-        setTimeout(() => {
-          content.classList.remove('fade-in');
-        }, 600);
-      }, 500); // 페이드 아웃 시간과 동일
+        if (callback) callback();
+        setTimeout(() => content.classList.remove('fade-in'), 600);
+      }, 500);
     }
 
-    // 처음 화면으로 돌아가는 함수
+    /* ================= 초기 화면 ================= */
     function goToInitialScreen() {
       const initialContent = `
         <h1>이 어둠을 당신과 엔딩 분기</h1>
-       
         <div class="description">
-          해당 페이지는 다같이 질문을 따라가며 해당하는 엔딩을<br>
+          해당 페이지는 다같이 검거 결과를 확인하며 해당하는 엔딩을<br>
           확인하는 페이지입니다.<br>
           각자의 대사는 해당하는 플레이어가 읽습니다.<br><br>
-          모두 페이지에 접속했다면, 다음을 눌러 질문을 확인합니다.
+          모두 페이지에 접속했다면, 다음을 눌러 검거 결과를 확인합니다.
         </div>
-
         <button id="next-button" class="btn">다음</button>
       `;
-      
-      fadeTransition(initialContent, () => {
-        setupInitialScreen();
-      });
+      fadeTransition(initialContent, setupInitialScreen);
     }
 
-    // 처음 화면 이벤트 설정
     function setupInitialScreen() {
-      document.getElementById('next-button').addEventListener('click', showQuestionScreen);
+      document.getElementById('next-button').addEventListener('click', showVotingResultScreen);
     }
 
-    // 질문 화면 표시
-    function showQuestionScreen() {
+    /* ================= 1) 투표 결과 선택 ================= */
+    function showVotingResultScreen() {
+      const votingContent = `
+        <h1>이 어둠을 당신과 엔딩 분기</h1>
+        <div class="description">
+          <strong>※ 범인 검거 투표 결과</strong><br><br>
+          투표 결과에 따라 해당하는 엔딩을 확인해주세요.<br>
+          최다 득표자 또는 투표 상황에 맞는 버튼을 선택합니다.
+        </div>
+        <div style="margin-top: 30px;">
+          <button id="alice-vote" class="btn">① 소녀 앨리스가 최다 득표</button>
+          <button id="noah-vote" class="btn">② 신의 아이 노아가 최다 득표</button>
+          <button id="oscar-vote" class="btn">③ 시종 오스카가 최다 득표</button>
+          <button id="claire-vote" class="btn">④ 퇴마사 클레어가 최다 득표</button>
+          <button id="jack-vote" class="btn">⑤ 상인 잭이 최다 득표</button>
+          <button id="richard-vote" class="btn">⑥ 자칭 탐정 리차드가 최다 득표</button>
+          <button id="tie-vote" class="btn">⑦ 최다 득표자가 결정되지 않음</button>
+          <button id="abandon-vote" class="btn">⑧ 투표 포기</button>
+          <div style="margin-top: 24px; border-top: 1px solid rgba(255,255,255,0.3); padding-top: 16px;">
+            <button id="previous-branch" class="btn" style="margin-top: 10px;">처음으로</button>
+          </div>
+        </div>
+      `;
+      fadeTransition(votingContent, setupVotingResultScreen);
+    }
+
+    function setupVotingResultScreen() {
+      document.getElementById('alice-vote').addEventListener('click', () => showEnding('alice'));
+      document.getElementById('noah-vote').addEventListener('click', () => showEnding('noah'));
+      document.getElementById('oscar-vote').addEventListener('click', () => showEnding('oscar'));
+      document.getElementById('claire-vote').addEventListener('click', () => showEnding('claire'));
+      document.getElementById('jack-vote').addEventListener('click', () => showEnding('jack'));
+      document.getElementById('richard-vote').addEventListener('click', () => showEnding('richard'));
+      document.getElementById('tie-vote').addEventListener('click', () => showEnding('tie'));
+      document.getElementById('abandon-vote').addEventListener('click', () => showEnding('abandon'));
+      document.getElementById('previous-branch').addEventListener('click', goToInitialScreen);
+    }
+
+    function showEnding(result) {
+      sessionStorage.setItem('votingResult', result);
+      showRichardQuestion();
+    }
+
+    /* ================= 2) 리처드 질문 ================= */
+    function showRichardQuestion() {
       const questionContent = `
         <h1>이 어둠을 당신과 엔딩 분기</h1>
-      
         <div class="description">
           <strong>※ 질문</strong><br><br>
           자칭 탐정 리처드에게 질문입니다.<br>
           범인의 밀실 살인 방법은 무엇이었나요?<br>
           (리처드 답지의 Q3번 답안의 확인)<br><br>
-
           <strong>A. 악마 소환을 통해 밀실에서 빠져나왔다.</strong><br><br>
-
           <span style="font-size: 0.9em; color: #bbb;">
           ※ 의미상으로 「악마 소환을 통해 악마가 마법진 위로 이동하는 것을 이용하여 밀실을 빠져나왔다」 는 것을 지적해야 합니다.<br><br>
           따라서, 답변 내에 「악마 소환」 이나 「마법진」이라는 단어가 있더라도, 예를 들어 「어떤 악마의 힘으로 빠져나왔다」 혹은 「살해한 후 엘리자베스의 방에서 마법진을 그려 악마를 불러내어 밖으로 나가게 해달라고 했다」 등 다른 방법을 답한 경우는 오답으로 처리합니다.
           </span>
         </div>
-
         <div style="margin-top: 30px;">
           <button id="correct-answer" class="btn" style="margin-top:0; margin-bottom: 15px;">정답을 맞췄다</button>
           <button id="incorrect-answer" class="btn" style="margin-bottom: 30px;">정답을 맞추지 못했다</button>
-
           <div style="margin-top: 24px; border-top: 1px solid rgba(255,255,255,0.3); padding-top: 16px;">
             <button id="previous-branch" class="btn" style="margin-top: 10px;">이전 분기로</button>
           </div>
         </div>
       `;
+      fadeTransition(questionContent, setupRichardQuestionScreen);
+    }
 
-      fadeTransition(questionContent, () => {
-        setupQuestionScreen();
+    function setupRichardQuestionScreen() {
+      document.getElementById('correct-answer').addEventListener('click', () => {
+        sessionStorage.setItem('richardAnswer', 'correct');
+        showClaireBranch();
       });
+      document.getElementById('incorrect-answer').addEventListener('click', () => {
+        sessionStorage.setItem('richardAnswer', 'incorrect');
+        showClaireBranch();
+      });
+      document.getElementById('previous-branch').addEventListener('click', showVotingResultScreen);
     }
 
-    // 질문 화면 이벤트 설정
-    function setupQuestionScreen() {
-      document.getElementById('correct-answer').addEventListener('click', showCorrectEnding);
-      document.getElementById('incorrect-answer').addEventListener('click', showIncorrectEnding);
-      document.getElementById('previous-branch').addEventListener('click', goToInitialScreen);
-    }
-
-    // 정답 엔딩
-    function showCorrectEnding() {
-      const correctContent = `
+    /* ================= 3) 클레어 분기 ================= */
+    function showClaireBranch() {
+      const claireContent = `
         <h1>이 어둠을 당신과 엔딩 분기</h1>
-        
         <div class="description">
-          갑자기, 자칭 탐정 리처드가 고개를 들었다. 아무것도 없는 공간을 바라보며, 그가 입을 연다. 그리고... 추리를 선보이기 시작했다.<br><br>
-
-          <strong>자칭 탐정 리처드</strong> 「(다시 한 번, 당신이 생각한 진상(※투표 시의 답변과 동일한 것)을 발표해주세요. 설령 틀렸다고 생각하더라도, 자칭 탐정답게 당당하게 말해주세요. 추리 발표를 마치면 「이상이다」등으로 마무리해주세요.)」<br><br>
-
-          엘리자베스를 죽인 그 방법이 무엇인지… 투표가 끝났다는데도, 갑자기 추리를 선보이는 자칭 탐정. 머리가 이상해진 걸까. 아니, 애초부터 이상했던 걸까?<br><br>
-
-          중앙 홀에 불안한 기운이 가득 찬 그때였다. 그가 바라보고 있던 공간에, 하나의 그림자가 나타난다. 살랑살랑 움직이는 검은 그림자. 배경이 희미하게 비치면서도 분명히 존재하는 것. 그것은 인간이 아닌 것... 악마다.<br><br>
-
-          나타난 악마는 쓴 표정을 지었다.<br><br>
-
-          「아아, 유감스럽게도, 정답이다. 너 같은 자는 지옥에 떨어지는 편이 세상을 위해서, 사람들을 위해서 좋을 텐데...」<br><br>
-
-          악마는 투덜거린 후, 크게 한숨을 내쉬었다.<br><br>
-
-          「뭐, 어쩔 수 없지. 이건 그런 놀이니까, 승자에게는 상을 줘야만 한다. 너에게 영원한 생명을 주겠다. 그 몸은 썩지 않을 것이다. 끝나지 않는 생명을 후회해도 난 모른다.」<br><br>
-
-          그렇게 말을 마치자, 악마는 시시하다는 듯한 표정을 지으며 사라졌다.
+          <strong>퇴마사 클레어와 상인 잭에게 질문입니다.</strong><br><br>
+          답변 페이즈에서,<br>
+          ① 퇴마사 클레어・상인 잭 중 적어도 1명이, 「영혼의 소재」를 「자칭 탐정 리처드」라고 답변했다.<br>
+          ② 퇴마사 클레어가 「영혼 도살을 실행한다.」고 답변했다.<br><br>
         </div>
-
         <div style="margin-top: 30px;">
-          <button id="next-step" class="btn">다음</button>
-          
+          <button id="both-satisfied" class="btn" style="margin-bottom: 15px;">①과②를 모두 만족했다</button>
+          <button id="only-second" class="btn" style="margin-bottom: 15px;">①이 틀리고, ②만 만족했다</button>
+          <button id="no-execution" class="btn" style="margin-bottom: 15px;">①에 관계없이, ②에서 실행하지 않는다고 답변했다</button>
+          <button id="jack-bound" class="btn" style="margin-bottom: 30px;">답변에 상관없이 상인 잭이 구속되어 있다.</button>
+          <div style="margin-top: 20px; font-size: 0.9em; color: #bbb; text-align: center;">
+            ※상인 잭이 구속되어 있으면 「영혼 도살」을 할 수 없다.<br>
+            ※퇴마사 클레어가 구속되어 있어도, 「영혼 도살」은 할 수 있다.
+          </div>
           <div style="margin-top: 24px; border-top: 1px solid rgba(255,255,255,0.3); padding-top: 16px;">
             <button id="previous-branch" class="btn" style="margin-top: 10px;">이전 분기로</button>
           </div>
         </div>
       `;
-
-      fadeTransition(correctContent, () => {
-        document.getElementById('next-step').addEventListener('click', () => {
-          alert('다음 단계로 진행합니다.');
-        });
-        document.getElementById('previous-branch').addEventListener('click', showQuestionScreen);
-      });
+      fadeTransition(claireContent, setupClaireBranchScreen);
     }
 
-    // 오답 엔딩
-    function showIncorrectEnding() {
-      const incorrectContent = `
+    function setupClaireBranchScreen() {
+      document.getElementById('both-satisfied').addEventListener('click', () => {
+        sessionStorage.setItem('claireAnswer', 'both-satisfied');
+        showAliceBranch();
+      });
+      document.getElementById('only-second').addEventListener('click', () => {
+        sessionStorage.setItem('claireAnswer', 'only-second');
+        showAliceBranch();
+      });
+      document.getElementById('no-execution').addEventListener('click', () => {
+        sessionStorage.setItem('claireAnswer', 'no-execution');
+        showAliceBranch();
+      });
+      document.getElementById('jack-bound').addEventListener('click', () => {
+        sessionStorage.setItem('claireAnswer', 'jack-bound');
+        showAliceBranch();
+      });
+      document.getElementById('previous-branch').addEventListener('click', showRichardQuestion);
+    }
+
+    /* ================= 4) 앨리스 분기 ================= */
+    function showAliceBranch() {
+      const aliceContent = `
         <h1>이 어둠을 당신과 엔딩 분기</h1>
-        
         <div class="description">
-          갑자기, 자칭 탐정 리처드가 고개를 들었다. 아무것도 없는 공간을 바라보며, 그가 입을 연다. 그리고... 추리를 선보이기 시작했다.<br><br>
-
-          엘리자베스를 죽인 그 방법이 무엇인지… 투표가 끝났다는데도, 갑자기 추리를 선보이는 자칭 탐정. 머리가 이상해진 걸까. 아니, 애초부터 이상했던 걸까?<br><br>
-
-          중앙 홀에 불안한 기운이 가득 찬 그때였다. 그가 바라보고 있던 공간에, 하나의 그림자가 나타난다. 살랑살랑 움직이는 검은 그림자. 배경이 희미하게 비치면서도 분명히 존재하는 것. 그것은 인간이 아닌 것... 악마다.<br><br>
-
-          나타난 악마는, 미소를 지으며 어깨를 으쓱했다.<br><br>
-
-          「아아, 유감이군. 보아하니, 자네는 밀실의 수수께끼를 풀어내지 못했나 보군. 이 놀이는 자네의 패배다. 자네의 영혼을 본래의 순환으로 되돌리지. 즉... 자네는 지옥에 떨어진다는 뜻이지. 그것도, 지옥 중에서도 가장 고통스러운 곳으로 떨어지겠지. 지옥의 망자들이 기쁘게 자네를 기다리고 있다고.」<br><br>
-
-          악마는, 여전히 아름다운 미소를 띠고 있다.<br><br>
-
-          자칭 탐정 리처드는, 자신의 영혼이 몸에서 벗겨져 나가는 감각을 느낀다. 그것은 현실과 꿈을 오가는 듯한 기분. 천천히 추락하기 시작하는 것처럼. 하지만 아직, 의식은 여기에 남아있다.
+          <strong>소녀 앨리스에게 질문입니다.</strong><br><br>
+          답변 페이즈에서 악마의 능력을 엘리자베스에게 사용한다고 했나요?<br><br>
         </div>
-
         <div style="margin-top: 30px;">
-          <button id="next-step" class="btn">다음</button>
-          
+          <button id="alice-use" class="btn" style="margin-bottom: 15px;">사용한다</button>
+          <button id="alice-not-use" class="btn" style="margin-bottom: 30px;">사용하지 않는다</button>
+          <div style="margin-top: 20px; font-size: 0.9em; color: #bbb; text-align: center;">
+            ※소녀 앨리스는 구속되어 있어도, 능력을 사용하는 것이 가능합니다.
+          </div>
           <div style="margin-top: 24px; border-top: 1px solid rgba(255,255,255,0.3); padding-top: 16px;">
             <button id="previous-branch" class="btn" style="margin-top: 10px;">이전 분기로</button>
           </div>
         </div>
       `;
+      fadeTransition(aliceContent, setupAliceBranchScreen);
+    }
 
-      fadeTransition(incorrectContent, () => {
-        document.getElementById('next-step').addEventListener('click', () => {
-          alert('다음 단계로 진행합니다.');
+    function setupAliceBranchScreen() {
+      document.getElementById('alice-use').addEventListener('click', () => {
+        sessionStorage.setItem('aliceAnswer', 'use');
+        showOscarBranch();
+      });
+      document.getElementById('alice-not-use').addEventListener('click', () => {
+        sessionStorage.setItem('aliceAnswer', 'not-use');
+        showOscarBranch();
+      });
+      document.getElementById('previous-branch').addEventListener('click', showClaireBranch);
+    }
+
+    /* ================= 5) 오스카 분기 ================= */
+    function showOscarBranch() {
+      const oscarContent = `
+        <h1>이 어둠을 당신과 엔딩 분기</h1>
+        <div class="description">
+          <strong>시종 오스카에게 질문입니다.</strong><br><br>
+          답변 페이즈에서 노아의 정체를 무엇이라고 했나요?<br><br>
+        </div>
+        <div style="margin-top: 30px;">
+          <button id="oscar-demon" class="btn" style="margin-bottom: 15px;">악마</button>
+          <button id="oscar-other" class="btn" style="margin-bottom: 30px;">악마 이외 다른 것</button>
+          <div style="margin-top: 24px; border-top: 1px solid rgba(255,255,255,0.3); padding-top: 16px;">
+            <button id="previous-branch" class="btn" style="margin-top: 10px;">이전 분기로</button>
+          </div>
+        </div>
+      `;
+      fadeTransition(oscarContent, setupOscarBranchScreen);
+    }
+
+    function setupOscarBranchScreen() {
+      document.getElementById('oscar-demon').addEventListener('click', () => {
+        sessionStorage.setItem('oscarAnswer', 'demon');
+        showNoahBranch();
+      });
+      document.getElementById('oscar-other').addEventListener('click', () => {
+        sessionStorage.setItem('oscarAnswer', 'other');
+        showNoahBranch();
+      });
+      document.getElementById('previous-branch').addEventListener('click', showAliceBranch);
+    }
+
+    /* ================= 6) 노아 분기 ================= */
+    function showNoahBranch() {
+      const noahContent = `
+        <h1>이 어둠을 당신과 엔딩 분기</h1>
+        <div class="description">
+          <strong>신의 아이 노아에게 질문입니다.</strong><br><br>
+          시종 오스카에게 악마 계약을 제안하시겠습니까?<br><br>
+        </div>
+        <div style="margin-top: 30px;">
+          <button id="noah-yes" class="btn" style="margin-bottom: 15px;">네</button>
+          <button id="noah-no" class="btn" style="margin-bottom: 30px;">아니오</button>
+          <div style="margin-top: 24px; border-top: 1px solid rgba(255,255,255,0.3); padding-top: 16px;">
+            <button id="previous-branch" class="btn" style="margin-top: 10px;">이전 분기로</button>
+          </div>
+        </div>
+      `;
+      fadeTransition(noahContent, setupNoahBranchScreen);
+    }
+
+    function setupNoahBranchScreen() {
+      document.getElementById('noah-yes').addEventListener('click', () => {
+        sessionStorage.setItem('noahAnswer', 'yes');
+        showOscarContractBranch();
+      });
+      document.getElementById('noah-no').addEventListener('click', () => {
+        sessionStorage.setItem('noahAnswer', 'no');
+        showFinalEnding();
+      });
+      document.getElementById('previous-branch').addEventListener('click', showOscarBranch);
+    }
+
+    /* ================= 7) 오스카 계약(노아=네) ================= */
+    function showOscarContractBranch() {
+      const oscarContractContent = `
+        <h1>이 어둠을 당신과 엔딩 분기</h1>
+        <div class="description">
+          <strong>시종 오스카에게 질문입니다.</strong><br><br>
+          신의 아이 노아와 악마 계약을 하시겠습니까?<br><br>
+        </div>
+        <div style="margin-top: 30px;">
+          <button id="oscar-contract-yes" class="btn" style="margin-bottom: 15px;">네</button>
+          <button id="oscar-contract-no" class="btn" style="margin-bottom: 30px;">아니오</button>
+          <div style="margin-top: 24px; border-top: 1px solid rgba(255,255,255,0.3); padding-top: 16px;">
+            <button id="previous-branch" class="btn" style="margin-top: 10px;">이전 분기로</button>
+          </div>
+        </div>
+      `;
+      fadeTransition(oscarContractContent, setupOscarContractBranchScreen);
+    }
+
+    function setupOscarContractBranchScreen() {
+      document.getElementById('oscar-contract-yes').addEventListener('click', () => {
+        sessionStorage.setItem('oscarContractAnswer', 'yes');
+        showFinalEnding();
+      });
+      document.getElementById('oscar-contract-no').addEventListener('click', () => {
+        sessionStorage.setItem('oscarContractAnswer', 'no');
+        showFinalEnding();
+      });
+      document.getElementById('previous-branch').addEventListener('click', showNoahBranch);
+    }
+
+    /* ================= 최종(공통) 엔딩 ================= */
+    function showFinalEnding() {
+      const votingResult = sessionStorage.getItem('votingResult');
+      const richardAnswer = sessionStorage.getItem('richardAnswer');
+      const claireAnswer  = sessionStorage.getItem('claireAnswer');
+      const aliceAnswer   = sessionStorage.getItem('aliceAnswer');
+      const oscarAnswer   = sessionStorage.getItem('oscarAnswer');
+      const noahAnswer    = sessionStorage.getItem('noahAnswer');
+      const oscarContractAnswer = sessionStorage.getItem('oscarContractAnswer');
+
+      const votingEndingText  = getVotingEndingText(votingResult);
+      const richardEndingText = getRichardEndingText(richardAnswer);
+      const claireEndingText  = getClaireEndingText(claireAnswer);
+
+      const finalContent = `
+        <h1>이 어둠을 당신과 엔딩 분기</h1>
+        <div class="description">
+          ${votingEndingText}<br><br>
+          ${richardEndingText}<br><br>
+          ${claireEndingText ? claireEndingText + '<br><br>' : ''}
+          <div style="margin-top: 20px; font-size: 0.9em; color: #aaa;">
+            <strong>선택 결과 요약</strong><br>
+            투표 결과: ${getVotingResultText(votingResult)}<br>
+            리처드 답변: ${richardAnswer === 'correct' ? '정답' : '오답'}<br>
+            클레어 분기: ${getClaireAnswerText(claireAnswer)}<br>
+            앨리스 분기: ${getAliceAnswerText(aliceAnswer)}<br>
+            오스카 분기: ${getOscarAnswerText(oscarAnswer)}<br>
+            노아 분기: ${getNoahAnswerText(noahAnswer)}<br>
+            ${oscarContractAnswer ? `오스카 계약: ${getOscarContractAnswerText(oscarContractAnswer)}<br>` : ''}
+          </div>
+          <div style="margin-top: 30px;">
+            <button id="richard-alice-ending" class="btn">자칭 탐정 리처드 & 소녀 앨리스 엔딩</button>
+          </div>
+        </div>
+        <div style="margin-top: 30px;">
+          <button id="restart" class="btn">처음부터 다시</button>
+          <div style="margin-top: 24px; border-top: 1px solid rgba(255,255,255,0.3); padding-top: 16px;">
+            <button id="previous-branch" class="btn" style="margin-top: 10px;">이전 분기로</button>
+          </div>
+        </div>
+      `;
+      fadeTransition(finalContent, () => {
+        document.getElementById('restart').addEventListener('click', () => {
+          sessionStorage.clear();
+          goToInitialScreen();
         });
-        document.getElementById('previous-branch').addEventListener('click', showQuestionScreen);
+        document.getElementById('richard-alice-ending').addEventListener('click', showRichardAliceEnding);
+        document.getElementById('previous-branch').addEventListener('click', () => {
+          if (sessionStorage.getItem('oscarContractAnswer')) showOscarContractBranch();
+          else showNoahBranch();
+        });
       });
     }
 
-    // 초기 로드 시 이벤트 설정
-    document.addEventListener('DOMContentLoaded', function() {
-      setupInitialScreen();
-    });
+    /* ================= 리처드 & 앨리스 엔딩 진입 ================= */
+    function showRichardAliceEnding() {
+      const votingResult  = sessionStorage.getItem('votingResult'); // 누가 구속됐는지 판단용
+      const richardAnswer = sessionStorage.getItem('richardAnswer'); // correct/incorrect
+      const claireAnswer  = sessionStorage.getItem('claireAnswer');  // both-satisfied, only-second, no-execution, jack-bound
+      const aliceAnswer   = sessionStorage.getItem('aliceAnswer');   // use / not-use
+
+      const soulKillSuccess = (claireAnswer === 'both-satisfied');
+      const aliceUsePower   = (aliceAnswer === 'use');
+      const richardCorrect  = (richardAnswer === 'correct');
+      const richardBound    = (votingResult === 'richard');
+      const aliceBound      = (votingResult === 'alice');
+
+      let html = '';
+      if (soulKillSuccess && aliceUsePower) {
+        html = getRA_Ending1(); // 성공 + 앨리스 사용 (리처드 성패 무관)
+      } else if (soulKillSuccess && !aliceUsePower && !richardCorrect) {
+        html = getRA_Ending2(); // 성공 + 앨리스 미사용 + 리처드 실패
+      } else if (soulKillSuccess && !aliceUsePower && richardCorrect) {
+        html = getRA_Ending3(); // 성공 + 앨리스 미사용 + 리처드 성공
+      } else if (!soulKillSuccess && !richardCorrect && !aliceUsePower) {
+        html = getRA_Ending4(); // 실패/미실행 + 리처드 실패 + 앨리스 미사용
+      } else if (!soulKillSuccess && aliceUsePower) {
+        html = getRA_Ending5(); // 실패/미실행 + 앨리스 사용 (리처드 성패 무관)
+      } else if (richardCorrect && !aliceUsePower && !richardBound && !aliceBound) {
+        html = getRA_Ending6(); // 리처드 성공 + 앨리스 미사용 + 둘 다 구속 X
+      } else if (richardCorrect && richardBound) {
+        html = getRA_Ending7(); // 리처드 성공 + 리처드 구속 → 선택지
+      } else if (richardCorrect && aliceBound) {
+        html = getRA_Ending8(); // 리처드 성공 + 앨리스 구속 → 선택지
+      } else {
+        html = getRA_Ending6(); // 애매하면 가장 근접한 안전 엔딩으로 폴백
+      }
+
+      fadeTransition(html, () => {
+        // 분기 선택 버튼들 이벤트
+        const helpR = document.getElementById('help-richard');
+        const notHelpR = document.getElementById('not-help-richard');
+        const helpA = document.getElementById('help-alice');
+        const notHelpA = document.getElementById('not-help-alice');
+
+        if (helpR) helpR.addEventListener('click', showRA_Ending7_Help);
+        if (notHelpR) notHelpR.addEventListener('click', showRA_Ending7_NotHelp);
+        if (helpA) helpA.addEventListener('click', showRA_Ending8_Help);
+        if (notHelpA) notHelpA.addEventListener('click', showRA_Ending8_NotHelp);
+
+        const backBtn = document.getElementById('back-to-common');
+        if (backBtn) backBtn.addEventListener('click', showFinalEnding);
+
+        // 다음 팀 엔딩 플레이스홀더
+        const jackClaireBtn = document.getElementById('jack-claire-ending');
+        if (jackClaireBtn) {
+          jackClaireBtn.addEventListener('click', () => {
+            alert('상인 잭 & 퇴마사 클레어 엔딩으로 이동합니다. (다음 단계에서 구현)');
+          });
+        }
+      });
+    }
+
+    /* ================= 리처드 & 앨리스 엔딩 본문들 ================= */
+    // 1) 영혼도살 성공 && 앨리스 능력 사용 (리처드 성패 무관)
+    function getRA_Ending1() {
+      return `
+        <h1>자칭 탐정 리처드 & 소녀 앨리스</h1>
+        <div class="description">
+          자칭 탐정 리처드의 영혼이 벗겨져 떨어져가는 그때, 소녀 앨리스가 달려와 그의 등을 밀어냈다. 소녀의 손이 리처드 안에 있는 엘리자베스의 영혼을 밀어낸다.<br>
+          <strong>소녀 앨리스</strong> 「억울하지만... 함께 가자, 리즈.」<br>
+          앨리스는 엘리자베스의 영혼을 품에 안았다. 주위를 둘러보니, 모두가 멍하니 앨리스를 바라보고 있다. 그 모든 시선을 무시하고, 앨리스는 지옥으로 가는 문을 연다. 사람의 눈에는 보이지 않는 문을 바닥에 열고, 둘은 그 밑으로 떨어졌다. 다른 사람들이 보기에는, 앨리스가 갑자기 바닥으로 사라진 것처럼 보일 것이다.<br><br>
+          붉은 어둠이 펼쳐져 있다. 까마귀 같은 날카로운 울음소리. 맹렬하게 솟구치는 열기. 앨리스는 엘리자베스의 영혼을 안은 채, 지옥의 하늘을 떨어지고 있었다. 떨어진 곳에 무엇이 있을까. 그것은 떨어져 봐야만 알 수 있다.<br><br>
+          지옥에 가면, 영혼은 자연스럽게 인간의 형태를 되찾는다. 품에 안고 있던 영혼은, 어느새 엘리자베스의 몸을 되찾고 있었다. 둘이서 손을 맞잡고, 하늘을 떨어지며, 서로를 바라본다.<br><br>
+          <strong>엘리자베스</strong> 「지옥은 이상한 냄새가 나네.」<br>
+          <strong>소녀 앨리스</strong> 「지옥에 떨어져서 하는 첫 마디가 그거야?」<br>
+          <strong>엘리자베스</strong> 「그럼 뭐라고 해야 해? 아아! 지옥은 정말 싫어! 신님 도와주세요! 라고? 애초에, 지옥이랑 저 세계랑 뭐가 어떻게 다른 거야?」<br>
+          <strong>소녀 앨리스</strong> 「참 말이 많네. 미련은 없어? 불로불사가 되고 싶어했잖아.」<br><br>
+          엘리자베스・앨리스 「(자유롭게 대화해주세요)」<br><br>
+          둘은 지옥의 어둠 속으로 떨어져간다. 저 세상을 둘이서 살아가고 싶었다. 그래도 둘 중 하나라도 없다면, 그곳은 지옥보다도 괴로운 곳이 될 것이다. 이제 두 번 다시 헤어지지 않고 서로의 손을 잡고 있을 수 있다면, 그 이상 바랄 것은 아무것도 없다.
+        </div>
+        <div style="margin-top:30px;">
+          <button id="jack-claire-ending" class="btn">상인 잭 & 퇴마사 클레어 엔딩</button>
+          <div style="margin-top: 24px; border-top:1px solid rgba(255,255,255,0.3); padding-top:16px;">
+            <button id="back-to-common" class="btn">공통 엔딩으로</button>
+          </div>
+        </div>
+      `;
+    }
+
+    // 2) 성공 && 앨리스 미사용 && 리처드 실패
+    function getRA_Ending2() {
+      return `
+        <h1>자칭 탐정 리처드 & 소녀 앨리스</h1>
+        <div class="description">
+          밀실도 그릇이라면, 인체 또한 그릇이다. 그릇에 갇힌 영혼을, 잭은 능력을 이용해 부숴버렸다. 리처드의... 아니, 엘리자베스의 영혼이 떨린다. 천으로 오염을 닦아내듯 허무하게, 자신의 영혼이 이 세상에서 지워져가려 한다. 그것은 지옥에 떨어지는 것과는 또 다르다. 소멸이다. 영혼째로 지워져버린다.<br>
+          리처드의 몸이 바닥에 쓰러진다. 소녀 앨리스가 비명을 지르며 그에게 달려갔다. 사라져가는 영혼은, 아직 희미하게 그 몸에 걸려있다. 곧 녹아내려, 모든 것이 사라져버릴 것이다...<br><br>
+          수많은 기억이 되살아나고, 스쳐 지나간다. 왜인지 떠오르는 것은, 그 어둑한 지하실에서의 기억뿐이다. 둘이 만나 친구가 된 곳. 엘리자베스는 앨리스의 손을 잡고, 따뜻한 햇살 아래로 데려가 주었다. 이 부드러운 행복이 영원히 계속되기를 바랐다. 무엇을 희생해서라도. 하지만, 너무나도 희생한 것이 많았는지도 모른다.<br><br>
+          앨리스는 엘리자베스의 손을 꼭 쥔다. 유일한 친구가 사라져가는 것을 느낀다. 둘이 이야기할 수 있는, 정말 마지막 시간이었다. 이제, 작별이다.<br><br>
+          <strong>엘리자베스</strong> 「미안해, 앨리스. 불사가 되지는 못했네. 게다가 지옥에도 가지 못할 것 같아」<br>
+          <strong>소녀 앨리스</strong> 「불사 따위, 필요 없었는데... 내 탓이야...」<br>
+          <strong>엘리자베스</strong> 「네 탓이 아니야. 나도 너와 함께 살고 싶었어」<br>
+          <strong>소녀 앨리스</strong> 「하지만, 난 네게 도움만 받고... 마지막까지 아무것도 해주지 못했어...」<br><br>
+          엘리자베스・앨리스 「(자유롭게 대화해주세요)」<br><br>
+          이윽고, 그 몸은 움직이지 않게 되었다. 그곳에는 한 낯선 남자의 시체와, 슬프게 주저앉은 소녀의 모습만이 남겨졌다. 무엇을 희생해서라도, 이 어둠을 너와 함께, 이 어둠을 당신과 살아가고 싶었다. 그것만이, 그녀들의, 순수하고도 잔인한 소원이었다.
+        </div>
+        <div style="margin-top:30px;">
+          <button id="jack-claire-ending" class="btn">상인 잭 & 퇴마사 클레어 엔딩</button>
+          <div style="margin-top: 24px; border-top:1px solid rgba(255,255,255,0.3); padding-top:16px;">
+            <button id="back-to-common" class="btn">공통 엔딩으로</button>
+          </div>
+        </div>
+      `;
+    }
+
+    // 3) 성공 && 앨리스 미사용 && 리처드 성공
+    function getRA_Ending3() {
+      return `
+        <h1>자칭 탐정 리처드 & 소녀 앨리스</h1>
+        <div class="description">
+          밀실도 그릇이라면, 인체 또한 그릇이다. 그릇에 갇힌 영혼을, 잭은 능력을 이용해 부숴버렸다. 리처드의... 아니, 엘리자베스의 영혼이 떨린다. 천으로 오염을 닦아내듯 허무하게, 자신의 영혼이 이 세상에서 지워져가려 한다. 그것은 지옥에 떨어지는 것과는 또 다르다. 소멸이다. 영혼째로 지워져버린다.<br>
+          리처드의 몸이 바닥에 쓰러진다. 소녀 앨리스가 비명을 지르며 그에게 달려갔다. 사라져가는 영혼은, 아직 희미하게 그 몸에 걸려있다. 곧 녹아내려, 모든 것이 사라져버릴 것이다...<br><br>
+          수많은 기억이 되살아나고, 스쳐 지나간다. 왜인지 떠오르는 것은, 그 어둑한 지하실에서의 기억뿐이다. 둘이 만나 친구가 된 곳. 엘리자베스는 앨리스의 손을 잡고, 따뜻한 햇살 아래로 데려가 주었다. 이 부드러운 행복이 영원히 계속되기를 바랐다. 무엇을 희생해서라도. 하지만, 너무나도 희생한 것이 많았는지도 모른다.<br><br>
+          앨리스는 엘리자베스의 손을 꼭 쥔다. 유일한 친구가 사라져가는 것을 느낀다. 둘이 이야기할 수 있는, 정말 마지막 시간이었다. 이제, 작별이다.<br><br>
+          <strong>엘리자베스</strong> 「미안해, 앨리스. 이렇게 되면...지옥에도 가지 못할 것 같아」<br>
+          <strong>소녀 앨리스</strong> 「불사 따위, 필요 없었는데...모든 게 내 탓이야…」<br>
+          <strong>엘리자베스</strong> 「네 탓이 아니야. 나도 너와 함께 살고 싶었어.」<br>
+          <strong>소녀 앨리스</strong> 「하지만, 난 네게 도움만 받고… 마지막까지 아무것도 해주지 못했어…」<br><br>
+          엘리자베스・앨리스 「(자유롭게 대화해주세요)」<br><br>
+          이윽고, 그 몸은 움직이지 않게 되었다. 그곳에는 한 낯선 남자의 시체와, 슬프게 주저앉은 소녀의 모습만이 남겨졌다. 조금만 더 있었으면 행복한 시간이 영원히 계속되었을 텐데. 죽음을 모르는 악마와, 이미 죽은 시체로, 어디든 갈 수 있었을 텐데. 무엇을 희생해서라도, 이 어둠을 너와 함께, 이 어둠을 당신과 살아가고 싶었다. 그것만이, 그녀들의, 순수하고도 잔인한 소원이었다.
+        </div>
+        <div style="margin-top:30px;">
+          <button id="jack-claire-ending" class="btn">상인 잭 & 퇴마사 클레어 엔딩</button>
+          <div style="margin-top: 24px; border-top:1px solid rgba(255,255,255,0.3); padding-top:16px;">
+            <button id="back-to-common" class="btn">공통 엔딩으로</button>
+          </div>
+        </div>
+      `;
+    }
+
+    // 4) 실패/미실행 && 리처드 실패 && 앨리스 미사용
+    function getRA_Ending4() {
+      return `
+        <h1>자칭 탐정 리처드 & 소녀 앨리스</h1>
+        <div class="description">
+          자칭 탐정 리처드의 몸이 무너진다. 그 피부에서 썩은 냄새가 피어나기 시작했다. 그 몸에서, 엘리자베스의 영혼이 흘러떨어져 간다. 지옥의 문지기가 그녀의 영혼을 부르고 있다. 조금 있으면, 그녀는 지옥으로 미끄러져 내려갈 것이다.<br>
+          소녀 앨리스가 그녀에게 달려간다. 떠돌이 악마라면 지옥까지 쫓아가는 것은 쉽다. 하지만, 지옥은 너무나도 광활하다. 그녀를 찾기까지는 시간이 걸릴 것이다. 그녀는 지옥의 고통을 맛보게 될 것이다. 물론, 그 벌이 그녀가 쌓아온 죄에 비해 충분할지는 알 수 없지만.<br><br>
+          <strong>엘리자베스</strong> 「아아... 앨리스... 실수해버렸네. 보아하니 난 지옥에 떨어질 것 같아. 약속을 지키지 못해서 미안해」<br>
+          <strong>소녀 앨리스</strong> 「그런거 같네...그렇지만 난 풍래의 악마니까, 너를 쫓아갈 수 있어.」<br>
+          <strong>엘리자베스</strong> 「일부러 지옥까지 와준다고? 나를 위해서?」<br><br>
+          엘리자베스・앨리스 「(자유롭게 대화해주세요)」<br><br>
+          문득, 리처드의 몸에서 힘이 빠진다. 엘리자베스의 영혼이 지옥에 떨어졌다. 주인을 잃은 저택은, 무서울 정도로 고요해진다. 앨리스는 낯선 시체의 손을 놓고, 일어섰다. 그 후, 남겨진 소녀가 어떻게 할지는 소녀의 의지에 달렸다.
+        </div>
+        <div style="margin-top:30px;">
+          <button id="jack-claire-ending" class="btn">상인 잭 & 퇴마사 클레어 엔딩</button>
+          <div style="margin-top: 24px; border-top:1px solid rgba(255,255,255,0.3); padding-top:16px;">
+            <button id="back-to-common" class="btn">공통 엔딩으로</button>
+          </div>
+        </div>
+      `;
+    }
+
+    // 5) 실패/미실행 && 앨리스 사용 (리처드 성패 무관)
+    function getRA_Ending5() {
+      return `
+        <h1>자칭 탐정 리처드 & 소녀 앨리스</h1>
+        <div class="description">
+          소녀 앨리스가 무너져가는 리처드에게 달려간다. 그리고, 그의 등을 밀어냈다. 작은 손이, 리처드 안에 있는 엘리자베스의 영혼을 밀어낸다. 앨리스는 엘리자베스의 영혼을 품에 안았다. 주위를 둘러보니, 모두가 멍하니 당신을 바라보고 있다. 그 모든 시선을 무시하고, 당신은 지옥으로 가는 문을 연다. 사람들의 눈에는 보이지 않는 문을 바닥에 열고, 당신은 그 밑으로 떨어졌다. 다른 사람들이 보기에는 당신이 갑자기 바닥으로 사라진 것처럼 보일 것이다.<br><br>
+          붉은 어둠이 펼쳐져 있다. 까마귀 같은 날카로운 울음소리. 맹렬하게 솟구치는 열기. 앨리스는 엘리자베스의 영혼을 안은 채, 지옥의 하늘을 떨어지고 있었다. 떨어진 곳에 무엇이 있을까. 그것은 떨어져 봐야만 알 수 있다.<br><br>
+          지옥에 가면, 영혼은 자연스레 인간의 형태를 되찾는다. 품에 안고 있던 영혼은, 어느새 엘리자베스의 몸을 되찾고 있었다. 둘이서 손을 맞잡고, 하늘을 떨어지며, 서로를 바라본다. 엘리자베스가 씩 웃었다.<br><br>
+          <strong>엘리자베스</strong> 「지옥에 오고 말았네. 기분은 어때?」<br>
+          <strong>소녀 앨리스</strong> 「어떨까. 나름대로 최선을 선택했다고 생각하는데」<br>
+          <strong>엘리자베스</strong> 「앨리스가 그렇게 말한다면, 틀림없이 그럴 거야」<br>
+          <strong>소녀 앨리스</strong> 「...여러모로 폐만 끼쳐서 미안해. 애초에, 불로불사가 되겠다는 약속을 하게 하지 않았다면, 이런 일도 없었을 텐데...」<br><br>
+          엘리자베스・앨리스 「(자유롭게 대화해주세요)」<br><br>
+          둘은 지옥의 어둠 속으로 떨어져간다. 사실은 이 세상에 둘이서 함께 살아있고 싶었다. 그래도, 둘 중 하나라도 없다면, 그곳은 지옥보다도 괴로운 곳이 될 것이다. 이제 두 번 다시 헤어지지 않고, 서로의 손을 잡고 있을 수 있다면, 그 이상 바랄 것은 아무것도 없다.
+        </div>
+        <div style="margin-top:30px;">
+          <button id="jack-claire-ending" class="btn">상인 잭 & 퇴마사 클레어 엔딩</button>
+          <div style="margin-top: 24px; border-top:1px solid rgba(255,255,255,0.3); padding-top:16px;">
+            <button id="back-to-common" class="btn">공통 엔딩으로</button>
+          </div>
+        </div>
+      `;
+    }
+
+    // 6) 리처드 성공 && 앨리스 미사용 && 둘 다 구속 X
+    function getRA_Ending6() {
+      return `
+        <h1>자칭 탐정 리처드 & 소녀 앨리스 — 영원한 꿈을 당신과</h1>
+        <div class="description">
+          모든 소동이 끝나고 마차를 기다리기 위해 하인들이 각자의 방으로 돌아간 무렵, 리처드는 소녀 앨리스를 부르러 갔다.<br>
+          <strong>자칭 탐정 리처드</strong> 「앨리스, 가자」<br>
+          <strong>소녀 앨리스</strong> 「가? 어디로 간다는 거야?」<br>
+          <strong>자칭 탐정 리처드</strong> 「어디든 상관없어. 이 저택에 있으면, 여러모로 귀찮잖아? 사건도 많이 일어났고 말이야. 지금이라도 도망가버리자」<br>
+          <strong>소녀 앨리스</strong> 「제멋대로네~...」<br><br>
+          그렇게 말하면서도, 앨리스는 재빨리 준비를 마쳤다. 자칭 탐정과 소녀는 밖으로 나온다. 차가운 공기가 둘을 덮치지만, 그런 것쯤은 아무런 방해도 되지 않는다. 둘이라면, 어디든 갈 수 있다. 둘은 눈을 마주친다. ――이미 죽은 자와, 죽음을 모르는 자가, 차가운 손을 맞잡았다.<br><br>
+          <strong>소녀 앨리스</strong> 「그래서, 어디로 가서, 뭘 할 거야?」<br>
+          <strong>엘리자베스</strong> 「음~... 고민되네. 뭐랄까, 우리의 시간은 무한하니까 말이야」<br>
+          <strong>소녀 앨리스</strong> 「무한이라... 대단하네. 뭐든 할 수 있겠어...」<br>
+          <strong>엘리자베스</strong> 「하고 싶은 게 있어? 앨리스」<br><br>
+          앨리스・엘리자베스 「(자유롭게 대화해주세요)」<br><br>
+          둘의 경쾌한 발걸음이, 눈길에 발자국을 남긴다. 그것은 분명 언젠가 눈보라에 가려져, 누구에게도 보이지 않게 될 것이다.
+        </div>
+        <div style="margin-top:30px;">
+          <button id="jack-claire-ending" class="btn">상인 잭 & 퇴마사 클레어 엔딩</button>
+          <div style="margin-top: 24px; border-top:1px solid rgba(255,255,255,0.3); padding-top:16px;">
+            <button id="back-to-common" class="btn">공통 엔딩으로</button>
+          </div>
+        </div>
+      `;
+    }
+
+    // 7) 리처드 성공 && 리처드 구속 → 선택지
+    function getRA_Ending7() {
+      return `
+        <h1>자칭 탐정 리처드 & 소녀 앨리스</h1>
+        <div class="description">
+          눈길을 뚫고, 경찰이 도착했다. 그들은 밧줄로 묶인 리처드를 샅샅이 조사하기 시작한다. 그리고 누군가가 비명 소리를 질렀다.<br>
+          경찰 「이, 이놈... 이미 죽어있다!」<br>
+          자칭 탐정 리처드의 심장은 멈춰있다. 그 몸은 차갑고, 이미 오래전에 죽은 듯했다.. 그런데도 그는 여전히 웃음을 짓고 있다.<br>
+          경찰 「불을 가져와! 태워버려! 두 번 다시 살아날 수 없도록 완전히 태워버려!」<br>
+          자칭 탐정 리처드 「와아... 잔인하네…」<br><br>
+          썩은 몸이라도, 철저히 불에 타면, 탄다, 녹는다. 그 몸으로는 움직일 수 없다… 겨우 멀어졌을 터인 죽음의 손아귀가 당신의 목을 조르고 있었다. 소녀 앨리스는 혼비백산이 되어 뛰어다니는 경찰들을 보며 중앙 홀에 서있다. 리처드가 그녀를 바라보자, 그녀는 조용히 다가왔다.<br><br>
+          <strong>소녀 앨리스</strong> 「태워진다고?」<br>
+          <strong>자칭 탐정 리처드</strong> 「끔찍하지 않아? 시체라고 해도, 타버리면 어쩔 수 없잖아.」<br>
+          <strong>소녀 앨리스</strong> 「그런 상황치고는, 꽤나 침착하네」<br>
+          <strong>자칭 탐정 리처드</strong> 「한 번 죽었으니까 말이야. 자, 앨리스도 휘말리기 전에 도망가. …혼자 남게 해서, 미안해」<br><br>
+          앨리스에게 묻겠습니다.
+        </div>
+        <div style="margin-top:30px;">
+          <button id="help-richard" class="btn" style="margin-bottom: 15px;">리처드를 돕는다</button>
+          <button id="not-help-richard" class="btn" style="margin-bottom: 30px;">리처드를 돕지 않는다</button>
+          <div style="margin-top: 24px; border-top:1px solid rgba(255,255,255,0.3); padding-top:16px;">
+            <button id="back-to-common" class="btn">공통 엔딩으로</button>
+          </div>
+        </div>
+      `;
+    }
+
+    // 7-1) 리처드를 돕는다
+    function showRA_Ending7_Help() {
+      const html = `
+        <h1>자칭 탐정 리처드 & 소녀 앨리스</h1>
+        <div class="description">
+          앨리스는 천진난만한 표정으로, 경찰에게 살짝 다가간다. 그리고 그들이 조심스럽게 들고 있던 기름병을 훔쳐낸다. 누군가가 막을 틈도 없이, 앨리스는 그 기름을 주위에 뿌려댄다. 경찰이 소리를 지르려 할 때는 이미, 앨리스의 손에서 불붙은 성냥이 날아가고 있었다. 성냥의 작은 불꽃이 공중에서 춤을 춘다. 곡선을 그리며 춤추다가, 기름으로 떨어진다. 점화. 치솟는 불꽃. 살갗을 벗기는 듯한 열기. 불은 기름을 삼키며 바다가 되어, 근처에 있던 사람들마저 먹이로 삼으려 날뛰기 시작한다. 비명을 지르는 경찰을 무시하고, 앨리스는 리처드 곁으로 가서, 재빠르게 구속을 풀었다.<br><br>
+          <strong>소녀 앨리스</strong> 「자, 도망가자」<br>
+          <strong>자칭 탐정 리처드</strong> 「대단하네. 하지만, 안 돼, 앨리스. 이런 건...」<br>
+          <strong>소녀 앨리스</strong> 「네가 나한테 양심을 말하겠다고? 웃기지 마...」<br>
+          <strong>자칭 탐정 리처드</strong> 「말은 끝까지 들어야지. 이런 건 나에게 어울려.」<br><br>
+          리처드는 어깨를 으쓱이는 앨리스의 옆을 빠져나가 굴러다니는 기름병을 주워들고, 아직 남아있던 기름을 여기저기 뿌려댄다. 그리고 성냥에 불을 붙이더니, 식물에 물을 주는 듯한 몸짓으로, 불을 붙이고 다닌다. 화염이 걷잡을 수 없이 부풀어 올라 타오른다.<br><br>
+          경찰들이 비명 같은 절규를 지르며, 리처드에게 달려든다. 리처드는 불붙은 마지막 성냥을 그에게 던지고, 불덩이가 된 그를 훌쩍 피했다. 최악의 참상을 붉게 비추는 불빛 속에서, 리처드는 앨리스에게 돌아온다. 둘은 그대로 저택 밖으로 나온다. 차가운 공기가 둘을 덮치지만, 그런 건 상관할 바 아니다. 둘이라면, 어디든 갈 수 있다.<br><br>
+          <strong>자칭 탐정 리처드</strong> 「아아, 바깥 공기는 기분 좋네」<br>
+          <strong>소녀 앨리스</strong> 「이런 상황에서 할 말은 아니잖아. 여전하구나...」<br>
+          <strong>자칭 탐정 리처드</strong> 「상관없잖아. 그래서, 이제 어떻게 할까?」<br>
+          <strong>소녀 앨리스</strong> 「...그렇네. 무한한 시간이 있으니까... 리즈는 어떻게 하고 싶어?」<br><br>
+          앨리스・엘리자베스 「(자유롭게 대화해주세요)」<br><br>
+          둘의 경쾌한 발걸음이, 눈길에 발자국을 남긴다. 그것은 분명 언젠가 눈보라에 가려져, 누구에게도 보이지 않게 될 것이다.
+        </div>
+        <div style="margin-top:30px;">
+          <button id="jack-claire-ending" class="btn">상인 잭 & 퇴마사 클레어 엔딩</button>
+          <div style="margin-top: 24px; border-top:1px solid rgba(255,255,255,0.3); padding-top:16px;">
+            <button id="back-to-common" class="btn">공통 엔딩으로</button>
+          </div>
+        </div>
+      `;
+      fadeTransition(html, () => {
+        document.getElementById('jack-claire-ending').addEventListener('click', () => alert('상인 잭 & 퇴마사 클레어 엔딩으로 이동합니다. (다음 단계에서 구현)'));
+        document.getElementById('back-to-common').addEventListener('click', showFinalEnding);
+      });
+    }
+
+    // 7-2) 리처드를 돕지 않는다
+    function showRA_Ending7_NotHelp() {
+      const html = `
+        <h1>자칭 탐정 리처드 & 소녀 앨리스</h1>
+        <div class="description">
+          머지않아, 경찰이 불을 가져올 것이다. 썩어가는 시체는 잘 탈 것이다. 겨우 손에 넣은 몸을 녹여버리고, 그 영혼은 어디로 갈까. 악마라면, 지옥까지 쫓아가는 것은 쉽다. 하지만, 지옥은 너무나도 광활해서, 그녀를 찾을 때까지는 시간이 걸릴 것이다. 그때까지 그녀는 지옥의 고통을 맛볼 것이다. 남겨진 소녀가 어떻게 할지는, 소녀의 의지에 달렸다.
+        </div>
+        <div style="margin-top:30px;">
+          <button id="jack-claire-ending" class="btn">상인 잭 & 퇴마사 클레어 엔딩</button>
+          <div style="margin-top: 24px; border-top:1px solid rgba(255,255,255,0.3); padding-top:16px;">
+            <button id="back-to-common" class="btn">공통 엔딩으로</button>
+          </div>
+        </div>
+      `;
+      fadeTransition(html, () => {
+        document.getElementById('jack-claire-ending').addEventListener('click', () => alert('상인 잭 & 퇴마사 클레어 엔딩으로 이동합니다. (다음 단계에서 구현)'));
+        document.getElementById('back-to-common').addEventListener('click', showFinalEnding);
+      });
+    }
+
+    // 8) 리처드 성공 && 앨리스 구속 → 선택지
+    function getRA_Ending8() {
+      return `
+        <h1>자칭 탐정 리처드 & 소녀 앨리스</h1>
+        <div class="description">
+          눈길을 달려 올라와, 경찰이 도착했다. 그들은 밧줄로 묶인 소녀 앨리스를 보고, 의아한 듯이 서로 얼굴을 마주 본다. 그래도 일이니까 어쩔 수 없다는 듯한 표정으로 그녀를 샅샅이 조사하기 시작한다. 그리고 누군가가 비명을 질렀다.<br>
+          경찰 「이, 이놈... 악마다!」<br>
+          술렁임과 함께, 경찰들은 앨리스에게서 멀어진다.<br>
+          경찰 「누구, 퇴마사를, 무기를 가져와!」<br>
+          <strong>소녀 앨리스</strong> 「그렇게 겁내지 않아도, 난 손대지 않을 텐데...」<br><br>
+          퇴마를 당하면, 앨리스의 영혼은 지옥에 갇히게 된다. 그곳에는 태양의 빛도 스며들지 않고, 평안함도 없으며, 그리고... 친구도 없다.<br><br>
+          혼비백산이 되어 뛰어다니는 경찰들을 곁눈질하며, 자칭 탐정 리처드는 중앙 홀에 서 있다. 그녀가 리처드를 바라보자, 그는 조용히 다가왔다.<br><br>
+          <strong>소녀 앨리스</strong> 「한가하게 구경할 때냐? 휘말리기 전에 얼른 도망가.」<br>
+          <strong>자칭 탐정 리처드</strong> 「죽을지도 모르는데, 꽤나 침착하구나.」<br>
+          <strong>소녀 앨리스</strong> 「죽는 것보다 더 괴로운 일을 알고 있으니까, 이제 와서 죽는 거 따위 무섭지 않아. 자, 얼른 도망가」<br>
+          <strong>자칭 탐정 리처드</strong> 「내가 피해 받는게 싫은 거야?」<br><br>
+          리처드에게 묻겠습니다.
+        </div>
+        <div style="margin-top:30px;">
+          <button id="help-alice" class="btn" style="margin-bottom: 15px;">앨리스를 돕는다</button>
+          <button id="not-help-alice" class="btn" style="margin-bottom: 30px;">앨리스를 돕지 않는다</button>
+          <div style="margin-top: 24px; border-top:1px solid rgba(255,255,255,0.3); padding-top:16px;">
+            <button id="back-to-common" class="btn">공통 엔딩으로</button>
+          </div>
+        </div>
+      `;
+    }
+
+    // 8-1) 앨리스를 돕는다
+    function showRA_Ending8_Help() {
+      const html = `
+        <h1>자칭 탐정 리처드 & 소녀 앨리스</h1>
+        <div class="description">
+          갑자기 옆에 서 있던, 경찰 한 명이 쓰러졌다. 바닥에 선혈이 넘친다.<br>
+          <strong>자칭 탐정 리처드</strong> 「이제 끝이야. 내 집에서 제멋대로 굴지 말아줘」<br>
+          그는... 아니, 그녀는 그렇게 말하며, 피로 잔뜩 물든 나이프로 앨리스를 묶은 밧줄을 자른다. 그리고, 손을 내밀었다.<br><br>
+          <strong>자칭 탐정 리처드</strong> 「가자, 앨리스」<br>
+          <strong>소녀 앨리스</strong> 「...어디로 간다는 거야? 리즈.」<br>
+          <strong>자칭 탐정 리처드</strong> 「그런 건, 도망친 다음에 생각하면 되잖아?」<br><br>
+          그녀는 웃는다. 둘은 손을 잡고, 중앙 홀을 가로질러 달리기 시작한다. 누군가가 막으려고 손을 뻗는다. 그 손을 엘리자베스는 망설임 없이 나이프로 베어낸다. 경찰들도 대항하려 하지만, 엘리자베스가 더 능숙했다. 망설임 없이 시체의 길을 만들며 나아가는 둘을 보며 점차 경찰들은 겁을 먹고, 뒤로 물러난다.<br><br>
+          둘은 손을 잡은 채 밖으로 나온다. 차가운 공기가 둘을 덮치지만, 그런 건 상관없다. 둘이라면, 어디든 갈 수 있다.<br><br>
+          <strong>소녀 앨리스</strong> 「…그래서, 어디로 가서, 뭘 할 거야?」<br>
+          <strong>엘리자베스</strong> 「어떻게 하면 좋을까~. 앨리스는 말이야, 가고 싶은 곳이라든가, 하고 싶은 일이라든가, 있어?」<br>
+          <strong>소녀 앨리스</strong> 「하고 싶은 일? 갑자기 그런 말 들으니 곤란하네...」<br>
+          <strong>엘리자베스</strong> 「뭐든 좋아. ...우리의 시간은 무한하니까 말이야」<br><br>
+          앨리스・엘리자베스 「(자유롭게 대화해주세요)」<br><br>
+          둘의 경쾌한 발걸음이, 눈길에 발자국을 남긴다. 그것은 분명 언젠가 눈보라에 가려져, 누구에게도 보이지 않게 될 것이다.
+        </div>
+        <div style="margin-top:30px;">
+          <button id="jack-claire-ending" class="btn">상인 잭 & 퇴마사 클레어 엔딩</button>
+          <div style="margin-top: 24px; border-top:1px solid rgba(255,255,255,0.3); padding-top:16px;">
+            <button id="back-to-common" class="btn">공통 엔딩으로</button>
+          </div>
+        </div>
+      `;
+      fadeTransition(html, () => {
+        document.getElementById('jack-claire-ending').addEventListener('click', () => alert('상인 잭 & 퇴마사 클레어 엔딩으로 이동합니다. (다음 단계에서 구현)'));
+        document.getElementById('back-to-common').addEventListener('click', showFinalEnding);
+      });
+    }
+
+    // 8-2) 앨리스를 돕지 않는다
+    function showRA_Ending8_NotHelp() {
+      const html = `
+        <h1>자칭 탐정 리처드 & 소녀 앨리스</h1>
+        <div class="description">
+          머지않아, 경찰이 퇴마사를 데려올 것이다. 이 세계와도, 작별이다. 가장 소중한 친구를 남기고 가게 된다. 하지만, 언젠가는 다시 만날 수 있겠지... 어두운 지옥의 밑바닥에서.
+        </div>
+        <div style="margin-top:30px;">
+          <button id="jack-claire-ending" class="btn">상인 잭 & 퇴마사 클레어 엔딩</button>
+          <div style="margin-top: 24px; border-top:1px solid rgba(255,255,255,0.3); padding-top:16px;">
+            <button id="back-to-common" class="btn">공통 엔딩으로</button>
+          </div>
+        </div>
+      `;
+      fadeTransition(html, () => {
+        document.getElementById('jack-claire-ending').addEventListener('click', () => alert('상인 잭 & 퇴마사 클레어 엔딩으로 이동합니다. (다음 단계에서 구현)'));
+        document.getElementById('back-to-common').addEventListener('click', showFinalEnding);
+      });
+    }
+
+    /* ================= 엔딩 텍스트(공통) 유틸 ================= */
+    function getVotingResultText(result) {
+      const resultTexts = {
+        'alice': '① 소녀 앨리스가 최다 득표',
+        'noah': '② 신의 아이 노아가 최다 득표',
+        'oscar': '③ 시종 오스카가 최다 득표',
+        'claire': '④ 퇴마사 클레어가 최다 득표',
+        'jack': '⑤ 상인 잭이 최다 득표',
+        'richard': '⑥ 자칭 탐정 리차드가 최다 득표',
+        'tie': '⑦ 최다 득표자가 결정되지 않음',
+        'abandon': '⑧ 투표 포기'
+      };
+      return resultTexts[result] || '알 수 없음';
+    }
+
+    function getAliceAnswerText(answer) {
+      const answerTexts = { 'use': '사용한다', 'not-use': '사용하지 않는다' };
+      return answerTexts[answer] || '알 수 없음';
+    }
+
+    function getOscarAnswerText(answer) {
+      const answerTexts = { 'demon': '악마', 'other': '악마 이외 다른 것' };
+      return answerTexts[answer] || '알 수 없음';
+    }
+
+    function getNoahAnswerText(answer) {
+      const answerTexts = { 'yes': '네', 'no': '아니오' };
+      return answerTexts[answer] || '알 수 없음';
+    }
+
+    function getOscarContractAnswerText(answer) {
+      const answerTexts = { 'yes': '네', 'no': '아니오' };
+      return answerTexts[answer] || '알 수 없음';
+    }
+
+    function getClaireAnswerText(answer) {
+      const answerTexts = {
+        'both-satisfied': '①과②를 모두 만족했다',
+        'only-second': '①이 틀리고, ②만 만족했다',
+        'no-execution': '①에 관계없이, ②에서 실행하지 않는다고 답변했다',
+        'jack-bound': '답변에 상관없이 상인 잭이 구속되어 있다'
+      };
+      return answerTexts[answer] || '알 수 없음';
+    }
+
+    function getClaireEndingText(answer) {
+      const endingTexts = {
+        'both-satisfied': `그때였다. 퇴마사 클레어가 걸어 나왔다.<br>
+퇴마사 클레어 「잭. 영혼 도살...부탁해.」<br>
+상인 잭 「...알겠어.」<br>
+악마는 계약한 상대에게 거역할 수 없다.<br>
+상인 잭은 자칭 탐정 리처드를 향해 한 손을 뻗는다.`,
+        'only-second': '',
+        'no-execution': `그때였다. 상인 잭은 퇴마사 클레어를 말없이 바라본다. 클레어는 그를 마주 바라보았다. 그리고 그녀는 고개를 좌우로 저었다. 아주 미세한 움직임이었지만, 잭은 이해하고 고개를 끄덕였다.`,
+        'jack-bound': ''
+      };
+      return endingTexts[answer] || '';
+    }
+
+    function getRichardEndingText(answer) {
+      if (answer === 'correct') {
+        return `갑자기, 자칭 탐정 리처드가 고개를 들었다. 아무것도 없는 공간을 바라보며, 그가 입을 연다. 그리고... 추리를 선보이기 시작했다.<br><br>
+중앙 홀에 불안한 기운이 가득 찬 그때였다. 그가 바라보고 있던 공간에, 하나의 그림자가 나타난다. 살랑살랑 움직이는 검은 그림자. 그것은 인간이 아닌 것... 악마다.<br><br>
+악마는 쓴 표정을 지으며 말했다. 「아아, 유감스럽게도, 정답이다. ...너에게 영원한 생명을 주겠다. 그 몸은 썩지 않을 것이다. 끝나지 않는 생명을 후회해도 난 모른다.」`;
+      } else {
+        return `갑자기, 자칭 탐정 리처드가 고개를 들었다. ... 그때 하나의 그림자—악마가 나타난다.<br><br>
+악마는 미소 지으며 말했다. 「자네는 밀실의 수수께끼를 풀지 못했군. 이 놀이는 자네의 패배다. 자네의 영혼은 지옥으로 떨어질 것이다.」`;
+      }
+    }
+
+    function getVotingEndingText(result) {
+      const endingTexts = {
+        'alice': `최다 표를 얻은 것은 소녀 앨리스였다.<br>소녀 앨리스「내가……어머니를 죽일 리 없잖아요……!」<br>……의심스러운 인물을 구속하고 사건이 해결되었다고 생각된 그때.`,
+        'noah': `최다 표를 얻은 것은 신의 아이 노아였다.<br>신의 아이 노아「저, 저는 아무것도 하지 않았어요……」<br>……의심스러운 인물을 구속하고 사건이 해결되었다고 생각된 그때.`,
+        'oscar': `최다 표를 얻은 것은 시종 오스카였다.<br>시종 오스카「저는 아무것도 하지 않았습니다! 저는, 저는……!」<br>……의심스러운 인물을 구속하고 사건이 해결되었다고 생각된 그때.`,
+        'claire': `최다 표를 얻은 것은 퇴마사 클레어였다.<br>퇴마사 클레어「구속하고 싶으시다면 마음대로 하세요. 정해진 일이라면 이제 와서 저항하지 않겠습니다」<br>……의심스러운 인물을 구속하고 사건이 해결되었다고 생각된 그때.`,
+        'jack': `최다 표를 얻은 것은 상인 잭이었다.<br>상인 잭「어머, 잡혀버렸네~, 곤란하네……」<br>……의심스러운 인물을 구속하고 사건이 해결되었다고 생각된 그때.`,
+        'richard': `최다 표를 얻은 것은 자칭 탐정 리차드였다.<br>자칭 탐정 리차드「아니, 탐정이 잡히는 건 이상하다고 생각하는데……」<br>……의심스러운 인물을 구속하고 사건이 해결되었다고 생각된 그때.`,
+        'tie': `논의는 겉돌고 있다. 하지만 진전은 없다.<br>논의만 과열될 뿐 정작 구속할 인물이 정해지지 않는다.<br>타협점을 찾지 못한 채 점점 지쳐간다.`,
+        'abandon': `구속할 인물은 없다.<br>그것이 결론이었다.<br>어딘가 안도하는 듯한 한숨이 여기저기서 들려온다.`
+      };
+      return endingTexts[result] || '알 수 없는 결과입니다.';
+    }
+
+    /* 초기 로드 */
+    document.addEventListener('DOMContentLoaded', setupInitialScreen);
   </script>
 </body>
 </html>
