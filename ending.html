@@ -659,6 +659,7 @@
     }
 
     /* ================= 노아 & 오스카 엔딩 본문들 ================= */
+            /* ================= 노아 & 오스카 엔딩 본문들 ================= */
     
     function getNO_Ending_OtherNoContract() {
       return `
@@ -680,6 +681,7 @@
           그리고, 이 세상 어딘가에서, 악마가 홀로 몸부림치고 있다. 누군가를 대신해 목이 잘리고, 누군가를 대신해 몸이 불타오르고, 누군가를 대신해 죽어가는… 그들의 마음을 잠식한 어둠에, 아주 조금이라도, 빛은 스며들었을까? 그 답은, 그들 외에는, 아무도 모른다.
         </div>
         <div style="margin-top:30px;">
+          <button id="to-epilogue" class="btn">에필로그로</button>
           <button id="restart-from-no" class="btn">처음부터 다시</button>
           <div style="margin-top: 24px; border-top:1px solid rgba(255,255,255,0.3); padding-top:16px;">
             <button id="back-to-common" class="btn">공통 엔딩으로</button>
@@ -742,6 +744,7 @@
           「가자」라고 누군가가 말했다. 두 그림자가 겹쳐지며 앞으로 걸음을 내딛기 시작했다.
         </div>
         <div style="margin-top:30px;">
+          <button id="to-epilogue" class="btn">에필로그로</button>
           <button id="restart-from-no" class="btn">처음부터 다시</button>
           <div style="margin-top: 24px; border-top:1px solid rgba(255,255,255,0.3); padding-top:16px;">
             <button id="back-to-common" class="btn">공통 엔딩으로</button>
@@ -805,6 +808,7 @@
           모든 일이 끝났다. 둘은 각자의 길을 걷게 된다. 그 길이 어디로 이어질지는, 아무도 모른다.
         </div>
         <div style="margin-top:30px;">
+          <button id="to-epilogue" class="btn">에필로그로</button>
           <button id="restart-from-no" class="btn">처음부터 다시</button>
           <div style="margin-top: 24px; border-top:1px solid rgba(255,255,255,0.3); padding-top:16px;">
             <button id="back-to-common" class="btn">공통 엔딩으로</button>
@@ -827,6 +831,7 @@
           악마를 퇴마한 실감이, 오스카의 손바닥에 남아있다. 그가 퇴마사가 되길 원한다면, 그 실감은 분명 그의 초석이 될 것이다. 누군가에게 칭찬 받지 않더라도, 누구에게 보여지지 않더라도, 그래도, 당신은 살아있다. 그 손바닥이 언젠가, 빛을 쥐게 되기를 바라며. 그래, 사라져간 누군가에게, 행복을 기원 받으면서.
         </div>
         <div style="margin-top:30px;">
+          <button id="to-epilogue" class="btn">에필로그로</button>
           <button id="restart-from-no" class="btn">처음부터 다시</button>
           <div style="margin-top: 24px; border-top:1px solid rgba(255,255,255,0.3); padding-top:16px;">
             <button id="back-to-common" class="btn">공통 엔딩으로</button>
@@ -834,6 +839,7 @@
         </div>
       `;
       fadeTransition(html, () => {
+        document.getElementById('to-epilogue').addEventListener('click', showEpilogueSelection);
         document.getElementById('restart-from-no').addEventListener('click', () => {
           sessionStorage.clear();
           goToInitialScreen();
@@ -856,6 +862,7 @@
           그래도, 분명히 당신은 살아있다. 두 발로 이 땅을 딛고 있다. 찬사의 소리를 받지 못해도, 어둠에 끌려들어가도, 그래도 당신은 숨을 쉰다. 자신과 마찬가지로 괴로워하고 그래도 발버둥 치며 살고 있는 누군가를 당신은 알고 있다. 그 손바닥이 언젠가, 빛을 쥐게 되기를.
         </div>
         <div style="margin-top:30px;">
+          <button id="to-epilogue" class="btn">에필로그로</button>
           <button id="restart-from-no" class="btn">처음부터 다시</button>
           <div style="margin-top: 24px; border-top:1px solid rgba(255,255,255,0.3); padding-top:16px;">
             <button id="back-to-common" class="btn">공통 엔딩으로</button>
@@ -863,6 +870,7 @@
         </div>
       `;
       fadeTransition(html, () => {
+        document.getElementById('to-epilogue').addEventListener('click', showEpilogueSelection);
         document.getElementById('restart-from-no').addEventListener('click', () => {
           sessionStorage.clear();
           goToInitialScreen();
@@ -888,6 +896,7 @@
           마차는 눈길을 굴러가듯 나아간다. 둘은 어디로 가는 걸까. 갈 곳이 어둠이라 해도, 그래도 마차는 앞으로 나아가는 것이다. 어디까지나, 어디까지나... 계속 나아가는 한, 어둠이 그들을 붙잡을 수는 없다.
         </div>
         <div style="margin-top:30px;">
+          <button id="to-epilogue" class="btn">에필로그로</button>
           <button id="restart-from-no" class="btn">처음부터 다시</button>
           <div style="margin-top: 24px; border-top:1px solid rgba(255,255,255,0.3); padding-top:16px;">
             <button id="back-to-common" class="btn">공통 엔딩으로</button>
@@ -895,6 +904,7 @@
         </div>
       `;
       fadeTransition(html, () => {
+        document.getElementById('to-epilogue').addEventListener('click', showEpilogueSelection);
         document.getElementById('restart-from-no').addEventListener('click', () => {
           sessionStorage.clear();
           goToInitialScreen();
@@ -910,6 +920,7 @@
           머지않아, 경찰이 퇴마사를 데려올 것이다. 이 지옥 같은 세상과도, 작별이다. 그리고, 테오는 지옥으로 떨어진다. 이제 그와 다시 만날 일은 없을 것이다. 그의 누구보다도 깨끗한 영혼은, 분명 천국으로 갈 테니까. 테오는 그런 것을 확신하면서, 천천히 어둠 속으로 떨어져간다.
         </div>
         <div style="margin-top:30px;">
+          <button id="to-epilogue" class="btn">에필로그로</button>
           <button id="restart-from-no" class="btn">처음부터 다시</button>
           <div style="margin-top: 24px; border-top:1px solid rgba(255,255,255,0.3); padding-top:16px;">
             <button id="back-to-common" class="btn">공통 엔딩으로</button>
@@ -917,118 +928,7 @@
         </div>
       `;
       fadeTransition(html, () => {
-        document.getElementById('restart-from-no').addEventListener('click', () => {
-          sessionStorage.clear();
-          goToInitialScreen();
-        });
-        document.getElementById('back-to-common').addEventListener('click', showFinalEnding);
-      });
-    }
-
-    /* ================= 노아 & 오스카 세부 엔딩들 ================= */
-
-    function showNO_Exorcise() {
-      const html = `
-        <h1>신의 아이 노아 & 시종 오스카</h1>
-        <div class="description">
-          오스카는 나이프를 움켜쥐었다. 퇴마를 할 수 있는 틀림없는 기회다. 그는 돌아서서, 악마 테오를 바라본다. 약한 악마다. 자신도, 쉽게 퇴마할 수 있다. 자신이 믿는 길을 관철할 수밖에 없었다. 지금까지 줄곧, 그렇게 살아왔으니까.<br><br>
-          <strong>악마 테오</strong> 「...오스카, 나는, 널 계속 지켜봤어…」<br>
-          <strong>시종 오스카</strong> 「뭐냐? 악마여. 유언 정도는 들어주마」<br><br>
-          <strong>악마 테오・시종 오스카</strong> 「(자유롭게 대화해주세요)」<br><br>
-          오스카는 기도를 담아, 나이프를 악마에게 찔러 넣는다. 성스러운 칼날이 소년의 살갗을 파고들었다. 악마의 영혼은 퇴마 되어, 지옥으로 향한다.<br><br>
-          악마를 퇴마한 실감이, 오스카의 손바닥에 남아있다. 그가 퇴마사가 되길 원한다면, 그 실감은 분명 그의 초석이 될 것이다. 누군가에게 칭찬 받지 않더라도, 누구에게 보여지지 않더라도, 그래도, 당신은 살아있다. 그 손바닥이 언젠가, 빛을 쥐게 되기를 바라며. 그래, 사라져간 누군가에게, 행복을 기원 받으면서.
-        </div>
-        <div style="margin-top:30px;">
-          <button id="restart-from-no" class="btn">처음부터 다시</button>
-          <div style="margin-top: 24px; border-top:1px solid rgba(255,255,255,0.3); padding-top:16px;">
-            <button id="back-to-common" class="btn">공통 엔딩으로</button>
-          </div>
-        </div>
-      `;
-      fadeTransition(html, () => {
-        document.getElementById('restart-from-no').addEventListener('click', () => {
-          sessionStorage.clear();
-          goToInitialScreen();
-        });
-        document.getElementById('back-to-common').addEventListener('click', showFinalEnding);
-      });
-    }
-
-    function showNO_NotExorcise() {
-      const html = `
-        <h1>신의 아이 노아 & 시종 오스카</h1>
-        <div class="description">
-          오스카는 고개를 좌우로 저었다. 악마 계약은 하지 않는다. 하지만, 악마를 퇴마하지도 않는다. 악마 테오는 그를 올려다보고 있다. 악마 계약을 하지 않을 것은, 분명 처음부터 알고 있었다. 오스카는 진지하고 고집스러운 사람이니까 일부러 발을 잘못 디딜 리는 없다. 하지만, 퇴마도 하지 않는다니... 테오는 미소 지었다.<br><br>
-          <strong>악마 테오</strong> 「어중간하네, 오스카...」<br>
-          <strong>시종 오스카</strong> 「갑자기 나타나서, 악마다 뭐다하는 소리를 듣는 내 입장도 좀 생각해줘...」<br>
-          <strong>악마 테오</strong> 「미안해. 난 오스카가 착한 사람이라는 걸, 알고 있었어」<br>
-          <strong>시종 오스카</strong> 「나에 대해 잘 안다는 듯이 말하는 군… 아무것도 모르면서…」<br><br>
-          <strong>악마 테오・시종 오스카</strong> 「(자유롭게 대화해주세요)」<br><br>
-          남겨진 악마 테오는, 앞으로 어떻게 살아갈까. 신의 아이를 잃은 그는, 언제 누구에게 소환될지도 모른다. 이 세상의 지옥이 다시 입을 벌려 당신을 기다리고 있다. 시종 오스카의 미래도 마찬가지다. 신의 아이를 잃고, 지켜내야 할 사람을 잃고, 그런 상태로 교회에 얼굴을 내밀면 어떻게 될까. 미래는 어찌할 수 없이 펼쳐져 있고, 선택을 거듭하고 앞으로 나아갈 수밖에 없다.<br><br>
-          그래도, 분명히 당신은 살아있다. 두 발로 이 땅을 딛고 있다. 찬사의 소리를 받지 못해도, 어둠에 끌려들어가도, 그래도 당신은 숨을 쉰다. 자신과 마찬가지로 괴로워하고 그래도 발버둥 치며 살고 있는 누군가를 당신은 알고 있다. 그 손바닥이 언젠가, 빛을 쥐게 되기를.
-        </div>
-        <div style="margin-top:30px;">
-          <button id="restart-from-no" class="btn">처음부터 다시</button>
-          <div style="margin-top: 24px; border-top:1px solid rgba(255,255,255,0.3); padding-top:16px;">
-            <button id="back-to-common" class="btn">공통 엔딩으로</button>
-          </div>
-        </div>
-      `;
-      fadeTransition(html, () => {
-        document.getElementById('restart-from-no').addEventListener('click', () => {
-          sessionStorage.clear();
-          goToInitialScreen();
-        });
-        document.getElementById('back-to-common').addEventListener('click', showFinalEnding);
-      });
-    }
-
-    function showNO_HelpOscar() {
-      const html = `
-        <h1>신의 아이 노아 & 시종 오스카</h1>
-        <div class="description">
-          그때였다. 시종 오스카가 목소리를 높였다. 그 목소리에, 경찰은 전율한다. 서둘러 변명하려는 그들을 노려보며, 오스카는 계속 소리쳤다.<br><br>
-          <strong>시종 오스카</strong> 「이분은 신의 아이 노아님이시다. 내가 보증한다. 몇 번을 말해야 알겠느냐?」<br>
-          <strong>경찰</strong> 「하지만, 이렇게 구속되어 있고… 저희 조사로는, 악마라고…」<br>
-          <strong>시종 오스카</strong> 「악마라고? 불경한 소리들 하지 말아라! 노아님을 모시는 내가, 이분이 노아님 본인이라고 말하고 있는 것이다. 그것을 무시하고, 더 이상 노아님께 무례를 범할 생각이라면, 교회는 용서하지 않을 것이다!」<br><br>
-          경찰들은 서로 얼굴을 마주 본다. 누군가가 「오스카다. 신의 아이를 모시는 오스카다!」라고 소리치자 그들은 안색이 변했다. 누구를 상대하고 있는지, 드디어 이해한 모양이다. 그들은 한심할 정도로 떨면서, 황급히 노아의 구속을 풀어준다.<br><br>
-          멍하니 있는 노아의 손을 잡고, 오스카는 저택 밖으로 나왔다. 밖을 순찰하던 경관에게 강한 어조로 명령하여, 그들의 마차 하나를 빌려, 마을을 향해 달리기 시작한다.<br><br>
-          <strong>악마 테오</strong> 「잠, 잠깐. 오스카. 난, 정말 가짜야. 악마라고. 노아가 아니야. 언젠가 들통 날 거야. 저기에는 노아의 시체가 있어. 경찰이 쫓아올 거야」<br>
-          <strong>시종 오스카</strong> 「...으름장을 놓았으니, 당장은 쫓아오지 않을 것이다. 일단, 가능한 한 멀리 도망치는 수밖에 없다.」<br>
-          <strong>악마 테오</strong> 「왜 이런 일을... 오스카에게 폐가 될 텐데!」<br><br>
-          <strong>테오・오스카</strong> 「(자유롭게 대화해주세요)」<br><br>
-          마차는 눈길을 굴러가듯 나아간다. 둘은 어디로 가는 걸까. 갈 곳이 어둠이라 해도, 그래도 마차는 앞으로 나아가는 것이다. 어디까지나, 어디까지나... 계속 나아가는 한, 어둠이 그들을 붙잡을 수는 없다.
-        </div>
-        <div style="margin-top:30px;">
-          <button id="restart-from-no" class="btn">처음부터 다시</button>
-          <div style="margin-top: 24px; border-top:1px solid rgba(255,255,255,0.3); padding-top:16px;">
-            <button id="back-to-common" class="btn">공통 엔딩으로</button>
-          </div>
-        </div>
-      `;
-      fadeTransition(html, () => {
-        document.getElementById('restart-from-no').addEventListener('click', () => {
-          sessionStorage.clear();
-          goToInitialScreen();
-        });
-        document.getElementById('back-to-common').addEventListener('click', showFinalEnding);
-      });
-    }
-
-    function showNO_NotHelpOscar() {
-      const html = `
-        <h1>신의 아이 노아 & 시종 오스카</h1>
-        <div class="description">
-          머지않아, 경찰이 퇴마사를 데려올 것이다. 이 지옥 같은 세상과도, 작별이다. 그리고, 테오는 지옥으로 떨어진다. 이제 그와 다시 만날 일은 없을 것이다. 그의 누구보다도 깨끗한 영혼은, 분명 천국으로 갈 테니까. 테오는 그런 것을 확신하면서, 천천히 어둠 속으로 떨어져간다.
-        </div>
-        <div style="margin-top:30px;">
-          <button id="restart-from-no" class="btn">처음부터 다시</button>
-          <div style="margin-top: 24px; border-top:1px solid rgba(255,255,255,0.3); padding-top:16px;">
-            <button id="back-to-common" class="btn">공통 엔딩으로</button>
-          </div>
-        </div>
-      `;
-      fadeTransition(html, () => {
+        document.getElementById('to-epilogue').addEventListener('click', showEpilogueSelection);
         document.getElementById('restart-from-no').addEventListener('click', () => {
           sessionStorage.clear();
           goToInitialScreen();
@@ -1053,6 +953,7 @@
           그날, 한 시종이 처형되었다는 소문이 퍼졌다. 「아아, 그 고집불통 남자인가」하며 신관들은 연민조차 품지 않았다고 한다. 언덕 위에 조용히 세워진, 소박한 무덤에는, 꽃다발이 하나만 놓여 있었다. 그 꽃이 누구를 위해 바쳐진 것인지, 바르게 아는 사람은 이 세상에 단 한 명뿐이다. 부드러운 바람이 스쳐 지나가며, 꽃을 다정하게 어루만졌다.
         </div>
         <div style="margin-top:30px;">
+          <button id="to-epilogue" class="btn">에필로그로</button>
           <button id="restart-from-no" class="btn">처음부터 다시</button>
           <div style="margin-top: 24px; border-top:1px solid rgba(255,255,255,0.3); padding-top:16px;">
             <button id="back-to-common" class="btn">공통 엔딩으로</button>
@@ -1060,6 +961,7 @@
         </div>
       `;
       fadeTransition(html, () => {
+        document.getElementById('to-epilogue').addEventListener('click', showEpilogueSelection);
         document.getElementById('restart-from-no').addEventListener('click', () => {
           sessionStorage.clear();
           goToInitialScreen();
@@ -1076,6 +978,7 @@
           …그날, 한 시종이 처형되었다는 소문이 퍼졌다. 「아아, 그 고집불통 남자인가」하며 신관들은 연민조차 품지 않았다고 한다. 언덕 위에 조용히 세워진 소박한 무덤에, 어딘가의 누군가의 모습을 한 악마가 찾아온다. 그 사람은 무덤에 한 송이 꽃을 바치고, 서투른 기도의 말을 올린다. 부드러운 바람이 스쳐 지나가며, 악마의 뺨을 다정하게 어루만졌다.
         </div>
         <div style="margin-top:30px;">
+          <button id="to-epilogue" class="btn">에필로그로</button>
           <button id="restart-from-no" class="btn">처음부터 다시</button>
           <div style="margin-top: 24px; border-top:1px solid rgba(255,255,255,0.3); padding-top:16px;">
             <button id="back-to-common" class="btn">공통 엔딩으로</button>
@@ -1083,13 +986,17 @@
         </div>
       `;
       fadeTransition(html, () => {
+        document.getElementById('to-epilogue').addEventListener('click', showEpilogueSelection);
         document.getElementById('restart-from-no').addEventListener('click', () => {
           sessionStorage.clear();
           goToInitialScreen();
         });
         document.getElementById('back-to-common').addEventListener('click', showFinalEnding);
       });
-    }
+    }  
+      
+    
+      
 
     /* ================= 리처드 & 앨리스 엔딩 본문들 ================= */
     
