@@ -994,6 +994,520 @@
         document.getElementById('back-to-common').addEventListener('click', showFinalEnding);
       });
     }  
+
+    /* ================= 노아 & 오스카 엔딩 본문들 ================= */
+    
+    function getNO_Ending_OtherNoContract() {
+      return `
+        <h1>신의 아이 노아 & 시종 오스카</h1>
+        <div class="description">
+          날씨는 많이 좋아졌다. 마차는 너덜너덜하지만 아직은 달릴 수 있다. 말도 건재하다.<br>
+          오스카는 산을 내려갈 수 있을 것 같다고 판단한다.<br><br>
+          <strong>시종 오스카</strong> 「그럼 가시죠, 노아님.」<br><br>
+          대답이 없다. 돌아보니, 신의 아이 노아는 먼 곳을 멍하니 바라보고 있다. 오스카의 시선을 눈치채고, 노아는 오스카를 향해 미소 짓는다.<br><br>
+          <strong>신의 아이 노아</strong> 「아, 미안해요. 여러 일이 있어서, 좀 피곤해졌나 봐요. 무슨 일이에요?」<br>
+          <strong>시종 오스카</strong> 「마차로 산을 내려가시죠. 마을로 돌아가시면, 한번 푹 쉬시는 게 좋겠네요. 정말... 여러 가지 일이 있었으니까요.」<br><br>
+          오스카는 의미심장한 시선으로 저택을 바라본다.<br><br>
+          <strong>시종 오스카</strong> 「마차를 준비하겠습니다.」<br>
+          <strong>신의 아이 노아</strong> 「응...」<br>
+          <strong>시종 오스카</strong> 「정말 컨디션이 안 좋아 보이시네요. 괜찮으신가요?」<br><br>
+          <strong>신의 아이 노아・시종 오스카</strong> 「(자유롭게 대화해주세요)」<br><br>
+          낡은 마차가 천천히 산을 내려간다. 산을 내려가면서, 둘은 대화를 나눴다. 평소와는 다르게, 신의 아이 노아가 이런저런 이야기를 오스카에게 건네온다. 오스카는 의아해하면서도, 주인의 물음에 정중히 대답을 이어갔다. 산을 내려가도, 숙소에 도착해도, 이야기는 끝나지 않았다. 정처 없는, 아무것도 아닌 듯한 이야기를, 둘은 계속해서 나누었다.<br><br>
+          그리고, 다음 날, 신의 아이 노아는 모습을 감추었다. 닫힌 밀실 안에서, 연기처럼 사라져버린 것 같았다. 누구도 그 수수께끼를 풀 수 없었다. 여러 사람이 지켜보는 중에 일어난 일이었기에, 누구의 책임이라고도 할 수 없었다. 모시던 존재를 잃은 오스카는, 그저 평범한 신관 중 하나로 전락한다. 신관들은 누구도 그에게 말을 걸지 않고, 그는 다시 외톨이가 되었다.<br><br>
+          그리고, 이 세상 어딘가에서, 악마가 홀로 몸부림치고 있다. 누군가를 대신해 목이 잘리고, 누군가를 대신해 몸이 불타오르고, 누군가를 대신해 죽어가는… 그들의 마음을 잠식한 어둠에, 아주 조금이라도, 빛은 스며들었을까? 그 답은, 그들 외에는, 아무도 모른다.
+        </div>
+        <div style="margin-top:30px;">
+          <button id="to-epilogue" class="btn">에필로그로</button>
+          <button id="restart-from-no" class="btn">처음부터 다시</button>
+          <div style="margin-top: 24px; border-top:1px solid rgba(255,255,255,0.3); padding-top:16px;">
+            <button id="back-to-common" class="btn">공통 엔딩으로</button>
+          </div>
+        </div>
+      `;
+    }
+
+    function getNO_Ending_DemonNoContract() {
+      return `
+        <h1>신의 아이 노아 & 시종 오스카</h1>
+        <div class="description">
+          시종 오스카는, 신의 아이 노아... 아니, 악마를 돌아본다. 악마는 조용히 눈을 내리깔고, 미소 짓고 있었다.<br><br>
+          <strong>시종 오스카</strong> 「너는, 노아님인 척한 악마지?」<br>
+          <strong>악마 테오</strong> 「...알고 있었구나」<br>
+          <strong>시종 오스카</strong> 「더러운 악마 놈! 왜 노아님인 척하고 있는 거냐!」<br><br>
+          <strong>시종 오스카・악마 테오</strong> 「(자유롭게 대화해주세요)」<br><br>
+          오스카의 눈동자를 바라보던 악마 테오는, 조용히 시선을 내린다. 또다시, 지옥 같은 나날의 반복이 기다리고 있다. 아니, 혹은...<br><br>
+          시종 오스카에게 묻습니다. 악마 테오를 「퇴마」하시겠습니까?
+        </div>
+        <div style="margin-top:30px;">
+          <button id="exorcise-theo" class="btn" style="margin-bottom: 15px;">퇴마한다</button>
+          <button id="not-exorcise-theo" class="btn" style="margin-bottom: 30px;">퇴마하지 않는다</button>
+          <div style="margin-top: 24px; border-top:1px solid rgba(255,255,255,0.3); padding-top:16px;">
+            <button id="back-to-common" class="btn">공통 엔딩으로</button>
+          </div>
+        </div>
+      `;
+    }
+
+    function getNO_Ending_ContractRejected() {
+      return `
+        <h1>신의 아이 노아 & 시종 오스카</h1>
+        <div class="description">
+          시종 오스카는, 악마 계약을 받아들이지 않았다.<br>
+          그의 눈동자를 바라보던 신의 아이 노아... 아니, 악마 테오는 조용히 시선을 내린다. 또다시, 지옥 같은 나날의 반복이 기다리고 있다. 아니, 혹은...<br><br>
+          시종 오스카에게 묻습니다. 악마 테오를 「퇴마」하시겠습니까?
+        </div>
+        <div style="margin-top:30px;">
+          <button id="exorcise-theo" class="btn" style="margin-bottom: 15px;">퇴마한다</button>
+          <button id="not-exorcise-theo" class="btn" style="margin-bottom: 30px;">퇴마하지 않는다</button>
+          <div style="margin-top: 24px; border-top:1px solid rgba(255,255,255,0.3); padding-top:16px;">
+            <button id="back-to-common" class="btn">공통 엔딩으로</button>
+          </div>
+        </div>
+      `;
+    }
+
+    function getNO_Ending_Contract() {
+      return `
+        <h1>신의 아이 노아 & 시종 오스카</h1>
+        <div class="description">
+          누구에게도 보이지 않는 조용한 곳에서, 오스카는 바닥에 마법진을 그렸다. 익숙지 않은 소원을 떠올리자, 옆에 있던 소년이 그 마법진에서 나타난다. 약간 우스꽝스러운 장면이었을지도 모르지만, 웃는 사람은 아무도 없다. 여기에는 둘 밖에 없으니까.<br><br>
+          <strong>악마 테오</strong> 「정말 고마워. 너를 위해서라면, 신의 아이인 척이든, 뭐든 할게. 나는 악마니까」<br>
+          <strong>시종 오스카</strong> 「...악마 계약이란, 이런 감각인 건가.」<br>
+          <strong>악마 테오</strong> 「너와 악마 계약을 하는 날이 올 줄은 생각도 못했어. 아, 그리고 나한테 변신을 명령하지 않으면, 네가 지옥에 떨어지는 일은 없으니까 안심해.」<br>
+          <strong>시종 오스카</strong> 「그렇군...하지만, 내 영혼은 아무것도 하지 않아도 지옥에 떨어질지도 모르겠구나.」<br><br>
+          <strong>테오・오스카</strong> 「(자유롭게 대화해주세요)」<br><br>
+          둘은 어디로 갈까. 지금까지의 인생이 뇌리를 스쳐 지나간다. 언제나 혼자였다. 아무리 간절히 원해도, 도움도 구원도 어디에도 없었다. 그런 일들을, 둘은 떠올렸다.<br><br>
+          「가자」라고 누군가가 말했다. 두 그림자가 겹쳐지며 앞으로 걸음을 내딛기 시작했다.
+        </div>
+        <div style="margin-top:30px;">
+          <button id="to-epilogue" class="btn">에필로그로</button>
+          <button id="restart-from-no" class="btn">처음부터 다시</button>
+          <div style="margin-top: 24px; border-top:1px solid rgba(255,255,255,0.3); padding-top:16px;">
+            <button id="back-to-common" class="btn">공통 엔딩으로</button>
+          </div>
+        </div>
+      `;
+    }
+
+    function getNO_Ending_NoahBound() {
+      return `
+        <h1>신의 아이 노아 & 시종 오스카</h1>
+        <div class="description">
+          눈길을 뚫고 경찰이 도착했다. 그들은 밧줄로 묶인 신의 아이 노아를 보고, 황급히 구해내려 한다. 그 때 하인들이 사정을 설명하며, 노아를 조사하도록 전했다. 경찰은 두려움에 떨면서도 조심스럽게, 그를 샅샅이 조사하기 시작한다. 그리고 누군가가 비명 소리를 질렀다.<br><br>
+          <strong>경찰</strong> 「이, 이놈... 악마다!」<br><br>
+          술렁임과 함께, 그들은 노아에게서 멀어진다.<br><br>
+          <strong>경찰</strong> 「누구, 퇴마사를, 무기를 가져와!」<br>
+          <strong>신의 아이 노아</strong> 「역시, 그렇게 되는 거지...」<br><br>
+          퇴마를 당하면 신의 아이 노아 아니, 악마 테오의 영혼은 지옥에 갇히게 된다. 사는 것이 지옥일까. 죽는 것이 지옥일까. 테오는 알 수 없다. 하지만, 지옥은 지옥일 뿐이다. 잠시의 평안함조차도, 그곳에는 존재하지 않을 것이다.<br><br>
+          중앙 홀에서는, 오스카가 우두커니 서 있었다. 테오는 그를 바라본다.<br><br>
+          <strong>악마 테오</strong> 「...나쁜 짓을 하려던 건 아니야, 정말이야」<br>
+          <strong>시종 오스카</strong> 「하지만, 노아님인 척을 했잖아…」<br>
+          <strong>악마 테오</strong> 「그건 미안해. 하지만, 사정이 있었어. 오스카에게 폐가 되지 않았으면 좋겠는데...」<br>
+          <strong>시종 오스카</strong> 「어째서, 악마가, 내 걱정 같은 걸 할 필요가 있지?」<br><br>
+          오스카에게 묻겠습니다.
+        </div>
+        <div style="margin-top:30px;">
+          <button id="help-oscar" class="btn" style="margin-bottom: 15px;">테오를 돕는다</button>
+          <button id="not-help-oscar" class="btn" style="margin-bottom: 30px;">돕지 않는다</button>
+          <div style="margin-top: 24px; border-top:1px solid rgba(255,255,255,0.3); padding-top:16px;">
+            <button id="back-to-common" class="btn">공통 엔딩으로</button>
+          </div>
+        </div>
+      `;
+    }
+
+    function getNO_Ending_OscarBound() {
+      return `
+        <h1>신의 아이 노아 & 시종 오스카</h1>
+        <div class="description">
+          눈길을 뚫고 경찰이 도착했다. 그들은 밧줄로 묶인 시종 오스카를, 샅샅이 조사하기 시작한다. 하지만, 수상한 점은 찾지 못한 것 같다. 그러나 그들이 놀란 것은 지하실에서 발견된 시체 때문이다. 신의 아이 노아의 얼굴을 한 시체를 보고, 경찰들은 혼비백산이 되었다. 곧바로 마을에서 교회의 사람들이 왔고, 신의 아이 노아가 죽었다는 것이 확인되었다.<br><br>
+          <strong>신관</strong> 「오스카! 노아님 곁에 있으면서, 그를 지키지 못했다니 무슨 생각이냐! 이것이 얼마나 큰 죄가 되는지, 알고는 있는 거냐!」<br><br>
+          신관은 고함을 지르며, 오스카를 때렸다. 경찰과 신관들에게 붙잡혀, 오스카는 산을 내려가게 된다. 그 앞에 기다리는 것은, 날카로운 칼날이 빛나는 처형대다. 신의 아이의 죽음을, 교회는 용서하지 않는다. 그 죽음의 죄를... 누군가가 속죄해야만 한다.<br><br>
+          죄수처럼 마차의 짐칸에 실려, 오스카는 허공을 바라보고 있다. 지금까지의 인생이 주마등처럼 스쳐 지나간다. 불길한 누나, 적응하지 못했던 모건 가문, 재능 넘치는 의붓여동생, 이해할 수 없는 동료들, 경애해야 할 신의 아이… 하지만, 어느 얼굴도 제대로 떠올릴 수 없다. 어디에 손을 뻗어도, 닿지 않는다.<br><br>
+          <strong>시종 오스카</strong> 「(자유롭게 발언해주세요)」<br><br>
+          신의 아이 노아에게 묻겠습니다.
+        </div>
+        <div style="margin-top:30px;">
+          <button id="theo-sacrifice" class="btn" style="margin-bottom: 15px;">오스카로 변신하여 오스카 대신 죽는다<br><span style="font-size:0.85em;">(교회의 처형대에 죽으면 되살아 나지도 못한다)</span></button>
+          <button id="not-help-oscar" class="btn" style="margin-bottom: 30px;">돕지 않는다</button>
+          <div style="margin-top: 24px; border-top:1px solid rgba(255,255,255,0.3); padding-top:16px;">
+            <button id="back-to-common" class="btn">공통 엔딩으로</button>
+          </div>
+        </div>
+      `;
+    }
+
+    function getNO_Ending_Default() {
+      return `
+        <h1>신의 아이 노아 & 시종 오스카</h1>
+        <div class="description">
+          모든 일이 끝났다. 둘은 각자의 길을 걷게 된다. 그 길이 어디로 이어질지는, 아무도 모른다.
+        </div>
+        <div style="margin-top:30px;">
+          <button id="to-epilogue" class="btn">에필로그로</button>
+          <button id="restart-from-no" class="btn">처음부터 다시</button>
+          <div style="margin-top: 24px; border-top:1px solid rgba(255,255,255,0.3); padding-top:16px;">
+            <button id="back-to-common" class="btn">공통 엔딩으로</button>
+          </div>
+        </div>
+      `;
+    }
+
+    /* ================= 노아 & 오스카 세부 엔딩들 ================= */
+
+    function showNO_Exorcise() {
+      const html = `
+        <h1>신의 아이 노아 & 시종 오스카</h1>
+        <div class="description">
+          오스카는 나이프를 움켜쥐었다. 퇴마를 할 수 있는 틀림없는 기회다. 그는 돌아서서, 악마 테오를 바라본다. 약한 악마다. 자신도, 쉽게 퇴마할 수 있다. 자신이 믿는 길을 관철할 수밖에 없었다. 지금까지 줄곧, 그렇게 살아왔으니까.<br><br>
+          <strong>악마 테오</strong> 「...오스카, 나는, 널 계속 지켜봤어…」<br>
+          <strong>시종 오스카</strong> 「뭐냐? 악마여. 유언 정도는 들어주마」<br><br>
+          <strong>악마 테오・시종 오스카</strong> 「(자유롭게 대화해주세요)」<br><br>
+          오스카는 기도를 담아, 나이프를 악마에게 찔러 넣는다. 성스러운 칼날이 소년의 살갗을 파고들었다. 악마의 영혼은 퇴마 되어, 지옥으로 향한다.<br><br>
+          악마를 퇴마한 실감이, 오스카의 손바닥에 남아있다. 그가 퇴마사가 되길 원한다면, 그 실감은 분명 그의 초석이 될 것이다. 누군가에게 칭찬 받지 않더라도, 누구에게 보여지지 않더라도, 그래도, 당신은 살아있다. 그 손바닥이 언젠가, 빛을 쥐게 되기를 바라며. 그래, 사라져간 누군가에게, 행복을 기원 받으면서.
+        </div>
+        <div style="margin-top:30px;">
+          <button id="to-epilogue" class="btn">에필로그로</button>
+          <button id="restart-from-no" class="btn">처음부터 다시</button>
+          <div style="margin-top: 24px; border-top:1px solid rgba(255,255,255,0.3); padding-top:16px;">
+            <button id="back-to-common" class="btn">공통 엔딩으로</button>
+          </div>
+        </div>
+      `;
+      fadeTransition(html, () => {
+        document.getElementById('to-epilogue').addEventListener('click', showEpilogueSelection);
+        document.getElementById('restart-from-no').addEventListener('click', () => {
+          sessionStorage.clear();
+          goToInitialScreen();
+        });
+        document.getElementById('back-to-common').addEventListener('click', showFinalEnding);
+      });
+    }
+
+    function showNO_NotExorcise() {
+      const html = `
+        <h1>신의 아이 노아 & 시종 오스카</h1>
+        <div class="description">
+          오스카는 고개를 좌우로 저었다. 악마 계약은 하지 않는다. 하지만, 악마를 퇴마하지도 않는다. 악마 테오는 그를 올려다보고 있다. 악마 계약을 하지 않을 것은, 분명 처음부터 알고 있었다. 오스카는 진지하고 고집스러운 사람이니까 일부러 발을 잘못 디딜 리는 없다. 하지만, 퇴마도 하지 않는다니... 테오는 미소 지었다.<br><br>
+          <strong>악마 테오</strong> 「어중간하네, 오스카...」<br>
+          <strong>시종 오스카</strong> 「갑자기 나타나서, 악마다 뭐다하는 소리를 듣는 내 입장도 좀 생각해줘...」<br>
+          <strong>악마 테오</strong> 「미안해. 난 오스카가 착한 사람이라는 걸, 알고 있었어」<br>
+          <strong>시종 오스카</strong> 「나에 대해 잘 안다는 듯이 말하는 군… 아무것도 모르면서…」<br><br>
+          <strong>악마 테오・시종 오스카</strong> 「(자유롭게 대화해주세요)」<br><br>
+          남겨진 악마 테오는, 앞으로 어떻게 살아갈까. 신의 아이를 잃은 그는, 언제 누구에게 소환될지도 모른다. 이 세상의 지옥이 다시 입을 벌려 당신을 기다리고 있다. 시종 오스카의 미래도 마찬가지다. 신의 아이를 잃고, 지켜내야 할 사람을 잃고, 그런 상태로 교회에 얼굴을 내밀면 어떻게 될까. 미래는 어찌할 수 없이 펼쳐져 있고, 선택을 거듭하고 앞으로 나아갈 수밖에 없다.<br><br>
+          그래도, 분명히 당신은 살아있다. 두 발로 이 땅을 딛고 있다. 찬사의 소리를 받지 못해도, 어둠에 끌려들어가도, 그래도 당신은 숨을 쉰다. 자신과 마찬가지로 괴로워하고 그래도 발버둥 치며 살고 있는 누군가를 당신은 알고 있다. 그 손바닥이 언젠가, 빛을 쥐게 되기를.
+        </div>
+        <div style="margin-top:30px;">
+          <button id="to-epilogue" class="btn">에필로그로</button>
+          <button id="restart-from-no" class="btn">처음부터 다시</button>
+          <div style="margin-top: 24px; border-top:1px solid rgba(255,255,255,0.3); padding-top:16px;">
+            <button id="back-to-common" class="btn">공통 엔딩으로</button>
+          </div>
+        </div>
+      `;
+      fadeTransition(html, () => {
+        document.getElementById('to-epilogue').addEventListener('click', showEpilogueSelection);
+        document.getElementById('restart-from-no').addEventListener('click', () => {
+          sessionStorage.clear();
+          goToInitialScreen();
+        });
+        document.getElementById('back-to-common').addEventListener('click', showFinalEnding);
+      });
+    }
+
+    function showNO_HelpOscar() {
+      const html = `
+        <h1>신의 아이 노아 & 시종 오스카</h1>
+        <div class="description">
+          그때였다. 시종 오스카가 목소리를 높였다. 그 목소리에, 경찰은 전율한다. 서둘러 변명하려는 그들을 노려보며, 오스카는 계속 소리쳤다.<br><br>
+          <strong>시종 오스카</strong> 「이분은 신의 아이 노아님이시다. 내가 보증한다. 몇 번을 말해야 알겠느냐?」<br>
+          <strong>경찰</strong> 「하지만, 이렇게 구속되어 있고… 저희 조사로는, 악마라고…」<br>
+          <strong>시종 오스카</strong> 「악마라고? 불경한 소리들 하지 말아라! 노아님을 모시는 내가, 이분이 노아님 본인이라고 말하고 있는 것이다. 그것을 무시하고, 더 이상 노아님께 무례를 범할 생각이라면, 교회는 용서하지 않을 것이다!」<br><br>
+          경찰들은 서로 얼굴을 마주 본다. 누군가가 「오스카다. 신의 아이를 모시는 오스카다!」라고 소리치자 그들은 안색이 변했다. 누구를 상대하고 있는지, 드디어 이해한 모양이다. 그들은 한심할 정도로 떨면서, 황급히 노아의 구속을 풀어준다.<br><br>
+          멍하니 있는 노아의 손을 잡고, 오스카는 저택 밖으로 나왔다. 밖을 순찰하던 경관에게 강한 어조로 명령하여, 그들의 마차 하나를 빌려, 마을을 향해 달리기 시작한다.<br><br>
+          <strong>악마 테오</strong> 「잠, 잠깐. 오스카. 난, 정말 가짜야. 악마라고. 노아가 아니야. 언젠가 들통 날 거야. 저기에는 노아의 시체가 있어. 경찰이 쫓아올 거야」<br>
+          <strong>시종 오스카</strong> 「...으름장을 놓았으니, 당장은 쫓아오지 않을 것이다. 일단, 가능한 한 멀리 도망치는 수밖에 없다.」<br>
+          <strong>악마 테오</strong> 「왜 이런 일을... 오스카에게 폐가 될 텐데!」<br><br>
+          <strong>테오・오스카</strong> 「(자유롭게 대화해주세요)」<br><br>
+          마차는 눈길을 굴러가듯 나아간다. 둘은 어디로 가는 걸까. 갈 곳이 어둠이라 해도, 그래도 마차는 앞으로 나아가는 것이다. 어디까지나, 어디까지나... 계속 나아가는 한, 어둠이 그들을 붙잡을 수는 없다.
+        </div>
+        <div style="margin-top:30px;">
+          <button id="to-epilogue" class="btn">에필로그로</button>
+          <button id="restart-from-no" class="btn">처음부터 다시</button>
+          <div style="margin-top: 24px; border-top:1px solid rgba(255,255,255,0.3); padding-top:16px;">
+            <button id="back-to-common" class="btn">공통 엔딩으로</button>
+          </div>
+        </div>
+      `;
+      fadeTransition(html, () => {
+        document.getElementById('to-epilogue').addEventListener('click', showEpilogueSelection);
+        document.getElementById('restart-from-no').addEventListener('click', () => {
+          sessionStorage.clear();
+          goToInitialScreen();
+        });
+        document.getElementById('back-to-common').addEventListener('click', showFinalEnding);
+      });
+    }
+
+    function showNO_NotHelpOscar() {
+      const html = `
+        <h1>신의 아이 노아 & 시종 오스카</h1>
+        <div class="description">
+          머지않아, 경찰이 퇴마사를 데려올 것이다. 이 지옥 같은 세상과도, 작별이다. 그리고, 테오는 지옥으로 떨어진다. 이제 그와 다시 만날 일은 없을 것이다. 그의 누구보다도 깨끗한 영혼은, 분명 천국으로 갈 테니까. 테오는 그런 것을 확신하면서, 천천히 어둠 속으로 떨어져간다.
+        </div>
+        <div style="margin-top:30px;">
+          <button id="to-epilogue" class="btn">에필로그로</button>
+          <button id="restart-from-no" class="btn">처음부터 다시</button>
+          <div style="margin-top: 24px; border-top:1px solid rgba(255,255,255,0.3); padding-top:16px;">
+            <button id="back-to-common" class="btn">공통 엔딩으로</button>
+          </div>
+        </div>
+      `;
+      fadeTransition(html, () => {
+        document.getElementById('to-epilogue').addEventListener('click', showEpilogueSelection);
+        document.getElementById('restart-from-no').addEventListener('click', () => {
+          sessionStorage.clear();
+          goToInitialScreen();
+        });
+        document.getElementById('back-to-common').addEventListener('click', showFinalEnding);
+      });
+    }
+
+    function showNO_TheoSacrifice() {
+      const html = `
+        <h1>신의 아이 노아 & 시종 오스카</h1>
+        <div class="description">
+          짐칸의 짐이 부스럭거렸다. 놀라서 살펴보니, 짐 속에서 신의 아이 노아가 기어 나온다. 조금 전까지 오스카와 함께 있던 소년이다. 소년이 살짝 미소 짓자 그 윤곽이 흐려진다. 그러더니 소년의 모습이 바뀐다. 마술처럼 거울이 놓인 걸까, 당신은 생각했다. 눈앞에, 바로 당신이 있었다.<br><br>
+          <strong>악마 테오</strong> 「…변신, 잘하지?」<br>
+          <strong>시종 오스카</strong> 「나로 변신한 건가…? 왜…」<br>
+          <strong>악마 테오</strong> 「오스카는, 이 짐 속에 숨어. 내가 대신 오스카가 될 테니까」<br>
+          <strong>시종 오스카</strong> 「…무슨 생각인지 모르겠지만, 교회의 처형이다. 그건 악마도 죽일 수 있어. 날 대신하면, 네가 죽는다. 알았다면, 그 쓸데없는 변신을 어서 풀...」<br>
+          <strong>악마 테오</strong> 「응, 알아. 나는 죽게 될 거야」<br><br>
+          악마는 웃는다. 당신과 똑같은 얼굴로, 당신은 지을 수 없는 표정으로 웃는다.<br><br>
+          <strong>시종 오스카</strong> 「무슨 소리를 하는 거냐...!? 아무런 이득도 없을 텐데...!」<br><br>
+          <strong>악마 테오・시종 오스카</strong> 「(자유롭게 대화해주세요)」<br><br>
+          그날, 한 시종이 처형되었다는 소문이 퍼졌다. 「아아, 그 고집불통 남자인가」하며 신관들은 연민조차 품지 않았다고 한다. 언덕 위에 조용히 세워진, 소박한 무덤에는, 꽃다발이 하나만 놓여 있었다. 그 꽃이 누구를 위해 바쳐진 것인지, 바르게 아는 사람은 이 세상에 단 한 명뿐이다. 부드러운 바람이 스쳐 지나가며, 꽃을 다정하게 어루만졌다.
+        </div>
+        <div style="margin-top:30px;">
+          <button id="to-epilogue" class="btn">에필로그로</button>
+          <button id="restart-from-no" class="btn">처음부터 다시</button>
+          <div style="margin-top: 24px; border-top:1px solid rgba(255,255,255,0.3); padding-top:16px;">
+            <button id="back-to-common" class="btn">공통 엔딩으로</button>
+          </div>
+        </div>
+      `;
+      fadeTransition(html, () => {
+        document.getElementById('to-epilogue').addEventListener('click', showEpilogueSelection);
+        document.getElementById('restart-from-no').addEventListener('click', () => {
+          sessionStorage.clear();
+          goToInitialScreen();
+        });
+        document.getElementById('back-to-common').addEventListener('click', showFinalEnding);
+      });
+    }
+
+    function showNO_OscarSacrifice() {
+      const html = `
+        <h1>신의 아이 노아 & 시종 오스카</h1>
+        <div class="description">
+          지금까지의 인생이 뇌리를 스쳐 지나간다. 언제나 혼자였다. 아무리 바라도, 도움도 구원도 어디에도 없었다. 그런 일들이 문득 떠올랐다.<br><br>
+          …그날, 한 시종이 처형되었다는 소문이 퍼졌다. 「아아, 그 고집불통 남자인가」하며 신관들은 연민조차 품지 않았다고 한다. 언덕 위에 조용히 세워진 소박한 무덤에, 어딘가의 누군가의 모습을 한 악마가 찾아온다. 그 사람은 무덤에 한 송이 꽃을 바치고, 서투른 기도의 말을 올린다. 부드러운 바람이 스쳐 지나가며, 악마의 뺨을 다정하게 어루만졌다.
+        </div>
+        <div style="margin-top:30px;">
+          <button id="to-epilogue" class="btn">에필로그로</button>
+          <button id="restart-from-no" class="btn">처음부터 다시</button>
+          <div style="margin-top: 24px; border-top:1px solid rgba(255,255,255,0.3); padding-top:16px;">
+            <button id="back-to-common" class="btn">공통 엔딩으로</button>
+          </div>
+        </div>
+      `;
+      fadeTransition(html, () => {
+        document.getElementById('to-epilogue').addEventListener('click', showEpilogueSelection);
+        document.getElementById('restart-from-no').addEventListener('click', () => {
+          sessionStorage.clear();
+          goToInitialScreen();
+        });
+        document.getElementById('back-to-common').addEventListener('click', showFinalEnding);
+      });
+    }
+
+
+    /* ================= 에필로그 선택 페이지 ================= */
+    function showEpilogueSelection() {
+      const html = `
+        <h1>에필로그</h1>
+        <div class="description">
+          각 커플의 그 후 이야기를 감상할 수 있습니다.<br>
+          원하시는 에필로그를 선택해주세요.
+        </div>
+        <div style="margin-top:30px;">
+          <button id="epilogue-richard-alice" class="btn">자칭 탐정 리처드 & 소녀 앨리스<br><span style="font-size:0.85em;">「즉, 범인은 당신입니다」</span></button>
+          <button id="epilogue-noah-oscar" class="btn">시종 오스카 & 신의 아이 노아<br><span style="font-size:0.85em;">『저 빛을 그대에게』</span></button>
+          <button id="epilogue-claire-jack" class="btn">퇴마사 클레어 & 상인 잭<br><span style="font-size:0.85em;">『이 어둠을 당신과』</span></button>
+          <div style="margin-top: 24px; border-top:1px solid rgba(255,255,255,0.3); padding-top:16px;">
+            <button id="restart-all" class="btn">처음부터 다시</button>
+          </div>
+        </div>
+      `;
+      fadeTransition(html, () => {
+        document.getElementById('epilogue-richard-alice').addEventListener('click', showEpilogueRichardAlice);
+        document.getElementById('epilogue-noah-oscar').addEventListener('click', showEpilogueNoahOscar);
+        document.getElementById('epilogue-claire-jack').addEventListener('click', showEpilogueClairJack);
+        document.getElementById('restart-all').addEventListener('click', () => {
+          sessionStorage.clear();
+          goToInitialScreen();
+        });
+      });
+    }
+
+    /* ================= 에필로그: 리처드 & 앨리스 (1/3) ================= */
+    function showEpilogueRichardAlice() {
+      const html = `
+        <h1>자칭 탐정 리처드 & 소녀 앨리스</h1>
+        <div class="description" style="text-align: left;">
+          <strong>「즉, 범인은 당신입니다」</strong><br><br>
+          가벼운 어조로 리처드는 말해버린다. 중앙 홀에 모인 사람들의 시선을 받으며, 그에게 손가락질당한 남자는, 파랗게 질린 얼굴로 떨고 있었다. 그 반응을 보면 아, 정확히 맞혔구나, 하고 앨리스는 알 수 있었다.<br><br>
+          엘리자베스의 50번째 생일로부터, 일 년이 지났다. 리처드가 된 엘리자베스와 각지를 여행하고 다니고 있었다. 자칭 탐정이었던 엘리자베스의 "탐정 업무"는 완전히 익숙해졌다.<br><br>
+          "어떻게...어떻게 내가 범인인 줄 안거지... 완벽한 범행이었는데..."<br><br>
+          손가락질당한 남자는 얼굴을 흉하게 일그러트리며, 리처드를 증오의 표정으로 노려보고 있다. 리처드는 많은 말을 하지 않고, 어깨를 으쓱할 뿐이다. 그 또는 그녀는, 그것을 사람들 앞에서는 "명탐정의 감"이라고 한다. 그렇게 말하면, 대중은 그런 것인가 하고 믿어준다. 실제로는 크게 다르지만, 사람들 앞에서 말할 수는 없다.<br><br>
+          몇 시간 전으로 시간을 되돌리면. 그때, 리처드와 앨리스는 이 중앙 홀에 있었다.<br><br>
+          도움을 청하는 여자에게 이끌려 왔더니, 중앙 홀에는 가슴을 한 번 찔려 죽어 있는 남자가 있었다. 여자는 그 남자의 아내라고 한다. 리처드가 탐정임을 알고, 사건을 해결해 달라고 한 모양이다. 어쩐지, 의심스러운 남자와 귀여운 소녀의 두 사람 조합은, 탐정으로서 조금씩 세상에 알려지고 있는 것 같다.<br><br>
+          쓰러진 시체를 뚫어지게 바라본 후, 두 사람은 아내에게 들리지 않게 작은 목소리로 이야기했다.<br><br>
+          "그래서? 리즈, 네 견해는?"<br>
+          "죽은 지 한 시간도 안 지났을 거야. 상처 모양으로 봐서는, 저항하지 않고 푹 찔린 것 같아. 받아들였다기보다는, 완전히 갑자기 당한 것 같아. 설령 칼을 꺼냈다 해도, 설마 정말로 찔릴 줄은 생각하지 못했을 상대... 즉 상당히 신뢰하는 상대에게 찔렸어"<br>
+          "그 근거는?"<br>
+          "내가 부모님을 죽였을 때도 이런 느낌이었으니까, 알아. 뭐, 내 부모님의 경우는, 신뢰한다기보다는, 아무리 그래도 딸에게 살해당하지는 않을 거라는 방심이었지만"<br>
+          "흠. 그럼... 아내라든가? 가족에게 살해당하지는 않을 거라고 생각하지, 보통은"<br>
+          "상처는 꽤 깊어. 심장까지 깊게 파여 있어서 즉사했을 거야. 저 부인처럼 가녀린 팔로는, 이렇게 깊게 찌르는 건 불가능할 거야"<br>
+          "...참고로 리즈의 부모님은?"<br>
+          "당시의 나는, 나약했잖아?"<br><br>
+          리처드는 빙긋 웃는다.<br><br>
+          "우리 부모님의 사인은 과다 출혈이야"<br>
+          "흥. ...그럼, 이 녀석의 친한 친구중에, 어느 정도 체격이 좋은 녀석이 수상하다는 거네"<br>
+          "그런 거지"<br><br>
+          ...모든 일이 이런 식으로, 모든 것은 "엘리자베스가 과거에 저지른 살인과의 비교"로 추리가 이루어진다. 죽이는 방법부터, 알리바이 조작 방법까지, 대체로는 엘리자베스가 경험한 범주에 들어맞았다. 그렇게 그 또는 그녀는, 명탐정으로서 활약하고 있는 것이다.<br><br>
+          범인을 중앙 홀에서 지적한 후, 약간의 보수를 받고, 두 사람은 그 집을 떠났다.<br><br>
+          벽돌로 지어진 집들이 아름답게 펼쳐져 있는 거리에는, 따뜻한 봄 햇살이 내리쬐고 있다. 거리의 시장을 지나가는 두 사람은, 마치 나이 차이가 많이 나는 부모와 자식처럼 보일 것이다. 노점에서 장사를 하고있는 여자가, 앨리스를 향해 "귀여운 아가씨, 꽃은 어떠세요?"라고 말을 건다.<br><br>
+          "갖고 싶어?"라고 리처드가 앨리스에게 물어보았지만, 앨리스는 고개를 가로저었다.<br><br>
+          "안타깝게도 꽃을 감상하는 취미는 없어"<br>
+          "흠. 그럼, 저건 어때?"<br><br>
+          리처드가 가리킨 곳에서는, 향긋한 향기가 풍겨온다. 그 냄새를 따라가 보니, 얇은 빵 반죽에 고기나 채소를 말아 넣은 요리가 팔리고 있었다. 앨리스의 입 안에 군침이 돌았다.<br><br>
+          "나쁘지 않네"<br>
+          "주머니도 두둑해졌으니, 먹어볼까"<br><br>
+          앨리스는 고개를 끄덕이고, 리처드를 두고 파다닥 뛰어간다. 그리고 노점 앞까지 가서, 눈을 반짝이며 주인에게 말을 걸었다.<br><br>
+          "그거, 주세요!"<br><br>
+          일부러 어린아이처럼 목소리를 내었더니, 나이 든 가게 주인은 눈가에 주름을 지으며 미소 지었다. 아마도 손자의 얼굴을 떠올렸을 것이다.<br><br>
+          "어이구, 활기 넘치는 아가씨로구나. 돈은 있니?"<br>
+          "아저씨, 사주세요, 사주세요!"<br><br>
+          앨리스는 휙 돌아보며, 따라온 리처드의 손을 잡아당긴다. 리처드는 난처한 듯 미소 지으며, 작은 주머니를 꺼내서 눈썹을 찌푸렸다.<br><br>
+          "음, 이것저것 다 사면 곤란한데. 반씩 나눠 먹을까?"<br>
+          "싫어, 하나 전부 갖고 싶어! 맛있어 보이잖아!"<br><br>
+          앨리스는 꾸욱 눈썹을 찌푸리고, 울 것 같은 표정을 지었다. 그러자, 가게 주인이 웃으며 말한다.<br><br>
+          "어쩔 수 없구나, 그럼 하나 더 서비스로 줄게"<br>
+          "정말요? 야호! 고마워요"<br><br>
+          그렇게, 앨리스는 하나 값을 내고, 두 개의 음식을 받아들고 환한 미소를 지으며 노점에서 멀어졌다. 리처드도 그 뒤를 바로 쫓아간다. 몇 걸음 가서, 이제 인파에 섞여 가게 주인에게 보이지 않을 것이라는 확신이 들자, 앨리스는 짓고 있던 미소를 슥 지우고, 리처드에게 한 개의 음식을 건넸다.<br><br>
+          "매번 그렇지만, 아이 행세, 잘하네"<br><br>
+          리처드는 곧바로 우물우물 먹기 시작한다. 앨리스는 어깨를 으쓱했다.<br><br>
+          "이왕이면, 잘 활용해야지"<br>
+          "저번에 납치될 뻔했을 때도, 그걸로 잘 도망쳤었지"<br>
+          "그때는... 결국 네가 와줬잖아"<br>
+          "우스웠지"<br><br>
+          앨리스를 납치하려던 남자가, 구하러 온 리처드를 찔렀던 것이다. 하지만, 리처드는 그런 것으로는 아픔도 느끼지 않는다. 악마라고 조급하게 판단한 남자가 신성한 물건으로 어설프게 퇴마를 하려고 했다. 하지만 물론, 리처드는 악마가 아니기 때문에 쫓아낼 수 없을 뿐만 아니라, 신성한 물건에 두려워하지도 않는다. 그래서 남자는 혼란스러워하고, 패닉 상태가 되었다... 리처드는 즐겁게 웃고 있었다. 남자의 최후는 설명할 필요도 없을 것이다. 상대는 엘리자베스다.<br><br>
+          엘리자베스와 시작한 여행은, 순식간에 사 계절을 지나고, 그렇게 다시 봄을 맞이했다. 하늘에서 내리쬐어 모두를 비추는 봄 햇살은, 어딘가 맑은 공기를 실어온다. 언젠가, 이 햇빛에 감동한적이 있다. 그저 빛을 받는 것만으로도, 충만한 기분이 되었던적이 있었지... 앨리스는 무심코, '베에' 하고 혀를 내밀었다.<br><br>
+          이제 그렇게 겸손한 자신으로는, 돌아갈 수 없을 것이다.<br><br>
+          "앨리스, 왜 그래? 맛없었어?"<br>
+          "맛있어. 다만... 아니, 아무것도 아니야. 너와 있으면 너무 즐거워서, 시간이 흐르는 것도 순식간이라고 생각했을 뿐이야"<br>
+          "그렇네. 하지만, 좋잖아. 우리의 시간은 영원하니까"<br><br>
+          두 사람은 시선을 교환하고, 그리고 어느 쪽에서랄 것도 없이 함께 웃는다. 죽음을 모르는 악마와, 이미 죽은 시체의 여행은, 오늘도 계속된다.<br><br>
+          <strong>『저 빛을 그대에게』 END</strong>
+        </div>
+        <div style="margin-top:30px;">
+          <button id="back-to-epilogue" class="btn">에필로그 선택으로</button>
+          <button id="restart-all" class="btn">처음부터 다시</button>
+        </div>
+      `;
+      fadeTransition(html, () => {
+        document.getElementById('back-to-epilogue').addEventListener('click', showEpilogueSelection);
+        document.getElementById('restart-all').addEventListener('click', () => {
+          sessionStorage.clear();
+          goToInitialScreen();
+        });
+      });
+    }
+
+
+    /* ================= 에필로그: 노아 & 오스카 (2/3) ================= */
+    function showEpilogueNoahOscar() {
+      const html = `
+        <h1>시종 오스카 & 신의 아이 노아</h1>
+        <div class="description" style="text-align: left;">
+          나긋한 바람이 통과하는 창문의 틈으로, 따스한 봄날의 햇살이 들어오고 있다. 그것을 조명 삼아 악마 테오는 의자에 앉아, 누렇게 변한 서적을 넘기고 있었다. 오래되고 좁고 초라한 여관의 한 방에, 페이지를 넘기는 소리만 울려 퍼지고 있었다. 낡은 문을 열며, 어떤 남자가 방에 들어왔다.<br><br>
+          "어서 오세요, 오스카"<br><br>
+          책에서 고개를 들고, 테오는 그를 맞이한다. 남자—오스카는, 약간 지친 얼굴을 하며 안고 있던 종이 봉투를 테이블에 올려놓았다. 밀가루 향기가 퍼져온다. 오늘 밤 식사를 사 온 모양이다.<br><br>
+          "독서는 잘 하고 있나요?"<br><br>
+          오스카는 창가로 다가온다. 테오는 펼쳐진 페이지를 오스카에게 보여주었다.<br><br>
+          "여기까지 진행했어. 몇 가지 이해가 안 되는 부분이 있는데, 물어봐도 될까?"<br>
+          "물론이죠"<br>
+          "그럼, 바로. 이 부분인데..."<br><br>
+          테오가 글자를 가리키며, 더듬더듬 질문하면, 오스카는 알기 쉽게 풀어서 설명해 준다. 테오는 크게 고개를 끄덕이며, 궁금한 점을 확인해 나갔다.<br><br>
+          테오가 가지고 있는 것은, 간단한 산술 책이다. 그 외에도, 언어나 과학에 관한 책 등, 이 나라의 젊은이들이 학교에서 배우는 것들을, 테오는 오스카에게 배우고 있다.<br><br>
+          ——내가 죽은 후에는, 어떻게 할 건가.<br><br>
+          저 저택에서 나온 지 얼마 후, 오스카는 테오에게 물었다. 다음 신의 아이가 나타날 때까지, 적어도 80년 이상의 시간이 걸린다. 오스카가 아무리 오래 살아도, 다음 신의 아이가 나타날 때까지는 세상을 떠나게 될 것이다.<br><br>
+          그러면, 테오에게는 계약자가 없어지고, 언젠가는 누군가에게 소환되어 지옥 같은 나날을 맛보게 될 것이다. 둘이서 생각해 보았지만, 좋은 해결책은 떠오르지 않았다. 며칠이 지난 후, 오스카는 말했다.<br><br>
+          "테오는 아는 것이 너무 적어."<br><br>
+          지금까지의 인생 대부분이 노예 생활이었다. 오랜 세월을 살아온 만큼, 읽고 쓰는 정도는 할 수 있지만, 제대로 된 교육을 받은 적은 없다. 스스로 배우려고 시도한 적도 없었다. 애초에, 그런 생각조차 한 적이 없었던 것이다.<br><br>
+          "일단, 혼자서도 살 수 있는 지혜를 기릅시다."<br><br>
+          테오는 순순히 학업에 정진했다. 인간처럼 지혜를 갖춘다고 해서, 자신이 혼자서 살아갈 수 있을 거라고는 생각하지 않는다. 똑똑해진다고 해서, 악마 소환에서 벗어날 수 있는 것도 아니다. 그럼에도, 무지보다는, 지식이 있는 편이 훨씬 낫다. 게다가, 학문을 배우자는 발상이, 오스카다운 생각이어서, 매우 마음에 들었다.<br><br>
+          "아, 그러고 보니, 조금 전에 기묘한 이야기를 들었습니다"<br><br>
+          오스카의 말에, 테오는 그를 올려다보았다.<br><br>
+          "기묘한 이야기?"<br>
+          "네. 방금 전, '변신의 악마는 퇴치되어 사라졌다더라'라는 이야기를 들었어요"<br>
+          "응? 내가 퇴치됐다고?"<br>
+          "왜 그런 소문이 퍼졌는지 모르겠지만, 만약, 그런 이야기가 널리 퍼져서, 변신의 악마는 이미 이 세상에 없다고 여겨진다면... 제가 죽은 후에도, 당신을 소환하려고 생각하는 사람은 없어질지도 모르겠군요"<br><br>
+          테오는 놀란 후, 문득, 조금 전까지의 광경을 떠올렸다. 오스카가 돌아오기 전... 우연히, 책 읽기에 지쳐, 창밖을 내다보고 있을 때, 잭이 나타났던 것이다.<br><br>
+          "수상한 두 사람이 있다고 들어서, 혹시나 해서 왔더니..."<br><br>
+          라고 말하며 웃는 잭은, 자신의 추측이 맞아서 기쁜 듯한 얼굴을 하고 있었다. 하지만, 특별히 용건이 있었던 것은 아닌 것 같다. 여전히, 자유로운 생활을 만끽하고 있는 모양이다. 테오는 세간의 이야기 정도로 생각하며, 최근의 상황에 대해 이야기했다. 혼자서 살 수 있도록 공부하고 있다고 말하자, 잭은 무례하게 크게 웃었다.<br><br>
+          "저 머리 큰 녀석이 생각할 법한 일이네. 뭐, 괜찮지 않아? 응원할게... 몸조심해"<br><br>
+          한바탕 웃더니, 잭은 사라져 갔다.<br><br>
+          ...잭씨, 혹시.<br><br>
+          테오는 마음속으로 생각했지만, 어디에도 증거는 없었다.<br><br>
+          "만약 그렇게 된다면, 열심히 공부할 필요는 없을지도 모르겠네요"<br><br>
+          오스카가 판단을 잘못한 것 같은 표정을 짓자, 서둘러 테오는 소리를 높인다.<br><br>
+          "아니, 괜찮아. 나, 공부할 거야. 여러 가지 가르쳐 줘"<br>
+          "하지만..."<br>
+          "몰랐던 것을 알게 되어서, 기뻐. 세상을 보는 방식이 바뀌는 것 같아. 정말 재미있어. 오스카, 괜찮다면 더 가르쳐 줘"<br>
+          "공부를 좋아한다니, 대단한 일이네요"<br>
+          "오스카의 가르침이 잘 통하는 거야"<br><br>
+          테오는 마음 깊이 감탄하며 말했다.<br><br>
+          "틀림없이, 오스카도 열심히 생각하고, 익혀 왔겠지. 이런 나도 이해할 수 있게 가르쳐 주니까"<br><br>
+          창문으로 봄 햇살이 들어와, 테오의 옆모습을 반짝반짝 비추고 있다. 오스카는 그 눈부심에서 도망치듯이, 눈을 돌렸다.<br><br>
+          오스카의 뇌리를 수많은 기억이 스쳐 지나갔다. 누군가에게 인정받기 위해, 열심히 공부해 왔다. 그러나, 쌓아올린 노력 끝에 얻은 것은...모시던 주인의 상실이었다. 아무리 높이 쌓아도, 거기에 손을 뻗는 상대가 없다면 의미가 없다. 쌓아온 노력이, 시간이, 마음이, 와르르 땅으로 무너져 내릴 뿐이다.<br><br>
+          "...아, 맞다. 오스카"<br><br>
+          테오가 기쁜 듯한 목소리를 높인다. 오스카는 생각을 멈추고, 눈앞의 소년을 바라보았다.<br><br>
+          "무슨 일입니까?"<br>
+          "이왕이면 말이야, 오스카는 학교 선생님 같은 걸 목표로 해 볼래? 절대 어울린다고 생각해"<br>
+          "선생님? 제가요?"<br>
+          "응! 오스카가 노력해 온 것, 틀림없이 살릴 수 있을 거야"<br><br>
+          테오는 웃는다. 오스카는, 눈부신 듯이 천천히 눈을 깜빡인다. 눈을 깜빡일 때마다, 어두운 과거가 되살아난다. 필사적으로 올라가고, 무작정 높은 곳을 향해 손을 뻗고 있었다. 그 모든 것이 무너져 내리고, 그렇게... 지금, 여기 있다.<br><br>
+          이번에는, 눈을 돌리지 않았다. 오스카의 입가가 느슨해지고, 희미한 미소가 떠올랐다.<br><br>
+          "나쁘지 않네요. 하지만... 우선은 당신을 가르쳐야겠군요"<br>
+          "그렇지. 잘 부탁드립니다! 선생님"<br><br>
+          밝고 경쾌한 목소리가 방 안에 울려 퍼진다. 그렇게 다시 둘은 책을 들여다보며, 이야기를 나누어 가는 것이었다.<br><br>
+          <strong>- 시종 오스카 & 신의 아이 노아 END -</strong>
+        </div>
+        <div style="margin-top:30px;">
+          <button id="back-to-epilogue" class="btn">에필로그 선택으로</button>
+          <button id="restart-all" class="btn">처음부터 다시</button>
+        </div>
+      `;
+      fadeTransition(html, () => {
+        document.getElementById('back-to-epilogue').addEventListener('click', showEpilogueSelection);
+        document.getElementById('restart-all').addEventListener('click', () => {
+          sessionStorage.clear();
+          goToInitialScreen();
+        });
+      });
+    }
       
     
       
