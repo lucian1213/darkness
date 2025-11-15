@@ -654,6 +654,11 @@
             goToInitialScreen();
           });
         }
+
+                const epilogueBtn = document.getElementById('to-epilogue');
+        if (epilogueBtn) {
+          epilogueBtn.addEventListener('click', showEpilogueSelection);
+        }
       });
     }
 
